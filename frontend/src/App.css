@@ -3,3 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.icon {
+  color: rgb(163, 166, 163);
+  margin: 0 10px;
+}
+
+.navDropdown {
+  width: 100%;
+}
