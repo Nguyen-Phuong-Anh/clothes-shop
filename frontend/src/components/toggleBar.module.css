@@ -1,6 +1,5 @@
 .container {
     width: 100%;
-    
 }
 
 .toggleBar {
@@ -9,7 +8,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    width: 80%;
+    max-width: 800px;
     height: 90px;
     background-color: plum;
 }

@@ -6,13 +6,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
+import { useState } from 'react';
 
 function NavBar() {
+  
+  const handleHidden = () => {
+    const elem = document.getElementsByClassName('toggle')
+    elem[0].classList.toggle('hidden')
+  }
   return (
     <div>
-      <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
+      <Navbar sticky="top" className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="/">Rayne</Navbar.Brand>
+          <Navbar.Brand href="/">RAYNE</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -20,8 +26,8 @@ function NavBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link className='m-2'>Clothes</Nav.Link>
-              <Nav.Link className='m-2'>Shoes</Nav.Link>
+              <Nav.Link className='m-2 navlink' onClick={handleHidden}>Clothes</Nav.Link>
+              <Nav.Link className='m-2 navlink' onClick={handleHidden}>Shoes</Nav.Link>
             </Nav>
             <Form className="d-flex m-2">
               <Form.Control
@@ -41,7 +47,9 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <ToggleBar/>
+      <div className='toggle hidden'>
+        <ToggleBar/>
+      </div>
     </div>
   );
 }

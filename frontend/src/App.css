@@ -5,10 +5,24 @@
 }
 
 .icon {
-  color: rgb(163, 166, 163);
+  color: green;
   margin: 0 10px;
 }
 
 .navDropdown {
   width: 100%;
+}
+
+.navlink:hover {
+  color: green !important;
+}
+
+.toggle {
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
 }
