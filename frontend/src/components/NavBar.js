@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
 import { useState } from 'react';
 
@@ -15,19 +15,19 @@ function NavBar() {
     elem[0].classList.toggle('hidden')
   }
   return (
-    <div>
-      <Navbar sticky="top" className="bg-body-tertiary">
+    <div className='container'>
+      <Navbar fixed="top" className='navbar_body'>
         <Container fluid>
           <Navbar.Brand href="/">RAYNE</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
+              className="m-auto"
+              style={{ maxHeight: '50px' }}
               navbarScroll
             >
-              <Nav.Link className='m-2 navlink' onClick={handleHidden}>Clothes</Nav.Link>
-              <Nav.Link className='m-2 navlink' onClick={handleHidden}>Shoes</Nav.Link>
+              <Nav.Item className='m-3 navlink' onClick={handleHidden}>Clothes</Nav.Item>
+              <Nav.Item className='m-3 navlink' onClick={handleHidden}>Shoes</Nav.Item>
             </Nav>
             <Form className="d-flex m-2">
               <Form.Control
@@ -36,14 +36,18 @@ function NavBar() {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Nav.Item className='m-2'>
+                <FontAwesomeIcon className='icon' icon={faMagnifyingGlass} size='lg' />
+              </Nav.Item>
             </Form>
-            <Nav.Link href='/account'>
-              <FontAwesomeIcon className='icon' icon={faUser} size='xl' />
-            </Nav.Link>
-            <Nav.Link href='/cart'>
-              <FontAwesomeIcon className='icon' icon={faCartShopping} size='xl' />
-            </Nav.Link>
+            <Nav>
+              <Nav.Link href='/account'>
+                <FontAwesomeIcon className='icon' icon={faUser} size='lg' />
+              </Nav.Link>
+              <Nav.Link href='/cart'>
+                <FontAwesomeIcon className='icon' icon={faBagShopping} size='lg' />
+              </Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
