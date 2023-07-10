@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -6,7 +5,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
-import { useState } from 'react';
 
 function NavBar() {
   
@@ -14,6 +12,7 @@ function NavBar() {
     const elem = document.getElementsByClassName('toggle')
     elem[0].classList.toggle('hidden')
   }
+  
   return (
     <div className='container'>
       <Navbar fixed="top" className='navbar_body'>

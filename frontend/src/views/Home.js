@@ -1,8 +1,8 @@
 // import axios from 'axios'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/navbar/NavBar'
 import { useState, useEffect } from 'react';
-import ResponsiveNavBar from '../components/ResponsiveNavBar';
-
+import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'
+import Slider from '../components/Slider';
 function Home() {
     // const fetchData = async () => {
     //     const result = await axios.get('/accounts')
@@ -27,47 +27,13 @@ function Home() {
     return (
         <div>
             {width >= 768 ? <NavBar/> : <ResponsiveNavBar/> }
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
-            <div>fjalskf</div>
+            <div className='slider_container'><Slider/></div>
+            <div>
+                <div>
+                    
+                </div>
+                <div></div>
+            </div>
         </div>
     );
 }

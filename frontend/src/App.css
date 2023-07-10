@@ -5,6 +5,7 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
 }
 
+/* Navbar CSS */
 .container {
   position: relative;
 }
@@ -31,7 +32,7 @@
 .toggle {
   z-index: 2;
   position: absolute;
-  top: 72px;
+  top: -30px;
   width: 100%;
 }
 
@@ -42,4 +43,18 @@
 .navbar_body {
   background-color: #d1e7dd;
   box-shadow: 2px 2px #bad1c7;
+}
+
+/* Slider CSS */
+.slider_container {
+  margin-top: 100px;
+  width: 100%;
+}
+
+.slider {
+  height: 800px;
+}
+
+.slider img {
+  height: 800px;
 }
