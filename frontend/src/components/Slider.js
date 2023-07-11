@@ -2,6 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import image from '../images/clothes1.jpg'
 import image2 from '../images/clothes2.jpg'
 import image3 from '../images/clothes3.jpg'
+
 function Slider() {
   return (
     <div className='slider'>

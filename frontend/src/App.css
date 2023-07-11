@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
 
 /* Navbar CSS */
@@ -57,4 +64,26 @@
 
 .slider img {
   height: 800px;
+}
+
+/* body */
+.body {
+  margin: 40px auto 40px;
+  max-width: 1100px;
+  display: flex;
+}
+
+.card_group {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-left: 150px;
+}
+
+@media screen and (max-width:900px) {
+  .card_group {
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 130px;
+  }
 }
