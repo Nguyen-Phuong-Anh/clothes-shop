@@ -14,6 +14,12 @@
 }
 
 /* Navbar CSS */
+.container {
+  position: relative;
+  margin-top: 100px;
+  width: 100%;
+}
+
 .icon {
   color: green;
   margin: 0 10px;
@@ -50,10 +56,6 @@
 }
 
 /* Slider CSS */
-.container {
-  margin-top: 100px;
-  width: 100%;
-}
 
 .slider {
   height: 800px;
@@ -131,7 +133,7 @@
 
 .product_content_body {
   display: grid;
-  gap: 10px;
+  gap: 5px;
 }
 
 .price {

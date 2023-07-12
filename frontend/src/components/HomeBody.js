@@ -1,12 +1,11 @@
 import DetailCard from '../components/Card';
 import image3 from '../images/clothes3.jpg'
 import Slider from '../components/Slider';
-import { Link } from 'react-router-dom';
 
 function HomeBody() {
     return (
         <div>
-            <div className='container'><Slider/></div>
+            <Slider/>
             <div className='body'>
                 <div>
                     <ul>
