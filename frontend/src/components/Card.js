@@ -2,7 +2,7 @@ import styles from './Card.module.css'
 import { Link } from 'react-router-dom'
 function DetailCard({image}) {
   return (
-    <Link to="/" className='link'>
+    <Link to="/product" className='link'>
       <div className={styles.wrapper}>
           <div className={styles.image}>
               <img src={image} alt='product' />

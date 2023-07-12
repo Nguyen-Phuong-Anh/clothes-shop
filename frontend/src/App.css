@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  --signature_color: #d1e7dd;
 }
 
 .link {
@@ -13,10 +14,6 @@
 }
 
 /* Navbar CSS */
-.container {
-  position: relative;
-}
-
 .icon {
   color: green;
   margin: 0 10px;
@@ -48,18 +45,19 @@
 }
 
 .navbar_body {
-  background-color: #d1e7dd;
+  background-color: var(--signature_color);
   box-shadow: 2px 2px #bad1c7;
 }
 
 /* Slider CSS */
-.slider_container {
+.container {
   margin-top: 100px;
   width: 100%;
 }
 
 .slider {
   height: 800px;
+  width: 100%;
 }
 
 .slider img {
@@ -86,4 +84,131 @@
     grid-template-columns: repeat(3, 1fr);
     margin-left: 130px;
   }
+}
+
+/* product */
+.wrapper {
+  position: absolute;
+  top: 100px;
+  margin: auto;
+}
+
+.product_container {
+  display: flex;
+  margin: 120px auto 50px;
+  background-color: #d1e7dd49;
+  width: 1000px;
+  padding: 15px;
+}
+
+.product_image {
+  width: 450px;
+}
+
+.product_image img {
+  height: 100%;
+}
+
+.product_content {
+  margin-left: 20px;
+  width: 500px;
+}
+
+.product_content p {
+  margin-bottom: 4px;
+}
+
+.sell {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.sell div:not(:first-child) {
+  border-left: 1px solid green;
+  padding-left: 15px;
+}
+
+.product_content_body {
+  display: grid;
+  gap: 10px;
+}
+
+.price {
+  color: green;
+  margin-top: 10px;
+}
+
+.product_content p {
+  font-size: 1rem;
+}
+
+.color_group {
+  display: flex;
+  gap: 10px;
+}
+
+.color_button {
+  width: 40px;
+  height: 40px;
+}
+
+.snippet_container {
+  display: grid;
+  grid-template-columns: 135px 300px;
+  gap: 20px;
+  align-items: center;
+}
+
+.snippet {
+  margin: 20px 0;
+  border: 1px solid green;
+}
+
+.snippet button {
+  padding: 5px 15px;
+  border: none;
+  background-color: white;
+}
+
+.snippet input {
+  padding: 5px 0;
+  width: 50px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid green;
+  border-right: 1px solid green;
+}
+
+.btn_purchase {
+  width: 280px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background-color: green;
+}
+
+.btn_purchase:hover {
+  background-color: rgba(0, 128, 0, 0.387);
+  color: white;
+}
+
+.purchase_icon {
+  padding-right: 10px;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.white {
+  background-color: white;
+}
+
+.signature {
+  background-color: var(--signature_color);
 }
