@@ -2,11 +2,16 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
+import { useContext } from 'react';
+import { Store } from '../../Store';
 
 function NavBar() {
+  const { state } = useContext(Store)
+  const { cart } = state
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
@@ -45,6 +50,9 @@ function NavBar() {
               </Nav.Link>
               <Nav.Link href='/cart'>
                 <FontAwesomeIcon className='icon' icon={faBagShopping} size='lg' />
+                <span className='badge'>
+                  <Badge pill bg="danger">9</Badge>
+                </span>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

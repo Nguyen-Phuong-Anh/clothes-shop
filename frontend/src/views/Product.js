@@ -2,12 +2,20 @@ import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import ColorButton from '../components/ColorButton';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Slider from '../components/Slider'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '../Store';
 
 function Product() {
     const [number, setNumber] = useState(1)
+    
+    //provide the initial state
+    const {state, dispatch: ctxDispatch} = useContext(Store); 
+    
+    function addToCartHandler() {
+        ctxDispatch({type: 'CART_ADD_ITEM', payload: {}})
+    }
 
     return (
         <div className="product_container">
@@ -69,7 +77,9 @@ function Product() {
                             }}
                             >-</button>
                         </div>
-                        <button className='btn_purchase'> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} />Add to the cart</button>
+                        <button className='btn_purchase'> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
+                        onClick={addToCartHandler}
+                        />Add to the cart</button>
                     </div>
                     <hr></hr>
                     <div>

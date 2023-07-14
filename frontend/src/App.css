@@ -26,6 +26,12 @@
   cursor: pointer;
 }
 
+.badge {
+  position: relative;
+  left: -10px;
+  top: -5px;
+}
+
 .navDropdown {
   width: 100%;
 }
