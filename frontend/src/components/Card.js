@@ -1,6 +1,8 @@
 import styles from './Card.module.css'
 import { Link } from 'react-router-dom'
-function DetailCard({image}) {
+function DetailCard({product}) {
+  const image = require("../images/clothes3.jpg");
+  
   return (
     <Link to="/product" className='link'>
       <div className={styles.wrapper}>
@@ -8,8 +10,8 @@ function DetailCard({image}) {
               <img src={image} alt='product' />
           </div>
           <div className={styles.content}>
-              <p>hjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</p>
-              <p className={styles.price}>12.000</p>
+              <p>{product.name}</p>
+              <p className={styles.price}>{product.price}</p>
           </div>
       </div>
     </Link>

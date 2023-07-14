@@ -5,7 +5,6 @@ import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'
 
 function Home({children}) {
     const [width, setWidth] = useState(0)
-    const [products, setProducts] = useState([])
 
     useEffect(() => {
         function updateSize() {
@@ -19,14 +18,6 @@ function Home({children}) {
             window.removeEventListener('resize', updateSize)
         }
     })
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios.get('/products')
-            setProducts(result.data)
-        }
-        fetchData()
-    }, [])
     
     return (
         <div>
