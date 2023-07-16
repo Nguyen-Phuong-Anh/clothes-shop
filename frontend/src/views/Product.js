@@ -2,20 +2,25 @@ import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import ColorButton from '../components/ColorButton';
-import { useContext, useState } from 'react';
 import Slider from '../components/Slider'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { Store } from '../Store';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios'
 
 function Product() {
     const [number, setNumber] = useState(1)
-    
-    //provide the initial state
-    const {state, dispatch: ctxDispatch} = useContext(Store); 
-    
-    function addToCartHandler() {
-        ctxDispatch({type: 'CART_ADD_ITEM', payload: {}})
-    }
+    const { id } = useParams()
+
+    const [product, setProduct] = useState({})
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get(`/product/${id}`)
+            setProduct(result.data)
+        }
+        fetchData()
+    }, [])
 
     return (
         <div className="product_container">
@@ -23,7 +28,7 @@ function Product() {
                 <Slider image={image3}/>
             </div>
             <div className="product_content">
-                <h2>The greatest shirt in this world</h2>
+                <h2>{product.name}</h2>
                 <div className='sell'>
                     <div className='star'>
                         <FontAwesomeIcon icon={faStar} />
@@ -32,27 +37,29 @@ function Product() {
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStar} />
                     </div>
-                    <div>127 reviews</div>
-                    <div>1287 sold</div>
+                    <div>{product.review} reviews</div>
+                    <div>{product.sold} sold</div>
                 </div>
                 <div className='product_content_body'>
-                    <h3 className='price'>12000</h3>
+                    <h3 className='price'>{product.price}</h3>
                     <hr></hr>
                     <h5>Choose</h5>
                     <div className='color'>
                         <p>Color: </p>
                         <div className='color_group'>
-                            <ColorButton />
-                            <ColorButton />
-                            <ColorButton />
+                            {Array.isArray(product.colors) &&
+                                product.colors.map((item) => {
+                                return <ColorButton key={item} color={item} />;
+                            })}
                         </div>
                     </div>
                     <div>
                         <p>Size:</p>
                         <div className='color_group'>
-                            <ColorButton />
-                            <ColorButton />
-                            <ColorButton />
+                            {Array.isArray(product.sizes) &&
+                                product.sizes.map((item) => {
+                                return <ColorButton key={item} size={item} />;
+                            })}
                         </div>
                     </div>
                     <div className='snippet_container'>
@@ -78,13 +85,12 @@ function Product() {
                             >-</button>
                         </div>
                         <button className='btn_purchase'> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
-                        onClick={addToCartHandler}
                         />Add to the cart</button>
                     </div>
                     <hr></hr>
                     <div>
                         <h5>About this product</h5>
-                        <i>description</i>
+                        <i>{product.description}</i>
                     </div>
                 </div>
             </div>

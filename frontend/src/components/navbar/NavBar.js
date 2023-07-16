@@ -6,12 +6,8 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
-import { useContext } from 'react';
-import { Store } from '../../Store';
 
 function NavBar() {
-  const { state } = useContext(Store)
-  const { cart } = state
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')

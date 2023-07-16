@@ -1,4 +1,3 @@
-import axios from 'axios'
 import NavBar from '../components/navbar/NavBar'
 import { useState, useEffect } from 'react';
 import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'

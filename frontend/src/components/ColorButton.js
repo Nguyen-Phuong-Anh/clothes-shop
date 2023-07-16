@@ -1,7 +1,7 @@
-function ColorButton() {
+function ColorButton({color, size}) {
     return (
         <>
-            <button className="color_button"></button>
+            <button className={`${color} color_button`}>{size}</button>
         </>
     );
 }

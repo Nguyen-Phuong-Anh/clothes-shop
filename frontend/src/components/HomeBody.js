@@ -28,7 +28,7 @@ function HomeBody() {
                 </div>
                 <div className='card_group'>
                     {products.map((product) => (
-                        <DetailCard product={product}/>
+                        <DetailCard key={product.id} product={product}/>
                     ))}
                 </div>
             </div>
