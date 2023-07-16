@@ -4,7 +4,7 @@ import { useReducer } from 'react'
 const cartContext = createContext()
 
 const initialState = {
-    cart: [], 
+    cart: ['1'], 
     item: {}
 }
 
@@ -19,7 +19,7 @@ function CartStore({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
-        <cartContext.Provider>
+        <cartContext.Provider value={[state, dispatch]}>
             {children}
         </cartContext.Provider>
     )

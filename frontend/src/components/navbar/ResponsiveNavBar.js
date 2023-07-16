@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Badge from 'react-bootstrap/Badge';
 
-function OffcanvasExample() {
+function ResponsiveNavBar({itemLength}) {
   return (
     <>
       {[false].map((expand) => (
@@ -25,6 +26,10 @@ function OffcanvasExample() {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                     <Nav.Link className='m-2'><p className='navlink'>Clothes</p></Nav.Link>
                     <Nav.Link className='m-2'><p className='navlink'>Shoes</p></Nav.Link>
+                    <Nav.Link className='m-2'>
+                      <p className='navlink'>Cart</p>
+                      {itemLength > 0 && <span className='badge_responsive'><Badge pill bg="danger">{itemLength}</Badge></span>}
+                    </Nav.Link>
                 </Nav>
                 <Form className="d-flex">
                   <Form.Control
@@ -44,4 +49,4 @@ function OffcanvasExample() {
   );
 }
 
-export default OffcanvasExample;
+export default ResponsiveNavBar;

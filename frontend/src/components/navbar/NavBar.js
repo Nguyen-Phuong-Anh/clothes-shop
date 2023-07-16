@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
 
-function NavBar() {
+function NavBar({itemLength}) {
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
@@ -47,7 +47,7 @@ function NavBar() {
               <Nav.Link href='/cart'>
                 <FontAwesomeIcon className='icon' icon={faBagShopping} size='lg' />
                 <span className='badge'>
-                  <Badge pill bg="danger">9</Badge>
+                  {itemLength > 0 && <Badge pill bg="danger">{itemLength}</Badge>}
                 </span>
               </Nav.Link>
             </Nav>
