@@ -1,7 +1,7 @@
 import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
-import ColorButton from '../components/ColorButton';
+import Button from '../components/Button';
 import Slider from '../components/Slider'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
@@ -10,9 +10,8 @@ import axios from 'axios'
 
 function Product() {
     const [number, setNumber] = useState(1)
-    const { id } = useParams()
-
     const [product, setProduct] = useState({})
+    const { id } = useParams()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,7 +48,7 @@ function Product() {
                         <div className='color_group'>
                             {Array.isArray(product.colors) &&
                                 product.colors.map((item) => {
-                                return <ColorButton key={item} color={item} />;
+                                return <Button key={item} color={item} />;
                             })}
                         </div>
                     </div>
@@ -58,7 +57,7 @@ function Product() {
                         <div className='color_group'>
                             {Array.isArray(product.sizes) &&
                                 product.sizes.map((item) => {
-                                return <ColorButton key={item} size={item} />;
+                                return <Button key={item} size={item} />;
                             })}
                         </div>
                     </div>
