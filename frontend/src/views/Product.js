@@ -21,6 +21,22 @@ function Product() {
         fetchData()
     }, [])
 
+    function handlePurchase() {
+        const color = document.getElementsByClassName('check')
+        const size = document.getElementsByClassName('border')
+        console.log(color[0].value, size[0].value, number, product)
+        const addedProduct = {
+            id: product.id,
+            category: product.category,
+            name: product.name, 
+            type: product.type, // shirts, sneakers...
+            size: size[0].value,
+            color: color[0].value,
+            material: product.material,
+        }
+        console.log(addedProduct)
+    }
+
     return (
         <div className="product_container">
             <div className="product_image">
@@ -83,7 +99,7 @@ function Product() {
                             }}
                             >-</button>
                         </div>
-                        <button className='btn_purchase'> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
+                        <button className='btn_purchase' onClick={handlePurchase}> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
                         />Add to the cart</button>
                     </div>
                     <hr></hr>
