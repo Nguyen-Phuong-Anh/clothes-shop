@@ -5,13 +5,15 @@ import Button from '../components/Button';
 import Slider from '../components/Slider'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { cartContext } from '../store/CartStore';
 import axios from 'axios'
 
 function Product() {
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
     const { id } = useParams()
+    const [dispatch] = useContext(cartContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,7 +36,10 @@ function Product() {
             color: color[0].value,
             material: product.material,
         }
-        console.log(addedProduct)
+        dispatch({
+            type: 'ADD_ITEM',
+            payload: addedProduct
+        })
     }
 
     return (

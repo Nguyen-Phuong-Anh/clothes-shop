@@ -5,8 +5,8 @@ import { cartContext } from '../store/CartStore';
 
 function Home({children}) {
     const [width, setWidth] = useState(0)
-    const [state, dispatch] = useContext(cartContext)
-
+    const [state] = useContext(cartContext)
+    
     useEffect(() => {
         function updateSize() {
             setWidth(window.innerWidth)
