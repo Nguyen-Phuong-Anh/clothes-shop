@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import Button from '../components/Button';
 import Slider from '../components/Slider'
+import SnippetQuantity from '../components/SnippetQuantity';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
@@ -13,7 +14,7 @@ function Product() {
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
     const { id } = useParams()
-    const [dispatch] = useContext(cartContext)
+    const [state, dispatch] = useContext(cartContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +36,8 @@ function Product() {
             size: size[0].value,
             color: color[0].value,
             material: product.material,
-        }
+        };
+
         dispatch({
             type: 'ADD_ITEM',
             payload: addedProduct
@@ -83,27 +85,7 @@ function Product() {
                         </div>
                     </div>
                     <div className='snippet_container'>
-                        <div className='snippet'>
-                            <button
-                            onClick={() => {
-                                let val = number + 1
-                                setNumber(val)
-                            }}
-                            >+</button>
-                            <input 
-                            value={number} 
-                            type="text"
-                            onChange={(event) => {setNumber(event.target.value)}}
-                            />
-                            <button
-                            onClick={() => {
-                                if(number > 0) {
-                                    let val = number - 1
-                                    setNumber(val)
-                                }
-                            }}
-                            >-</button>
-                        </div>
+                        <SnippetQuantity number={number} setNumber={setNumber}/>
                         <button className='btn_purchase' onClick={handlePurchase}> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
                         />Add to the cart</button>
                     </div>
