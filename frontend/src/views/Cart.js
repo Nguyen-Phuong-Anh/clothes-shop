@@ -4,6 +4,7 @@ import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Button from '../components/Button';
 
 function Cart() {
     const [number, setNumber] = useState(1)
@@ -11,7 +12,6 @@ function Cart() {
 
     const handleRotate = () => {
         setRotate(!rotate)
-
     }
     return (
         <div>
@@ -20,7 +20,8 @@ function Cart() {
                     <th>
                     <div className={styles.checkAll}>
                         <input id="checkAll" type="checkbox"/>
-                        <label for="checkAll">Product</label>
+                        <label for="checkAll"></label>
+                        <p>Product</p>
                     </div>
                     </th>
                     <th>Price</th>
@@ -32,14 +33,21 @@ function Cart() {
                 <tr className={styles.wrapper}>
                     <td>
                         <div className={styles.item}>
-                            <input type="checkbox" />
+                            <div className={styles.checkBox_wrapper}>
+                                <input type="checkbox" id='checkItem' />
+                                <label for="checkItem"></label>
+                            </div>
                             <div className={styles.itemBody}>
                                 <img src={image3}/>
                                 <p>fsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfj</p>
                             </div>
                             <div className={styles.itemInfo}>
                                 <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
-                                <p></p>
+                                <p>collar shirt - m - red</p>
+                                <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>
+                                    <p>Color</p>
+                                    <p>Size</p>
+                                </div>
                             </div>
                         </div>
                     </td>

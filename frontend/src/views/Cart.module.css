@@ -4,8 +4,55 @@
     border-spacing: 0 10px;
 }
 
+.checkAll {
+    position: relative;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.checkAll p {
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
 .checkAll input {
-    margin: 0 10px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    opacity: 0;
+}
+
+.checkAll label {
+    display: inline-block;
+    position: absolute;
+    /* top: -3px; */
+    cursor: pointer;
+    width: 100%;
+}
+
+.checkAll label::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.checkAll input:hover + label:before {
+    border: 1px solid green;
+}
+
+.checkAll input:checked + label:before{
+    content: '\2713';
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-size: 15px;
+    border: 1px solid green;
 }
 
 .header th {
@@ -52,6 +99,11 @@
     word-break: break-all;
 }
 
+.itemInfo {
+    width: 120px;
+    word-wrap: break-word;
+}
+
 .type {
     position: relative;
     cursor: pointer;
@@ -74,6 +126,32 @@
     transform: rotate(180deg);
 }
 
+.popUp {
+    position: absolute;
+    top: 235px;
+    width: 250px;
+    height: 200px;
+    background-color: pink;
+    display: none;
+}
+
+.popUp::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid white;
+}
+
+.show {
+    display: block;
+}
+
 .center {
     width: 160px;
 }
@@ -81,4 +159,46 @@
 .delete {
     cursor: pointer;
     color: green;
+}
+
+/* checkbox */
+.checkBox_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkBox_wrapper label {
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkBox_wrapper input {
+    width: 15px;
+    height: 15px;
+    display: flex;
+}
+
+.checkBox_wrapper label:before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+}
+
+.checkBox_wrapper input:hover + label:before {
+    border: 1px solid green;
+}
+
+.checkBox_wrapper input:checked + label:before{
+    content: '\2713';
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-size: 15px;
+    border: 1px solid green;
 }
