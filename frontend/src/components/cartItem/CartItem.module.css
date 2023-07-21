@@ -1,0 +1,126 @@
+
+.item img {
+    width: 130px;
+    height: 130px;
+    margin-right: 20px;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 15px repeat(2, auto);
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.itemBody {
+    display: flex;
+    width: 340px;
+}
+
+.itemBody p {
+    word-break: break-all;
+}
+
+.itemInfo {
+    width: 120px;
+    word-wrap: break-word;
+}
+
+.type {
+    position: relative;
+    cursor: pointer;
+}
+
+.type:after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 95px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid black;
+    transition: transform 0.3s ease;
+}
+
+.rotate.type::after {
+    transform: rotate(180deg);
+}
+
+.popUp {
+    position: absolute;
+    top: 230px;
+    width: 250px;
+    height: 200px;
+    background-color: pink;
+    display: none;
+}
+
+.popUp::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid white;
+}
+
+.show {
+    display: block;
+}
+
+.center {
+    width: 160px;
+}
+
+.delete {
+    cursor: pointer;
+    color: green;
+}
+
+/* checkbox */
+.checkBox_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkBox_wrapper label {
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkBox_wrapper input {
+    width: 15px;
+    height: 15px;
+    display: flex;
+}
+
+.checkBox_wrapper label:before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+}
+
+.checkBox_wrapper input:hover + label:before {
+    border: 1px solid green;
+}
+
+.checkBox_wrapper input:checked + label:before{
+    content: '\2713';
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-size: 15px;
+    border: 1px solid green;
+}
