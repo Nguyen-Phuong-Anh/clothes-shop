@@ -13,6 +13,14 @@
   color: black;
 }
 
+input[type="text"]:focus {
+  border: none;
+  border-left: 1px solid green;
+  border-right: 1px solid green;
+  outline: none;
+  /* Add any other desired styles */
+}
+
 /* Navbar CSS */
 .container {
   position: relative;

@@ -14,8 +14,10 @@ function SnippetQuantity({ number, setNumber}) {
             />
             <button
             onClick={() => {
-                let val = number - 1
-                setNumber(val)
+                if(number > 1) {
+                    let val = number - 1
+                    setNumber(val)
+                }
             }}
             >-</button>
         </div>

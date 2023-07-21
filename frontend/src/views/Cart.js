@@ -3,7 +3,16 @@ import SnippetQuantity from '../components/SnippetQuantity';
 import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+
 function Cart() {
+    const [number, setNumber] = useState(1)
+    const [rotate, setRotate] = useState(false)
+
+    const handleRotate = () => {
+        setRotate(!rotate)
+
+    }
     return (
         <div>
             <table className={styles.table}>
@@ -29,15 +38,15 @@ function Cart() {
                                 <p>fsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfj</p>
                             </div>
                             <div className={styles.itemInfo}>
-                                <p>Item's type</p>
+                                <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
                                 <p></p>
                             </div>
                         </div>
                     </td>
                     <td>price</td>
-                    <td className={styles.center}><SnippetQuantity/></td>
+                    <td className={styles.center}><SnippetQuantity number={number} setNumber={setNumber}/></td>
                     <td>total</td>
-                    <td>
+                    <td className={styles.delete}>
                         <FontAwesomeIcon icon={faTrashCan} /> Delete
                     </td>
                 </tr>
