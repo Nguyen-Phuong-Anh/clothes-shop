@@ -76,3 +76,7 @@
     padding: 15px 0;
     background-color: pink;
 }
+
+.header th:not(:first-child) {
+    cursor: context-menu;
+}

@@ -36,6 +36,7 @@ function Product() {
             size: size[0].value,
             color: color[0].value,
             material: product.material,
+            number: number
         };
 
         dispatch({

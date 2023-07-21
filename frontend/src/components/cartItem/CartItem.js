@@ -4,9 +4,10 @@ import image3 from '../../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Button from '../Button';
 
-function CartItem() {
-    const [number, setNumber] = useState(1)
+function CartItem({item, product}) {
+    const [number, setNumber] = useState(`${Number(item.number)}`)
     const [rotate, setRotate] = useState(false)
     
     function handleCheck() {
@@ -27,32 +28,45 @@ function CartItem() {
                 <div className={styles.checkBox_wrapper}>
                     <input 
                     className='checkbox' type="checkbox" 
-                    id='checkItem[]'
+                    id={`item${item.id}`}
                     name='checkItem[]'
                     onChange={handleCheck}
                     />
-                        <label htmlFor="checkItem[]"></label>
+                        <label htmlFor={`item${item.id}`}></label>
                     </div>
                     <div className={styles.itemBody}>
                         <img src={image3} alt='item'/>
-                        <p>fsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfj</p>
+                        <p>{item.name}</p>
                     </div>
                     <div className={styles.itemInfo}>
                         <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
-                        <p>collar shirt - m - red</p>
-                        <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>
-                            <p>Color</p>
-                            <p>Size</p>
+                        <p>{`${item.category} - ${item.size} - ${item.color}`}</p>
+                        
+                        <div className={styles.popWrapper}>
+                            <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>
+                                <p>Color</p>
+                                <div className={styles.button_group}>
+                                    {product.colors.map(item => (
+                                        <div><Button color={item} /></div>
+                                    ))}
+                                </div>
+                                <p>Size</p>
+                                <div className={styles.button_group}>
+                                    {product.sizes.map(item => (
+                                        <div><Button size={item} /></div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </td>
             
-            <td>price</td>
+            <td className={styles.num}>{product.price}</td>
             
             <td className={styles.center}><SnippetQuantity number={number} setNumber={setNumber}/></td>
             
-            <td>total</td>
+            <td className={styles.num}>{number * product.price}</td>
 
             <td>
                 <div className={styles.delete}>

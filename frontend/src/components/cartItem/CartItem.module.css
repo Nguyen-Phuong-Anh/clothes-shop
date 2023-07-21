@@ -1,4 +1,3 @@
-
 .item img {
     width: 130px;
     height: 130px;
@@ -14,7 +13,7 @@
 
 .itemBody {
     display: flex;
-    width: 340px;
+    width: 250px;
 }
 
 .itemBody p {
@@ -22,8 +21,16 @@
 }
 
 .itemInfo {
-    width: 120px;
+    width: 200px;
     word-wrap: break-word;
+}
+
+.itemInfo p:nth-child(2) {
+    cursor: context-menu;
+}
+
+.popWrapper {
+    position: relative;
 }
 
 .type {
@@ -50,11 +57,13 @@
 
 .popUp {
     position: absolute;
-    top: 230px;
-    width: 250px;
+    top: -45px;
+    width: 220px;
     height: 200px;
     background-color: pink;
     display: none;
+    z-index: 99;
+    padding: 10px;
 }
 
 .popUp::before {
@@ -72,6 +81,17 @@
 
 .show {
     display: block;
+}
+
+.button_group {
+    width: 100%;
+    display: flex;
+    gap: 0 10px;
+    margin-bottom: 10px;
+}
+
+.num {
+    cursor: context-menu;
 }
 
 .center {

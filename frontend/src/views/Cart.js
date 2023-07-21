@@ -1,5 +1,6 @@
 import styles from './Cart.module.css'
 import CartItem from '../components/cartItem/CartItem';
+import data from '../data';
 
 function Cart() {
     function handleCheckAll() {
@@ -34,7 +35,12 @@ function Cart() {
                 </thead>
 
                 <tbody>
+                    {
                     
+                    data.Cart.map(item => {
+                        const product = data.Products.find(product => product.id === item.id)
+                        return ( <CartItem key={item.id} item={item} product={product} /> )
+                    })}
                 </tbody>
             </table>
         </div>
