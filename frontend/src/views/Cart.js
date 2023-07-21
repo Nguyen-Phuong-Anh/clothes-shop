@@ -4,7 +4,7 @@ import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Button from '../components/Button';
+// import Button from '../components/Button';
 
 function Cart() {
     const [number, setNumber] = useState(1)
@@ -14,11 +14,18 @@ function Cart() {
         setRotate(!rotate)
     }
 
-    function handleCheck() {
+    function handleCheckAll() {
+        const checkAll = document.getElementById('checkAll')
         const elems = document.getElementsByClassName('checkbox')
         for(let elem of elems) {
-            elem.checked = !(elem.checked)
+            elem.checked = checkAll.checked
         }
+    }
+
+    function handleCheck() {
+        const checkAll = document.getElementById('checkAll')
+        var isCheckedAll = document.querySelectorAll('input[name="checkItem[]"]:checked').length === document.querySelectorAll('input[name="checkItem[]"]').length
+        checkAll.checked = isCheckedAll
     }
 
     return (
@@ -31,7 +38,7 @@ function Cart() {
                             <input
                             id="checkAll"
                             type="checkbox"
-                            onClick={handleCheck}
+                            onClick={handleCheckAll}
                             />
                             <label htmlFor="checkAll"></label>
                             <p>Product</p>
@@ -49,11 +56,16 @@ function Cart() {
                         <td>
                             <div className={styles.item}>
                             <div className={styles.checkBox_wrapper}>
-                                <input className='checkbox' type="checkbox" id='checkItem' />
-                                    <label htmlFor="checkItem"></label>
+                                <input 
+                                className='checkbox' type="checkbox" 
+                                id='checkItem[]'
+                                name='checkItem[]'
+                                onChange={handleCheck}
+                                />
+                                    <label htmlFor="checkItem[]"></label>
                                 </div>
                                 <div className={styles.itemBody}>
-                                    <img src={image3}/>
+                                    <img src={image3} alt='item'/>
                                     <p>fsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfjfsfj</p>
                                 </div>
                                 <div className={styles.itemInfo}>
@@ -66,9 +78,13 @@ function Cart() {
                                 </div>
                             </div>
                         </td>
+                        
                         <td>price</td>
+                        
                         <td className={styles.center}><SnippetQuantity number={number} setNumber={setNumber}/></td>
+                        
                         <td>total</td>
+
                         <td>
                             <div className={styles.delete}>
                                 <FontAwesomeIcon icon={faTrashCan} /> Delete
