@@ -1,7 +1,7 @@
 import styles from './Card.module.css'
 import { Link } from 'react-router-dom'
 function DetailCard({product}) {
-  const image = require("../images/clothes3.jpg");
+  const image = require("../../images/clothes3.jpg");
   
   return (
     <Link to={`product/${product.id}`} className='link'>
