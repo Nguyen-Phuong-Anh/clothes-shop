@@ -128,7 +128,7 @@
 
 .popUp {
     position: absolute;
-    top: 235px;
+    top: 230px;
     width: 250px;
     height: 200px;
     background-color: pink;
@@ -138,14 +138,14 @@
 .popUp::before {
     content: "";
     position: absolute;
-    top: -10px;
+    top: -8px;
     left: 20%;
     transform: translate(-50%, -50%);
     width: 0;
     height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 20px solid white;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid white;
 }
 
 .show {
