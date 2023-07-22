@@ -1,4 +1,5 @@
 const data = require('../data')
+const registerController = require('../controllers/registerController')
 
 function route(app) {
     app.get('/accounts', (req, res) => {
@@ -15,6 +16,7 @@ function route(app) {
         res.send(data.Products)
     })
 
+    app.post('/register', registerController)
 }
 
 module.exports = route
