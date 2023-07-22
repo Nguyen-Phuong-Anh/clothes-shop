@@ -1,4 +1,4 @@
-import DetailCard from './cart/Card';
+import DetailCard from './card/Card';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import Slider from '../components/Slider';
