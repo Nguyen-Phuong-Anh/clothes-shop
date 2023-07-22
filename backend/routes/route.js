@@ -1,6 +1,7 @@
+require('dotenv').config()
 const data = require('../data')
 const registerController = require('../controllers/registerController')
-
+const authController = require('../controllers/authController')
 function route(app) {
     app.get('/accounts', (req, res) => {
         res.send(data.Account)
@@ -17,6 +18,7 @@ function route(app) {
     })
 
     app.post('/register', registerController)
+    app.post('/login', authController)
 }
 
 module.exports = route
