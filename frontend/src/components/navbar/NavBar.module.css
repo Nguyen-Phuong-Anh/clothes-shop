@@ -1,0 +1,67 @@
+
+/* Navbar CSS */
+.container {
+    position: relative;
+    margin-top: 100px;
+    width: 100%;
+    color: white;
+    font-size: 1.1rem;
+}
+  
+.nav_search {
+    outline: none;
+    border: none;
+    padding: 0 10px;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+}
+
+.icon {
+    color: green;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.badge {
+    position: relative;
+    left: -10px;
+    top: -5px;
+}
+
+.badge_responsive {
+    position: relative;
+    left: 50px;
+    top: -40px;
+}
+
+.navDropdown {
+    width: 100%;
+}
+
+.navlink {
+    font-weight: 400;
+}
+
+.navlink:hover {
+    cursor: pointer;
+    color: green !important;
+}
+
+.toggle {
+    z-index: 2;
+    position: absolute;
+    top: 72px;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.navbar_body {
+    background-color: var(--signature_color);
+    box-shadow: 2px 2px #bad1c7;
+}

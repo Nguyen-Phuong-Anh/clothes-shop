@@ -1,6 +1,7 @@
 .container {
     position: fixed;
     width: 100%;
+    z-index: 99;
 }
 
 .toggleBar {
@@ -9,7 +10,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    max-width: 800px;
     height: 90px;
-    background-color: plum;
+    z-index: 99;
+    background-color: white;
 }

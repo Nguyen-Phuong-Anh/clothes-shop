@@ -6,6 +6,7 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
+import styles from './NavBar.module.css'
 
 function NavBar({itemLength}) {
   
@@ -16,7 +17,7 @@ function NavBar({itemLength}) {
   
   return (
     <div className='container'>
-      <Navbar fixed="top" className='navbar_body'>
+      <Navbar fixed="top" className={styles.navbar_body}>
         <Container fluid>
           <Navbar.Brand href="/">RAYNE</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -26,37 +27,32 @@ function NavBar({itemLength}) {
               style={{ maxHeight: '50px' }}
               navbarScroll
             >
-              <Nav.Item className='m-3 navlink' onClick={handleHidden}>Clothes</Nav.Item>
-              <Nav.Item className='m-3 navlink' onClick={handleHidden}>Shoes</Nav.Item>
+              <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Clothes</Nav.Item>
+              <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Shoes</Nav.Item>
             </Nav>
             <Form className="d-flex m-2">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
+              <input type='text' placeholder='Search' className={styles.nav_search} />
               <Nav.Item className='m-2'>
-                <FontAwesomeIcon className='icon' icon={faMagnifyingGlass} size='lg' />
+                <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} size='lg' />
               </Nav.Item>
             </Form>
             <Nav>
               <Nav.Link href='/account'>
-                <FontAwesomeIcon className='icon' icon={faUser} size='lg' />
+                <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
               </Nav.Link>
               <Nav.Link href='/cart'>
-                <FontAwesomeIcon className='icon' icon={faBagShopping} size='lg' />
-                <span className='badge'>
+                <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
+                <span className={styles.badge}>
                   {itemLength > 0 && <Badge pill bg="danger">{itemLength}</Badge>}
                 </span>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
+        <div className={`${styles.toggle} ${styles.hidden}`}>
+          <ToggleBar/>
+        </div>
       </Navbar>
-      <div className='toggle hidden'>
-        <ToggleBar/>
-      </div>
     </div>
   );
 }

@@ -13,66 +13,12 @@
   color: black;
 }
 
-input[type="text"]:focus {
+.snippet input[type="text"]:focus {
   border: none;
   border-left: 1px solid green;
   border-right: 1px solid green;
   outline: none;
   /* Add any other desired styles */
-}
-
-/* Navbar CSS */
-.container {
-  position: relative;
-  margin-top: 100px;
-  width: 100%;
-}
-
-.icon {
-  color: green;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.badge {
-  position: relative;
-  left: -10px;
-  top: -5px;
-}
-
-.badge_responsive {
-  position: relative;
-  left: 50px;
-  top: -40px;
-}
-
-.navDropdown {
-  width: 100%;
-}
-
-.navlink {
-  font-weight: 400;
-}
-
-.navlink:hover {
-  cursor: pointer;
-  color: green !important;
-}
-
-.toggle {
-  z-index: 2;
-  position: absolute;
-  top: -30px;
-  width: 100%;
-}
-
-.hidden {
-  display: none;
-}
-
-.navbar_body {
-  background-color: var(--signature_color);
-  box-shadow: 2px 2px #bad1c7;
 }
 
 /* Slider CSS */
