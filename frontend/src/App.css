@@ -21,6 +21,18 @@
   /* Add any other desired styles */
 }
 
+/* navbar toggle */
+.toggle {
+  z-index: 2;
+  position: absolute;
+  top: 70px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
 /* Slider CSS */
 
 .slider {
@@ -39,12 +51,23 @@
   display: flex;
 }
 
+.body_sidebar {
+  border-right: 1px solid green;
+  width: 250px;
+  margin-right: 40px;
+  padding-left: 20px;
+}
+
+.body_sidebar h3 {
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+
 .card_group {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
-  margin-left: 150px;
 }
 
 @media screen and (max-width:900px) {

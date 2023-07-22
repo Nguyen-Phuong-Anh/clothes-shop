@@ -49,7 +49,7 @@ function NavBar({itemLength}) {
             </Nav>
           </Navbar.Collapse>
         </Container>
-        <div className={`${styles.toggle} ${styles.hidden}`}>
+        <div className='toggle hidden'>
           <ToggleBar/>
         </div>
       </Navbar>

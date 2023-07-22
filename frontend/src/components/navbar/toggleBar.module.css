@@ -12,5 +12,6 @@
     gap: 10px;
     height: 90px;
     z-index: 99;
+    max-width: 800px;
     background-color: white;
 }

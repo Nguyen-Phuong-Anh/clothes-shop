@@ -50,17 +50,6 @@ input:focus {
     color: green !important;
 }
 
-.toggle {
-    z-index: 2;
-    position: absolute;
-    top: 72px;
-    width: 100%;
-}
-
-.hidden {
-    display: none;
-}
-
 .navbar_body {
     background-color: var(--signature_color);
     box-shadow: 2px 2px #bad1c7;

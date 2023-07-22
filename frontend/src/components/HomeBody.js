@@ -18,12 +18,19 @@ function HomeBody() {
         <div>
             <Slider/>
             <div className='body'>
-                <div>
+                <div className='body_sidebar'>
+                    <h3>List</h3>
+                    <h5>Clothes</h5>
                     <ul>
-                        <li>jfalsf</li>
-                        <li>jfalsf</li>
-                        <li>jfalsf</li>
-                        <li>jfalsfﾞ</li>
+                        <li>fals</li>
+                        <li>fals</li>
+                        <li>fals</li>
+                    </ul>
+                    <h5>Shoes</h5>
+                    <ul>
+                        <li>fals</li>
+                        <li>fals</li>
+                        <li>fals</li>
                     </ul>
                 </div>
                 <div className='card_group'>
