@@ -3,20 +3,20 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
 function LogIn() {
-    const [hideLogIn, setHideLogIn] = useState(false)
-    const [hideRegister, setHideRegister] = useState(true)
+    const [hideLogIn, setHideLogIn] = useState(true)
+    const [hideRegister, setHideRegister] = useState(false)
 
     const handleLogIn = () => {
-        if(hideLogIn == true) {
-            setHideLogIn(false)
-            setHideRegister(true)
+        if(hideLogIn == false) {
+            setHideLogIn(true)
+            setHideRegister(false)
         }
     }
 
     const handleRegister = () => {
-        if(hideRegister == true) {
-            setHideLogIn(true)
-            setHideRegister(false)
+        if(hideRegister == false) {
+            setHideLogIn(false)
+            setHideRegister(true)
         }
     }
 
