@@ -8,14 +8,14 @@ function LogIn() {
     const [hideRegister, setHideRegister] = useState(false)
 
     const handleLogIn = () => {
-        if(hideSignIn == false) {
+        if(hideSignIn === false) {
             setHideSignIn(true)
             setHideRegister(false)
         }
     }
 
     const handleRegister = () => {
-        if(hideRegister == false) {
+        if(hideRegister === false) {
             setHideSignIn(false)
             setHideRegister(true)
         }
