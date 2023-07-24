@@ -18,7 +18,7 @@ function route(app) {
     })
 
     app.post('/register', registerController)
-    app.post('/login', authController)
+    app.post('/signin', authController)
 }
 
 module.exports = route
