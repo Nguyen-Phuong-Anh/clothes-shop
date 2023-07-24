@@ -1,5 +1,8 @@
 import styles from './Card.module.css'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
+
 function DetailCard({product}) {
   const image = require("../../images/clothes3.jpg");
   
@@ -12,6 +15,11 @@ function DetailCard({product}) {
           <div className={styles.content}>
               <p>{product.name}</p>
               <p className={styles.price}>{product.price}</p>
+          </div>
+
+          <div className={styles.toggle_buy}>
+            <button><FontAwesomeIcon className={styles.icon} icon={faBagShopping} />
+              Add to cart</button>
           </div>
       </div>
     </Link>

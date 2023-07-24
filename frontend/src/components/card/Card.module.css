@@ -1,11 +1,12 @@
 .wrapper {
+    position: relative;
     width: 200px;
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.107);
     border: 1px solid transparent;
 }
 
 .wrapper:hover {
-    border: 1px solid green;
+    border: 1px solid var(--heavy_pink);
     cursor: pointer;
     transform: translateY(-3px);
 }
@@ -25,7 +26,23 @@ img {
 }
 
 .price {
-    color: green;
+    color: var(--heavy_pink);
     margin-top: 10px;
     font-size: 1.3rem;
+}
+
+.toggle_buy button{
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+    position: absolute;
+    top: 192px;
+    background-color: var(--heavy_pink);
+    color: var(--soft_white);
+
+}
+
+.icon {
+    padding-right: 10px;
 }
