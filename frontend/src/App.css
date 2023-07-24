@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  --signature_color: var(--signature_color);
+  --signature_color: #617143;
   --soft_white: #EDE9D5;
   --soft_pink: #E7AB9A;
   --heavy_pink: #DF7857;
@@ -18,10 +18,9 @@
 
 .snippet input[type="text"]:focus {
   border: none;
-  border-left: 1px solid green;
-  border-right: 1px solid green;
+  border-left: 1px solid var(--heavy_pink);
+  border-right: 1px solid var(--heavy_pink);
   outline: none;
-  /* Add any other desired styles */
 }
 
 /* navbar toggle */
@@ -96,7 +95,7 @@
 .product_container {
   display: flex;
   margin: 120px auto 50px;
-  background-color: #d1e7dd49;
+  background-color: #ede9d56e;
   width: 1050px;
   padding: 15px;
 }
@@ -125,7 +124,7 @@
 }
 
 .sell div:not(:first-child) {
-  border-left: 1px solid green;
+  border-left: 1px solid var(--heavy_pink);
   padding-left: 15px;
 }
 
@@ -135,7 +134,7 @@
 }
 
 .price {
-  color: green;
+  color: var(--heavy_pink);
   margin-top: 10px;
 }
 
@@ -156,7 +155,7 @@
 }
 
 .size {
-  border: 1px solid green;
+  border: 1px solid var(--heavy_pink);
   background-color: white;
 }
 
@@ -169,7 +168,7 @@
 
 .snippet {
   margin: 20px 0;
-  border: 1px solid green;
+  border: 1px solid var(--heavy_pink);
   width: 135px;
 }
 
@@ -184,8 +183,8 @@
   width: 50px;
   text-align: center;
   border: none;
-  border-left: 1px solid green;
-  border-right: 1px solid green;
+  border-left: 1px solid var(--heavy_pink);
+  border-right: 1px solid var(--heavy_pink);
 }
 
 .btn_purchase {
@@ -193,11 +192,11 @@
   height: 50px;
   border: none;
   border-radius: 20px;
-  background-color: green;
+  background-color: var(--heavy_pink);
 }
 
 .btn_purchase:hover {
-  background-color: rgba(0, 128, 0, 0.387);
+  background-color: var(--soft_pink);
   color: white;
 }
 
@@ -232,5 +231,5 @@
 }
 
 .border {
-  background-color: var(--signature_color);
+  background-color: var(--soft_pink);
 }

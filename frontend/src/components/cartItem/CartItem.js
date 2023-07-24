@@ -42,12 +42,12 @@ function CartItem({item, product}) {
                         <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
                         <p>{`${item.category} - ${item.size} - ${item.color}`}</p>
                         
-                        <div className={styles.popWrapper}>
+                        <div id='popup' className={styles.popWrapper}>
                             <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>
                                 <p>Color</p>
                                 <div className={styles.button_group}>
-                                    {product.colors.map(item => (
-                                        <div><Button color={item} /></div>
+                                    {product.colors.map((item, index) => (
+                                        <div><Button key={index} color={item} /></div>
                                     ))}
                                 </div>
                                 <p>Size</p>

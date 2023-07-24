@@ -16,7 +16,7 @@
 }
 
 .table tr {
-    background-color: #d1e7dd49;
+    background-color: #e7ab9a6f;
     
 }
 
@@ -26,7 +26,7 @@
 
 .header th {
     padding: 15px 0;
-    background-color: green;
+    background-color: var(--soft_pink);
     color: white;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .checkAll input:hover + label:before {
-    border: 1px solid var(--signature_color);
+    border: 1px solid green;
 }
 
 .checkAll input:checked + label:before{
@@ -80,7 +80,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--signature_color);
+    color: green;
     font-size: 15px;
-    border: 1px solid var(--signature_color);
+    border: 1px solid green;
 }

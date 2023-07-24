@@ -27,6 +27,7 @@ img {
 
 .price {
     color: var(--heavy_pink);
+    width: 100px;
     margin-top: 10px;
     font-size: 1.3rem;
 }
@@ -42,7 +43,7 @@ img {
     padding: 10px 0;
     width: 100%;
     position: absolute;
-    top: 192px;
+    bottom: 0;
     background-color: var(--heavy_pink);
     color: var(--soft_white);
 }

@@ -60,23 +60,25 @@
     top: -45px;
     width: 220px;
     height: 200px;
-    background-color: pink;
+    background-color: white;
     display: none;
     z-index: 99;
     padding: 10px;
+    border: 1px solid var(--heavy_pink);
+    /* box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.343); */
 }
 
 .popUp::before {
     content: "";
     position: absolute;
-    top: -8px;
+    top: -6px;
     left: 20%;
     transform: translate(-50%, -50%);
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 16px solid white;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid white;
 }
 
 .show {
@@ -100,7 +102,8 @@
 
 .delete {
     cursor: pointer;
-    color: green;
+    color: white;
+    font-weight: bold;
 }
 
 /* checkbox */
