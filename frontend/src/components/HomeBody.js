@@ -16,7 +16,7 @@ function HomeBody() {
 
     return (
         <div>
-            <Slider/>
+            <div className='home_slider'><Slider/></div>
             <div className='body'>
                 <div className='body_sidebar'>
                     <h3>List</h3>

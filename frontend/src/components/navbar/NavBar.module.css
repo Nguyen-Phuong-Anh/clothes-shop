@@ -20,7 +20,7 @@ input:focus {
 }
 
 .icon {
-    color: green;
+    color: var(--heavy_pink);
     margin: 0 10px;
     cursor: pointer;
 }
@@ -47,10 +47,10 @@ input:focus {
 
 .navlink:hover {
     cursor: pointer;
-    color: green !important;
+    color: var(--soft_pink) !important;
 }
 
 .navbar_body {
-    background-color: var(--signature_color);
-    box-shadow: 2px 2px #bad1c7;
+    background-color: var(--soft_white);
+    box-shadow: 2px 2px #d5d1be;
 }
