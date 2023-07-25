@@ -11,6 +11,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <meta name="favicon" content="none" />
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/product/:id' element={<Home children={<Product/>} />}/>

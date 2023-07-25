@@ -156,3 +156,27 @@
     visibility: visible;
     animation: showDiv 250ms ease-in both;
 }
+
+/* invalid */
+.invalid {
+    position: relative;
+    display: block;
+}
+
+.invalid:focus {
+    outline: none;
+    border-color: 2px red !important;
+    box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.283) !important;
+}
+
+.warning {
+    color: red;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0;
+    padding-bottom: 3px;
+}
+
+.hidden {
+    display: none;
+}

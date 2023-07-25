@@ -8,7 +8,7 @@ function HomeBody() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('/products')
+            const result = await axios.get('http://localhost:3500/products')
             setProducts(result.data)
         }
         fetchData()

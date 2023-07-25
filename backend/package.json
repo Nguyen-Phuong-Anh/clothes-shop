@@ -16,6 +16,5 @@
   "main": "server.js",
   "author": "",
   "license": "ISC",
-  "description": "",
-  "proxy": "http://localhost:3500"
+  "description": ""
 }

@@ -52,35 +52,7 @@ const data = {
             price: 3288,
             sold: 1239,
             review: 184,
-        },
-        {
-            id: 4,
-            category: 'clothes', //shoes or clothes
-            name: 't shirt', 
-            type: 'shirt', // shirts, sneakers...
-            sizes: ['xl', 'm', 'l'],
-            colors: ['red', 'orange'],
-            material: 'polystyrene',
-            description: 'very good',
-            number: 4290, //number of remain products
-            price: 3288,
-            sold: 1239,
-            review: 184,
-        },
-        {
-            id: 5,
-            category: 'clothes', //shoes or clothes
-            name: 't shirt', 
-            type: 'shirt', // shirts, sneakers...
-            sizes: ['xl', 'm', 'l'],
-            colors: ['red', 'orange'],
-            material: 'polystyrene',
-            description: 'very good',
-            number: 4290, //number of remain products
-            price: 3288,
-            sold: 1239,
-            review: 184,
-        },
+        }
     ]
 }
 

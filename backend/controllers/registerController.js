@@ -9,10 +9,11 @@ const fsPromises = require('fs').promises
 const path = require('path')
 
 const registerController = async (req, res) => {
-    const {user, pwd} = req.body
-    if(!user || !pwd) {
+    const {name, user, email, pwd} = req.body
+
+    if(!user || !pwd || !email || !name) {
         return res.status(400).json({
-            'message': "User and password are required"
+            'message': "Please fill in all essential information"
         }) //bad request
     }
 
@@ -22,7 +23,9 @@ const registerController = async (req, res) => {
     try {
         const hashPwd = await bcrypt.hash(pwd, 10)
         const newUser = {
+            'name': name,
             'username': user,
+            'email': email,
             'password': hashPwd
         }
 
