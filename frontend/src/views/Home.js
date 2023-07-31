@@ -1,7 +1,7 @@
 import NavBar from '../components/navbar/NavBar'
 import { useState, useEffect, useContext } from 'react';
 import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'
-import { Store } from '../store/CartStore';
+import { Store } from '../store/Store';
 
 function Home({children}) {
     const [width, setWidth] = useState(0)

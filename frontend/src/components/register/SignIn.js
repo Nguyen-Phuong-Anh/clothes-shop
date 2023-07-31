@@ -1,11 +1,17 @@
 import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { useContext } from 'react';
+import { Store } from '../../store/Store';
 
 function SignIn() {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
+    const [state, dispatch] = useContext(Store)
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -16,8 +22,12 @@ function SignIn() {
                 pwd: pwd
             }).then(res => {
                 if(res.status === 201) {
-                    console.log(res.headers.get("Authorization"))
+                    dispatch({
+                        type: 'LOGIN',
+                        payload: res.data
+                    })
                 }
+                navigate('/')
             })
         } catch(err) {
             console.error(err)

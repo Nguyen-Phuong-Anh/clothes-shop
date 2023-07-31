@@ -24,6 +24,7 @@ function ResponsiveNavBar({itemLength}) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                    <Nav.Link className='m-2'><p className='navlink'>Account</p></Nav.Link>
                     <Nav.Link className='m-2'><p className='navlink'>Clothes</p></Nav.Link>
                     <Nav.Link className='m-2'><p className='navlink'>Shoes</p></Nav.Link>
                     <Nav.Link className='m-2'>

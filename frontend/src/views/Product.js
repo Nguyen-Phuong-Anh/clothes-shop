@@ -7,7 +7,7 @@ import SnippetQuantity from '../components/SnippetQuantity';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { Store } from '../store/CartStore';
+import { Store } from '../store/Store';
 import axios from 'axios'
 
 function Product() {

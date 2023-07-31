@@ -5,7 +5,8 @@ const Store = createContext()
 
 const initialState = {
     cart: [], 
-    item: {}
+    item: {},
+    userInfo: {}
 }
 
 function reducer(state, action) {
@@ -22,6 +23,12 @@ function reducer(state, action) {
             return {
                 ...state, 
                 cart: [...state.cart, action.payload]
+            }
+
+        case 'LOGIN':
+            return {
+                ...state, 
+                userInfo: action.payload
             }
         default:
     }
