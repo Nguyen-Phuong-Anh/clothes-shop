@@ -161,20 +161,20 @@
 
 .snippet_container {
   display: grid;
-  grid-template-columns: 135px 300px;
+  grid-template-columns: 150px 300px;
   gap: 20px;
   align-items: center;
 }
 
 .snippet {
   margin: 20px 0; 
-  border: 1px solid var(--heavy_pink);
 }
 
 .snippet button {
-  padding: 5px 17px;
+  padding: 5px 15px;
   border: none;
   background-color: white;
+  border: 1px solid var(--heavy_pink);
 }
 
 .snippet input {
@@ -182,8 +182,8 @@
   width: 50px;
   text-align: center;
   border: none;
-  border-left: 1px solid var(--heavy_pink);
-  border-right: 1px solid var(--heavy_pink);
+  border-top: 1px solid var(--heavy_pink);
+  border-bottom: 1px solid var(--heavy_pink);
 }
 
 .btn_purchase {

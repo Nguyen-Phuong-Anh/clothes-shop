@@ -23,7 +23,8 @@ const authController = async (req, res) => {
         const token = jwt.sign(
             {
                 "UserInfo": {
-                    "user": foundUser.username
+                    "user": foundUser.username,
+                    "name": foundUser.name
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
@@ -36,11 +37,16 @@ const authController = async (req, res) => {
         userDB = [...otherUser, foundUser]
         fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB))
         
-        res.status(201).json({
-            "message": "Authorized successfully"
+        res.status(201).send({
+            "user": foundUser.username,
+            "name": foundUser.name,
+            "isAdmin": foundUser.isAdmin,
+            "token": foundUser.token
         })
     } else {
-        res.sendStatus(401) //unauthorized
+        res.status(401).send({
+            "message": "Invalid email or password"
+        }) //unauthorized
     }
 }
 

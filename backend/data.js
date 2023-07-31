@@ -7,6 +7,7 @@ const data = {
             name: 'fasf',
             DoB: 'fasf',
             address: 'fasf',
+            isAdmin: true
         }
     ],
 

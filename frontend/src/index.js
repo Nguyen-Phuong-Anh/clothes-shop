@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import CartStore from './store/CartStore';
+import CartStoreProvider from './store/CartStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CartStore>
+    <CartStoreProvider>
       <App />
-    </CartStore>
+    </CartStoreProvider>
   </React.StrictMode>
 );

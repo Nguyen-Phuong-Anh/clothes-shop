@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 import { useReducer } from 'react'
 
-const cartContext = createContext()
+const Store = createContext()
 
 const initialState = {
     cart: [], 
@@ -11,6 +11,14 @@ const initialState = {
 function reducer(state, action) {
     switch(action.type) {
         case 'ADD_ITEM': 
+            let total = 0
+            state.cart.map(item => {
+                total += item.number
+            })
+            total += action.payload.number
+
+            localStorage.setItem('cartItems', JSON
+            .stringify(total))
             return {
                 ...state, 
                 cart: [...state.cart, action.payload]
@@ -19,15 +27,15 @@ function reducer(state, action) {
     }
 }
 
-function CartStore({ children }) {
+function CartStoreProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
-        <cartContext.Provider value={[state, dispatch]}>
+        <Store.Provider value={[state, dispatch]}>
             {children}
-        </cartContext.Provider>
+        </Store.Provider>
     )
 }
 
-export default CartStore
-export { cartContext }
+export default CartStoreProvider
+export { Store }

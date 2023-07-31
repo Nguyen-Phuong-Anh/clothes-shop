@@ -7,14 +7,14 @@ import SnippetQuantity from '../components/SnippetQuantity';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { cartContext } from '../store/CartStore';
+import { Store } from '../store/CartStore';
 import axios from 'axios'
 
 function Product() {
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
     const { id } = useParams()
-    const [state, dispatch] = useContext(cartContext)
+    const [state, dispatch] = useContext(Store)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,22 +27,25 @@ function Product() {
     function handlePurchase() {
         const color = document.getElementsByClassName('check')
         const size = document.getElementsByClassName('border')
-        console.log(color[0].value, size[0].value, number, product)
-        const addedProduct = {
-            id: product.id,
-            category: product.category,
-            name: product.name, 
-            type: product.type, // shirts, sneakers...
-            size: size[0].value,
-            color: color[0].value,
-            material: product.material,
-            number: number
-        };
+        if(!size[0] || !color[0]) {
+            alert("Please select size and color of the product!")
+        } else {
+            const addedProduct = {
+                id: product.id,
+                category: product.category,
+                name: product.name, 
+                type: product.type, // shirts, sneakers...
+                size: size[0].value,
+                color: color[0].value,
+                material: product.material,
+                number: number
+            };
+            dispatch({
+                type: 'ADD_ITEM',
+                payload: addedProduct
+            })
+        }
 
-        dispatch({
-            type: 'ADD_ITEM',
-            payload: addedProduct
-        })
     }
 
     return (

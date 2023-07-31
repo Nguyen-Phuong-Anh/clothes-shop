@@ -1,11 +1,11 @@
 import NavBar from '../components/navbar/NavBar'
 import { useState, useEffect, useContext } from 'react';
 import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'
-import { cartContext } from '../store/CartStore';
+import { Store } from '../store/CartStore';
 
 function Home({children}) {
     const [width, setWidth] = useState(0)
-    const [state] = useContext(cartContext)
+    const [state] = useContext(Store)
     
     useEffect(() => {
         function updateSize() {
@@ -19,10 +19,18 @@ function Home({children}) {
             window.removeEventListener('resize', updateSize)
         }
     })
+
+    const handleItem = () => {
+        let total = 0
+        state.cart.map(item => {
+            total += item.number
+        })
+        return total
+    }
     
     return (
         <div>
-            {width >= 992 ? <NavBar itemLength={state.cart.length}/> : <ResponsiveNavBar itemLength={state.cart.length} /> }
+            {width >= 992 ? <NavBar itemLength={localStorage.getItem("cartItems")}/> : <ResponsiveNavBar itemLength={localStorage.getItem("cartItems")} /> }
             {children}
         </div>
     );
