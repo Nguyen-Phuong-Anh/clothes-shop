@@ -15,7 +15,9 @@ function SignIn() {
                 user: user, 
                 pwd: pwd
             }).then(res => {
-                console.log(res)
+                if(res.status === 201) {
+                    console.log(res.headers.get("Authorization"))
+                }
             })
         } catch(err) {
             console.error(err)

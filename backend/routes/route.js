@@ -3,7 +3,7 @@ const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
 function route(app) {
-    app.get('/accounts', (req, res) => {
+    app.use('/accounts', (req, res) => {
         res.send(data.Account)
     })
 

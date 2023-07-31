@@ -36,7 +36,7 @@ const authController = async (req, res) => {
         const otherUser = userDB.filter(per => per.username !== foundUser.username)
         userDB = [...otherUser, foundUser]
         fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB))
-        
+        res.setHeader("Authorization", "Bearer " + token);
         res.status(201).send({
             "user": foundUser.username,
             "name": foundUser.name,
