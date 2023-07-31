@@ -15,19 +15,16 @@ function route(app) {
     
     app.get('/products', (req, res) => {
         const products = data.Products
-        // for(let i = 0; i < products.length; i++) {
-        //     const obj = {
-        //         id: products[i].id,
-        //         name: products[i].name,
-        //         price: products[i].price,
-        //     }
-        //     res.send(obj)
-        // }
         res.send(products)
     })
 
     app.post('/register', registerController)
     app.post('/signin', authController)
+    app.post('/search', (req, res) => {
+        const products = data.Products
+        const result = products.filter(item => item.name.includes(req.body.search))
+        res.send(result)
+    })
 }
 
 module.exports = route

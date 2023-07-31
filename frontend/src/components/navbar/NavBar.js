@@ -7,12 +7,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
 import styles from './NavBar.module.css'
+import { useState } from 'react';
+import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function NavBar({itemLength}) {
+  const [search, setSearch] = useState('')
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
     elem[0].classList.toggle('hidden')
+  }
+
+  const handleSearch = async () => {
+    try {
+      await axios.post("/search", {
+        search
+      }).then(res => console.log(res.data))
+    } catch(err) {
+      console.error(err)
+    }
   }
   
   return (
@@ -30,12 +44,16 @@ function NavBar({itemLength}) {
               <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Clothes</Nav.Item>
               <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Shoes</Nav.Item>
             </Nav>
+
             <Form className="d-flex m-2">
-              <input type='text' placeholder='Search' className={styles.nav_search} />
-              <Nav.Item className='m-2'>
-                <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} size='lg' />
-              </Nav.Item>
+              <input value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search' className={styles.nav_search} />
+              <Link to={"/search"}>
+                <Nav.Item className='m-2'>
+                  <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} onClick={handleSearch} size='lg' />
+                </Nav.Item>
+              </Link>
             </Form>
+
             <Nav>
               <Nav.Link href='/account'>
                 <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />

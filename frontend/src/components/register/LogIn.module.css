@@ -180,3 +180,11 @@
 .hidden {
     display: none;
 }
+
+.showRegister {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 0 10px;
+    color: green;
+}

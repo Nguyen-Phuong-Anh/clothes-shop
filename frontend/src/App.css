@@ -167,13 +167,12 @@
 }
 
 .snippet {
-  margin: 20px 0;
+  margin: 20px 0; 
   border: 1px solid var(--heavy_pink);
-  width: 135px;
 }
 
 .snippet button {
-  padding: 5px 15px;
+  padding: 5px 17px;
   border: none;
   background-color: white;
 }

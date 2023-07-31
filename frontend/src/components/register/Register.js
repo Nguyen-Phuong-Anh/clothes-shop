@@ -61,26 +61,39 @@ function Register() {
 
     const handleChange = (event) => {
         const {name, value} = event.target
-        dispatch({
-            type: "SET_" + name, payload: value
-        })
-        if (name === 'REPEAT_PWD' || name === 'PWD') {
-            if (value !== state.pwd) {
-              setCheck(false);
-            } else {
-              setCheck(true);
+        if(name === 'TERMS') {
+            dispatch({
+                type: "SET_" + name, payload: event.target.checked
+            })
+        } else {
+            dispatch({
+                type: "SET_" + name, payload: value
+            })
+            if (name === 'REPEAT_PWD') {
+                if (value !== state.pwd) {
+                  setCheck(false);
+                } else {
+                  setCheck(true);
+                }
             }
+
         }
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if(state.terms === true) {
-            try {
-                await axios.post("/register", state)
-                .then(res => console.log(res))
-            } catch(err) {
-                console.error(err)
+            if(state.pwd === state.repeatPwd) {
+                try {
+                    await axios.post("/register/post", state)
+                    .then(res => console.log(res))
+                } catch(err) {
+                    console.error(err)
+                }
+
+            } else {
+                setCheck(false)
+                console.log(check)
             }
         }
     }
@@ -114,7 +127,7 @@ function Register() {
                 <p className={`${styles.warning} ${check===false ? '' : styles.hidden}`}>The repeat password doesn't match with the previous one!</p>
                 <Form.Control
                     value={state.repeatPwd}
-                    className={`${styles.input} ${styles.invalid} p-2`}
+                    className={`${styles.input} ${check===true ? '' : styles.invalid} p-2`}
                     type="password"
                     name='REPEAT_PWD'
                     aria-describedby="passwordHelpBlock"

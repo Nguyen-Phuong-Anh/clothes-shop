@@ -53,9 +53,7 @@ function SignIn() {
             <div>
                 <button type='submit' className={styles.btn}>SIGN IN</button>
             </div>
-            <div>
-                <p>Do not have account? <span><a href='/'>Register</a></span></p>
-            </div>
+            
         </form>
     );
 }

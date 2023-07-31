@@ -53,6 +53,29 @@ const data = {
             sold: 1239,
             review: 184,
         }
+    ],
+
+    Cart: [
+        {
+            id: 1,
+            category: 'clothes', //shoes or clothes
+            name: 't-collar shirt', 
+            type: 'shirt', // shirts, sneakers...
+            size: 'xl',
+            color: 'orange',
+            material: 'cotton',
+            number: 2,
+        },
+        {
+            id: 2,
+            category: 'clothes', //shoes or clothes
+            name: 't-collar shirt', 
+            type: 'shirt', // shirts, sneakers...
+            size: 'x;',
+            color: 'red',
+            material: 'cotton',
+            number: 1,
+        },
     ]
 }
 
