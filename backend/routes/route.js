@@ -2,6 +2,8 @@ require('dotenv').config()
 const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
+import loginLimiter from '../middleware/loginLimiter'
+
 function route(app) {
     app.use('/accounts', (req, res) => {
         res.send(data.Account)
@@ -19,7 +21,10 @@ function route(app) {
     })
 
     app.post('/register', registerController)
-    app.post('/signin', authController.login)
+    app.post('/signin', loginLimiter, authController.login)
+    app.post('/refresh', authController.refresh)
+    app.post('/logout', authController.logout)
+
     app.post('/search', (req, res) => {
         const products = data.Products
         const result = products.filter(item => item.name.includes(req.body.search))

@@ -4,7 +4,6 @@ import { useReducer, useState } from 'react';
 import axios from 'axios'
 
 const initialState = {
-    name: '',
     user: '',
     email: '',
     pwd: '',
@@ -14,12 +13,6 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch(action.type) {
-        case "SET_NAME":
-            return {
-                ...state, 
-                name: action.payload
-            }
-
         case "SET_USERNAME":
             return {
                 ...state, 
@@ -100,9 +93,6 @@ function Register() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.columnRegister}>
-            <div>
-                <Form.Control name='NAME' value={state.name} className={`${styles.input} p-2`} placeholder='Name' onChange={handleChange} />
-            </div>
 
             <div>
                 <Form.Control name='USERNAME' value={state.user} className={`${styles.input} p-2`} placeholder='Username' onChange={handleChange} />

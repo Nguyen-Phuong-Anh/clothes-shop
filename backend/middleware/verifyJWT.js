@@ -13,4 +13,4 @@ const verifyJWT = (req, res, next) => {
     })
 }
 
-export default verifyJWT
+module.exports = verifyJWT
