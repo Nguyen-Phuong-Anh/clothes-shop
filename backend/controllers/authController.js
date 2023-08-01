@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const fsPromises = require('fs').promises
 const path = require('path')
 
-const authController = async (req, res) => {
+const login = async (req, res) => {
     const { user, pwd } = req.body
     
     if(!user || !pwd) {
@@ -17,10 +17,11 @@ const authController = async (req, res) => {
     if(!foundUser) return res.status(401).json({
         "message": "no user found"
     });
-
+    
+    //if the user exist
     const match = await bcrypt.compare(pwd, foundUser.password)
     if(match) {
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             {
                 "UserInfo": {
                     "user": foundUser.username,
@@ -32,12 +33,19 @@ const authController = async (req, res) => {
                 expiresIn: '30d'
             }
         )
-        foundUser.token = token
+
+        const refreshToken = jwt.sign(
+            {"user": foundUser.username},
+            process.env.REFRESH_TOKEN_SECRET,
+            {expiresIn: "1d"}
+        )
+        
+        foundUser.accessToken = accessToken
         const otherUser = userDB.filter(per => per.username !== foundUser.username)
         userDB = [...otherUser, foundUser]
         fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB))
         // res.setHeader("Authorization", "Bearer " + token);
-        res.cookie('jwt', token, {
+        res.cookie('jwt', accessToken, {
             httpOnly: true, maxAge: 24 * 60 * 60 * 1000
         });
         
@@ -54,4 +62,6 @@ const authController = async (req, res) => {
     }
 }
 
-module.exports = authController
+module.exports = { 
+    login
+}

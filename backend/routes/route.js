@@ -19,7 +19,7 @@ function route(app) {
     })
 
     app.post('/register', registerController)
-    app.post('/signin', authController)
+    app.post('/signin', authController.login)
     app.post('/search', (req, res) => {
         const products = data.Products
         const result = products.filter(item => item.name.includes(req.body.search))

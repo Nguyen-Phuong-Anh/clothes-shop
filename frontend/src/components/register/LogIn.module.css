@@ -55,6 +55,10 @@
     visibility: hidden;
 }
 
+.wrapper_register {
+    margin-top: 15px;
+}
+
 .columnSignIn {
     display: flex;
     flex-direction: column;

@@ -30,6 +30,7 @@ function SignIn() {
                 navigate('/')
             })
         } catch(err) {
+            alert("Invalid email or password!")
             console.error(err)
         }
     }

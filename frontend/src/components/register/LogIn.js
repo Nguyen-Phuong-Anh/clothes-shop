@@ -32,7 +32,7 @@ function LogIn() {
             <div className={styles.body}>
                 <div className={`${styles.signin} ${hideSignIn ? styles.show : ''}`}>
                     <SignIn/>
-                    <div>
+                    <div className={styles.wrapper_register}>
                         <p>Do not have account? <button className={styles.showRegister} onClick={handleRegister}>Register</button></p>
                     </div>
                 </div>
