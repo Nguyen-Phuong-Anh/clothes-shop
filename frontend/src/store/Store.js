@@ -24,10 +24,9 @@ function reducer(state, action) {
             }
 
         case 'LOG_IN':
-            const { accessToken } = action.payload
             return {
                 ...state, 
-                token: accessToken
+                token: action.payload
             }
 
         case 'LOG_OUT':

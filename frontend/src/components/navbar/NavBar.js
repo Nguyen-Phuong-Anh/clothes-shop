@@ -57,17 +57,20 @@ function NavBar() {
             </Form>
 
             <Nav>
-              <Nav.Link href='/account'>
-                <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
-              </Nav.Link>
-              <Nav.Link>
-                <Link to={"/cart"} className='link'>
+              <Link to={state.token ? '/account' : '/login'}>
+                  <Nav.Item className='mt-2'>
+                    <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
+                  </Nav.Item>
+              </Link>
+
+              <Link to={"/cart"}>
+                <Nav.Item className='m-2'>
                   <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
                   <span className={styles.badge}>
                     {state.cartItems > 0 && <Badge pill bg="danger">{state.cartItems}</Badge>}
                   </span>
-                </Link>
-              </Nav.Link>
+                </Nav.Item>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

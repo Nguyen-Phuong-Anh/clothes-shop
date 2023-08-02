@@ -1,16 +1,16 @@
 import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { useContext } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { Store } from '../../store/Store';
 
 function SignIn() {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
     const [state, dispatch] = useContext(Store)
-
+    
+    const emailRef = useRef()
     const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
@@ -21,19 +21,27 @@ function SignIn() {
                 user: user, 
                 pwd: pwd
             }).then(res => {
+                const { accessToken } = res.data
                 if(res.status === 201) {
                     dispatch({
                         type: 'LOG_IN',
-                        payload: res.data
+                        payload: accessToken
                     })
                 }
+                setUser('')
+                setPwd('')
                 navigate('/')
             })
         } catch(err) {
             alert("Invalid email or password!")
             console.error(err)
+            emailRef.current.focus()
         }
     }
+
+    useEffect(() => {
+        emailRef.current.focus()
+    }, [])
 
     return (
         <form onSubmit={handleSubmit} className={styles.columnSignIn}>
@@ -45,6 +53,7 @@ function SignIn() {
                     className={`${styles.input} p-2`} 
                     id='user' 
                     type="email"
+                    ref={emailRef}
                     onChange={e => setUser(e.target.value)}
                     />
                 </div>
