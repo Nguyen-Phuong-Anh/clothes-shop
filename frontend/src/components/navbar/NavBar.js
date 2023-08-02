@@ -6,10 +6,10 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
-import styles from './NavBar.module.css'
 import { useState } from 'react';
-import axios from 'axios'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import styles from './NavBar.module.css'
 
 function NavBar({itemLength}) {
   const [search, setSearch] = useState('')

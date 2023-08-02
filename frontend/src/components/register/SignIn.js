@@ -23,7 +23,7 @@ function SignIn() {
             }).then(res => {
                 if(res.status === 201) {
                     dispatch({
-                        type: 'LOGIN',
+                        type: 'LOG_IN',
                         payload: res.data
                     })
                 }

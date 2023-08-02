@@ -11,7 +11,7 @@ const login = async (req, res) => {
         })
     }
 
-    const foundUser = await User.findOne({username: user}).exec()
+    const foundUser = await User.findOne({email: user}).exec()
     if(!foundUser) return res.status(401).json({
         "message": "no user found"
     });

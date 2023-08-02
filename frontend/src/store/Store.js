@@ -6,7 +6,7 @@ const Store = createContext()
 const initialState = {
     cart: [], 
     item: {},
-    userInfo: {}
+    token: null
 }
 
 function reducer(state, action) {
@@ -25,10 +25,17 @@ function reducer(state, action) {
                 cart: [...state.cart, action.payload]
             }
 
-        case 'LOGIN':
+        case 'LOG_IN':
+            const { accessToken } = action.payload
             return {
                 ...state, 
-                userInfo: action.payload
+                token: accessToken
+            }
+
+        case 'LOG_OUT':
+            return {
+                ...state,
+                token: null
             }
         default:
     }
