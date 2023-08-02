@@ -12,7 +12,7 @@ import axios from 'axios'
 import styles from './NavBar.module.css'
 import { Store } from '../../store/Store';
 
-function NavBar({itemLength}) {
+function NavBar() {
   const [search, setSearch] = useState('')
   const [state] = useContext(Store)
 

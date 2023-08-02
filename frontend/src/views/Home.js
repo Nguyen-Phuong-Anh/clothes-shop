@@ -21,7 +21,7 @@ function Home({children}) {
 
     return (
         <div>
-            {width >= 992 ? <NavBar itemLength={localStorage.getItem("cartItems")}/> : <ResponsiveNavBar itemLength={localStorage.getItem("cartItems")} /> }
+            {width >= 992 ? <NavBar /> : <ResponsiveNavBar /> }
             {children}
         </div>
     );

@@ -5,19 +5,15 @@ const Store = createContext()
 
 const initialState = {
     cart: [], 
-    cartItems: '',
+    cartItems: 0,
     item: {},
     token: null
 }
 
 function reducer(state, action) {
     switch(action.type) {
-        case 'ADD_ITEM': 
-            let total = 0
-            state.cart.map(item => {
-                total += item.number
-            })
-            total += action.payload.number
+        case 'ADD_ITEM':
+            let total = state.cartItems + action.payload.number
 
             localStorage.setItem('cartItems', JSON
             .stringify(total))

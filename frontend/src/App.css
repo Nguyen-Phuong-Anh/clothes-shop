@@ -35,6 +35,12 @@
   display: none;
 }
 
+.badge_responsive {
+  position: relative;
+  left: 40px;
+  top: -40px;
+}
+
 /* Slider CSS */
 
 .slider {

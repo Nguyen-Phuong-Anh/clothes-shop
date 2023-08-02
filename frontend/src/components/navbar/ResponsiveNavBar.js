@@ -5,8 +5,24 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Badge from 'react-bootstrap/Badge';
+import { useState, useContext } from 'react';
+import { Store } from '../../store/Store';
+import axios from 'axios'
 
-function ResponsiveNavBar({itemLength}) {
+function ResponsiveNavBar() {
+  const [search, setSearch] = useState('')
+  const [state] = useContext(Store)
+
+  const handleSearch = async () => {
+    try {
+      await axios.post("/search", {
+        search
+      }).then(res => console.log(res.data))
+    } catch(err) {
+      console.error(err)
+    }
+  }
+  
   return (
     <>
       {[false].map((expand) => (
@@ -29,7 +45,7 @@ function ResponsiveNavBar({itemLength}) {
                     <Nav.Link className='m-2'><p className='navlink'>Shoes</p></Nav.Link>
                     <Nav.Link className='m-2'>
                       <p className='navlink'>Cart</p>
-                      {itemLength > 0 && <span className='badge_responsive'><Badge pill bg="danger">{itemLength}</Badge></span>}
+                      {state.cartItems > 0 && <Badge className='badge_responsive' pill bg="danger">{state.cartItems}</Badge>}
                     </Nav.Link>
                 </Nav>
                 <Form className="d-flex">
@@ -38,8 +54,10 @@ function ResponsiveNavBar({itemLength}) {
                     placeholder="Search"
                     className="me-3"
                     aria-label="Search"
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success" onClick={handleSearch}>Search</Button>
                 </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

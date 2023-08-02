@@ -32,12 +32,6 @@ input:focus {
     top: -5px;
 }
 
-.badge_responsive {
-    position: relative;
-    left: 50px;
-    top: -40px;
-}
-
 .navDropdown {
     width: 100%;
 }
