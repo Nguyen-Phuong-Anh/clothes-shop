@@ -5,6 +5,7 @@ const Store = createContext()
 
 const initialState = {
     cart: [], 
+    cartItems: '',
     item: {},
     token: null
 }
@@ -22,6 +23,7 @@ function reducer(state, action) {
             .stringify(total))
             return {
                 ...state, 
+                cartItems: total,
                 cart: [...state.cart, action.payload]
             }
 

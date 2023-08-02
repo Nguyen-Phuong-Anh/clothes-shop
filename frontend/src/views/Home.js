@@ -1,11 +1,9 @@
 import NavBar from '../components/navbar/NavBar'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import ResponsiveNavBar from '../components/navbar/ResponsiveNavBar'
-import { Store } from '../store/Store';
 
 function Home({children}) {
     const [width, setWidth] = useState(0)
-    const [state] = useContext(Store)
     
     useEffect(() => {
         function updateSize() {

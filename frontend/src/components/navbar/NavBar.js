@@ -6,14 +6,16 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import styles from './NavBar.module.css'
+import { Store } from '../../store/Store';
 
 function NavBar({itemLength}) {
   const [search, setSearch] = useState('')
-  
+  const [state] = useContext(Store)
+
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
     elem[0].classList.toggle('hidden')
@@ -33,7 +35,7 @@ function NavBar({itemLength}) {
     <div className='container'>
       <Navbar fixed="top" className={styles.navbar_body}>
         <Container fluid>
-          <Navbar.Brand href="/">RAYNE</Navbar.Brand>
+          <Link to={"/"} className='link'><Navbar.Brand>RAYNE</Navbar.Brand></Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -58,11 +60,13 @@ function NavBar({itemLength}) {
               <Nav.Link href='/account'>
                 <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
               </Nav.Link>
-              <Nav.Link href='/cart'>
-                <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
-                <span className={styles.badge}>
-                  {itemLength > 0 && <Badge pill bg="danger">{itemLength}</Badge>}
-                </span>
+              <Nav.Link>
+                <Link to={"/cart"} className='link'>
+                  <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
+                  <span className={styles.badge}>
+                    {state.cartItems > 0 && <Badge pill bg="danger">{state.cartItems}</Badge>}
+                  </span>
+                </Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
