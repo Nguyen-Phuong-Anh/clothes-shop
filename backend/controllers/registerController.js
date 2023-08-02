@@ -1,12 +1,5 @@
-const userDB = {
-    users: require('../users.json'),
-    setUser: function(data) {
-        this.users = data
-    }
-}
+const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const fsPromises = require('fs').promises
-const path = require('path')
 
 const registerController = async (req, res) => {
     const {user, email, pwd} = req.body
@@ -17,20 +10,20 @@ const registerController = async (req, res) => {
         }) //bad request
     }
 
-    const duplicate = userDB.users.find(acc => acc.username === user)
+    const duplicate = await User.findOne({username: user}).exec()
     if(duplicate) return res.sendStatus(409) //conflict
 
     try {
         const hashPwd = await bcrypt.hash(pwd, 10)
-        const newUser = {
+        const newUser = await User.create({
             'username': user,
             'email': email,
             'password': hashPwd
-        }
+        })
 
-        userDB.setUser([...userDB.users, newUser])
-        await fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB.users))
-        console.log(userDB.users)
+        // userDB.setUser([...userDB.users, newUser])
+        // await fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB.users))
+        // console.log(userDB.users)
 
         res.status(201).json({
             "message": "Created sucessfully"

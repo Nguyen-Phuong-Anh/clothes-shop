@@ -34,7 +34,7 @@ const reducer = (state, action) => {
         case "SET_REPEAT_PWD":
             return {
                 ...state, 
-                repeatPwd: action.payload.repeatPwd
+                repeatPwd: action.payload
             }
 
         case "SET_TERMS":
@@ -78,7 +78,7 @@ function Register() {
         if(state.terms === true) {
             if(state.pwd === state.repeatPwd) {
                 try {
-                    await axios.post("/register/post", state)
+                    await axios.post("/register", state)
                     .then(res => console.log(res))
                 } catch(err) {
                     console.error(err)
@@ -86,7 +86,6 @@ function Register() {
 
             } else {
                 setCheck(false)
-                console.log(check)
             }
         }
     }

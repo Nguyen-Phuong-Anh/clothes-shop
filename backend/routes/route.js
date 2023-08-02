@@ -2,7 +2,7 @@ require('dotenv').config()
 const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
-import loginLimiter from '../middleware/loginLimiter'
+const loginLimiter = require('../middleware/loginLimiter')
 
 function route(app) {
     app.use('/accounts', (req, res) => {
