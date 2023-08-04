@@ -1,6 +1,6 @@
 import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import { useContext, useEffect, useState, useRef } from 'react';
 import { Store } from '../../store/Store';
@@ -8,18 +8,24 @@ import { Store } from '../../store/Store';
 function SignIn() {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
+
     const [state, dispatch] = useContext(Store)
     
     const emailRef = useRef()
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from.pathname || '/'
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {   
-            await axios.post("/signin", {
+            await axios.post("/signin", JSON.stringify({
                 user: user, 
                 pwd: pwd
+            }), {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
             }).then(res => {
                 const { accessToken } = res.data
                 if(res.status === 201) {
@@ -30,7 +36,7 @@ function SignIn() {
                 }
                 setUser('')
                 setPwd('')
-                navigate('/')
+                navigate(from, { replace: true })
             })
         } catch(err) {
             alert("Invalid email or password!")

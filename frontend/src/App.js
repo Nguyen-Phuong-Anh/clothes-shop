@@ -6,6 +6,7 @@ import Cart from './views/Cart';
 import Search from './views/Search';
 import HomeBody from './components/HomeBody';
 import LogIn from './components/register/LogIn';
+import Account from './components/Account';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path='/cart' element={<Home children={<Cart/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
           <Route path='/search' element={<Search/>}/>
+          <Route path='/account' element={<Home children={<Account/>} />}/>
         </Routes>
       </div>
     </Router>
