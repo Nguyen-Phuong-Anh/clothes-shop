@@ -6,16 +6,16 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import styles from './NavBar.module.css'
-import { Store } from '../../store/Store';
+import useStore from '../../store/useStore';
 
 function NavBar() {
   const [search, setSearch] = useState('')
-  const [state] = useContext(Store)
-
+  const { state } = useStore()
+  
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
     elem[0].classList.toggle('hidden')
@@ -57,7 +57,13 @@ function NavBar() {
             </Form>
 
             <Nav>
-              <Link to={state.token ? '/account' : '/login'}>
+              <Link to={'/login'}>
+                  <Nav.Item className='mt-2'>
+                    <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
+                  </Nav.Item>
+              </Link>
+
+              <Link to={'/account'}>
                   <Nav.Item className='mt-2'>
                     <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
                   </Nav.Item>

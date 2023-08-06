@@ -37,7 +37,7 @@ function Cart() {
                 <tbody>
                     {
                     
-                    data.Cart.map(item => {
+                    data.Cart.map((item) => {
                         const product = data.Products.find(product => product.id === item.id)
                         return ( <CartItem key={item.id} item={item} product={product} /> )
                     })}

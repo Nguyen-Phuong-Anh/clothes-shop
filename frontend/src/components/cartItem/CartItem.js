@@ -52,8 +52,8 @@ function CartItem({item, product}) {
                                 </div>
                                 <p>Size</p>
                                 <div className={styles.button_group}>
-                                    {product.sizes.map(item => (
-                                        <div><Button size={item} /></div>
+                                    {product.sizes.map((item, index) => (
+                                        <div><Button key={index} size={item} /></div>
                                     ))}
                                 </div>
                             </div>

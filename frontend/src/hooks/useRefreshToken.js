@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { useContext } from 'react';
-import { Store } from '../store/Store';
+import useStore from "../store/useStore";
 
 function useRefreshToken() {
-    const [state, dispatch] = useContext(Store)
+    const { dispatch } = useStore()
 
     const refresh = async () => {
         const res = await axios.get('/refresh', {

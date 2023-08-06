@@ -3,10 +3,21 @@ const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
 const loginLimiter = require('../middleware/loginLimiter')
+const User = require('../models/User')
+const verifyJWT = require('../middleware/verifyJWT')
 
 function route(app) {
-    app.use('/accounts', (req, res) => {
-        res.send(data.Account)
+    app.post('/account', verifyJWT, async (req, res) => {
+        const foundUser = await User.findOne({email: req.body.email}).exec()
+        if(!foundUser) res.status(401).json({
+            "message": "no user found"
+        })
+
+        res.status(200).send({
+            username: foundUser.username,
+            email: foundUser.email,
+            refreshToken: foundUser.refreshToken
+        })
     })
 
     app.get('/product/:id', (req, res) => {

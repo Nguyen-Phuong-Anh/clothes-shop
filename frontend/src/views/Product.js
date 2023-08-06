@@ -14,7 +14,7 @@ function Product() {
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
     const { id } = useParams()
-    const [state, dispatch] = useContext(Store)
+    const { dispatch } = useContext(Store)
 
     useEffect(() => {
         const fetchData = async () => {

@@ -5,13 +5,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Badge from 'react-bootstrap/Badge';
-import { useState, useContext } from 'react';
-import { Store } from '../../store/Store';
+import { useState } from 'react';
+import useStore from '../../store/useStore';
 import axios from 'axios'
 
 function ResponsiveNavBar() {
   const [search, setSearch] = useState('')
-  const [state] = useContext(Store)
+  const { state } = useStore()
 
   const handleSearch = async () => {
     try {

@@ -2,19 +2,19 @@ import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
-import { useContext, useEffect, useState, useRef } from 'react';
-import { Store } from '../../store/Store';
+import { useEffect, useState, useRef } from 'react';
+import useStore from '../../store/useStore';
 
 function SignIn() {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
 
-    const [state, dispatch] = useContext(Store)
+    const { dispatch } = useStore()
     
     const emailRef = useRef()
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from.pathname || '/'
+    const from = location.state?.from?.pathname || '/'
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,11 +27,14 @@ function SignIn() {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
             }).then(res => {
-                const { accessToken } = res.data
+                const { user, accessToken } = res.data
                 if(res.status === 201) {
                     dispatch({
                         type: 'LOG_IN',
-                        payload: accessToken
+                        payload: {
+                            email: user,
+                            token: accessToken
+                        }
                     })
                 }
                 setUser('')
@@ -61,6 +64,7 @@ function SignIn() {
                     type="email"
                     ref={emailRef}
                     onChange={e => setUser(e.target.value)}
+                    autoComplete=''
                     />
                 </div>
                 <div>
@@ -72,6 +76,7 @@ function SignIn() {
                         id="pwd"
                         aria-describedby="passwordHelpBlock"
                         onChange={e => setPwd(e.target.value)}
+                        autoComplete=''
                     />
                 </div>
             </div>

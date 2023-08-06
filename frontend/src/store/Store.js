@@ -7,7 +7,11 @@ const initialState = {
     cart: [], 
     cartItems: 0,
     item: {},
-    token: null
+
+    userInfo: {
+        email: '',
+        token: null
+    }
 }
 
 function reducer(state, action) {
@@ -26,13 +30,19 @@ function reducer(state, action) {
         case 'LOG_IN':
             return {
                 ...state, 
-                token: action.payload
+                userInfo: {
+                    email: action.payload.email,
+                    token: action.payload.token
+                }
             }
 
         case 'LOG_OUT':
             return {
-                ...state,
-                token: null
+                ...state, 
+                userInfo: {
+                    ...state.userInfo,
+                    token: null
+                }
             }
         default:
     }
@@ -42,7 +52,7 @@ function CartStoreProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
-        <Store.Provider value={[state, dispatch]}>
+        <Store.Provider value={{ state, dispatch }}>
             {children}
         </Store.Provider>
     )

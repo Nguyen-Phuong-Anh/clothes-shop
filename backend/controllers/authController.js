@@ -18,6 +18,7 @@ const login = async (req, res) => {
     
     //if the user exist
     const match = await bcrypt.compare(pwd, foundUser.password)
+
     if(match) {
         const role = Object.values(foundUser.isAdmin)
         const accessToken = jwt.sign(
@@ -29,14 +30,14 @@ const login = async (req, res) => {
             },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresIn: '60s'
+                expiresIn: '10s'
             }
         )
 
         const refreshToken = jwt.sign(
             {"user": foundUser.username},
             process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: "1d"}
+            {expiresIn: "15s"}
         )
 
         foundUser.refreshToken = refreshToken
@@ -49,7 +50,7 @@ const login = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000
         });
         
-        res.status(201).send({ accessToken })
+        res.status(201).send({ user, accessToken })
     } else {
         res.status(401).send({
             "message": "Invalid email or password"
@@ -79,7 +80,7 @@ const refresh = (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "30s"}
+            { expiresIn: "15s"}
         )
 
         res.send({ accessToken })

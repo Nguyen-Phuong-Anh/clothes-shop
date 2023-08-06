@@ -110,6 +110,7 @@ function Register() {
                     aria-describedby="passwordHelpBlock"
                     placeholder='Password'
                     onChange={handleChange}
+                    autoComplete=''
                 />
             </div>
             <div>
@@ -122,6 +123,7 @@ function Register() {
                     aria-describedby="passwordHelpBlock"
                     placeholder='Repeat password'
                     onChange={handleChange}
+                    autoComplete=''
                 />
             </div>
             <div className={styles.term}>
