@@ -40,7 +40,7 @@ function CartItem({item, product}) {
                     </div>
                     <div className={styles.itemInfo}>
                         <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
-                        <p>{`${item.category} - ${item.size} - ${item.color}`}</p>
+                        <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
                         
                         <div id='popup' className={styles.popWrapper}>
                             <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>

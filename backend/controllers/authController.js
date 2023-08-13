@@ -90,14 +90,16 @@ const refresh = async (req, res) => {
     })
 }
 
-const logout = (req, res) => {
+const logout = async (req, res) => {
     const cookies = req.cookies
     if(!cookies?.jwt) res.sendStatus(204)
 
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true})
-    res.json({
-        "message": "cookie cleared"
-    })
+    //clear the refresh token in the database
+    const refreshToken = cookies.jwt;
+    const update = await User.updateOne({ refreshToken: refreshToken }, { refreshToken: '' }).exec()
+
+    res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
+    res.sendStatus(204)
 }
 
 module.exports = { 

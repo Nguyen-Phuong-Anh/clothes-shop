@@ -9,8 +9,9 @@ const Products = new Schema({
     colors: {type: [String], required: true},
     material: {type: String, required: true},
     description: {type: String},
-    number: {type: Number, required: true}, //number of remain products
-    price: {type: Number, required: true}
+    countInStock: {type: Number, required: true}, //number of remain products
+    price: {type: Number, required: true},
+    image: { type: String, required: true },
 })
 
 module.exports = mongoose.model("Products", Products)

@@ -1,3 +1,4 @@
+const Cart = require('../models/Cart')
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
@@ -18,12 +19,14 @@ const registerController = async (req, res) => {
         const newUser = await User.create({
             'username': user,
             'email': email,
-            'password': hashPwd
+            'password': hashPwd,
+            'shippingAddress': {}
         })
 
-        // userDB.setUser([...userDB.users, newUser])
-        // await fsPromises.writeFile(path.join(__dirname, '..', 'users.json'), JSON.stringify(userDB.users))
-        // console.log(userDB.users)
+        const newCart = await Cart.create({
+            'userId': newUser._id,
+            'cart': []
+        })
 
         res.status(201).json({
             "message": "Created sucessfully"

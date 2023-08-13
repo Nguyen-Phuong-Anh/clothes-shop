@@ -20,7 +20,7 @@ function SignIn() {
         event.preventDefault();
 
         try {   
-            await axios.post("/signin", JSON.stringify({
+            await axios.post("http://localhost:3500/signin", JSON.stringify({
                 user: user, 
                 pwd: pwd
             }), {

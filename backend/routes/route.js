@@ -39,10 +39,14 @@ function route(app) {
         res.send(products)
     })
 
+    app.get('/cart', verifyJWT, (req, res) => {
+        res.send('fasf')
+    })
+
     app.post('/register', registerController)
     app.post('/signin', loginLimiter, authController.login)
     app.post('/refresh', authController.refresh)
-    app.post('/logout', authController.logout)
+    app.get('/logout', authController.logout)
 
     app.post('/search', (req, res) => {
         const products = data.Products

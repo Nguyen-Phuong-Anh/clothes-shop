@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket, faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ import useStore from '../../store/useStore';
 
 function NavBar() {
   const [search, setSearch] = useState('')
-  const { state } = useStore()
+  const { state, dispatch } = useStore()
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
@@ -31,8 +31,19 @@ function NavBar() {
     }
   }
 
-  let humanButton = null
-  
+  const handleLogout = async () => {
+    try {
+      await axios.get('/logout', {
+        withCredentials: true
+      })
+      
+      dispatch({
+        type: 'LOG_OUT'
+      })
+    } catch(err) {
+      console.error(err);
+    }
+  }
   
   return (
     <div className='container'>
@@ -66,13 +77,7 @@ function NavBar() {
                   </Nav.Item>
               </Link>
 
-              {/* <Link to={'/account'}>
-                  <Nav.Item className='mt-2'>
-                    <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
-                  </Nav.Item>
-              </Link> */}
-
-              <Link to={"/cart"}>
+              <Link to={state.userInfo.token ? '/cart' : '/login'}>
                 <Nav.Item className='m-2'>
                   <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
                   <span className={styles.badge}>
@@ -80,6 +85,11 @@ function NavBar() {
                   </span>
                 </Nav.Item>
               </Link>
+              
+              <Nav.Item className={`mt-2 ${state.userInfo.token ? '' : 'hidden'}`} onClick={handleLogout}>
+                    <FontAwesomeIcon className={styles.icon} icon={faArrowRightFromBracket} size='lg' />
+              </Nav.Item>
+
             </Nav>
           </Navbar.Collapse>
         </Container>

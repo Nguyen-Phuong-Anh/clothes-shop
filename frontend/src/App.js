@@ -25,6 +25,7 @@ function App() {
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>
           </Route>
+
         </Routes>
       </div>
     </Router>
