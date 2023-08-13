@@ -114,7 +114,7 @@ function Register() {
                 />
             </div>
             <div>
-                <p className={`${styles.warning} ${check===false ? '' : styles.hidden}`}>The repeat password doesn't match with the previous one!</p>
+                <p className={`${styles.warning} ${check===false ? '' : 'hidden'}`}>The repeat password doesn't match with the previous one!</p>
                 <Form.Control
                     value={state.repeatPwd}
                     className={`${styles.input} ${check===true ? '' : styles.invalid} p-2`}

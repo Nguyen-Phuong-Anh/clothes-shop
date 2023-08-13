@@ -8,16 +8,24 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 function route(app) {
     app.post('/account', verifyJWT, async (req, res) => {
-        const foundUser = await User.findOne({email: req.body.email}).exec()
-        if(!foundUser) res.status(401).json({
-            "message": "no user found"
-        })
+        let foundUser
+        if(res.locals.email) {
+            foundUser = await User.findOne({email: res.locals.email}).exec()
+        } else {
+            foundUser = await User.findOne({email: req.body.email}).exec()
+        }
 
-        res.status(200).send({
-            username: foundUser.username,
-            email: foundUser.email,
-            refreshToken: foundUser.refreshToken
-        })
+        
+        if(!foundUser) {
+            res.status(401).json({"message": "no user found" });
+        } else {
+            res.json({
+                username: foundUser?.username,
+                email: foundUser?.email,
+                // refreshToken: foundUser?.refreshToken
+            })
+        }
+
     })
 
     app.get('/product/:id', (req, res) => {

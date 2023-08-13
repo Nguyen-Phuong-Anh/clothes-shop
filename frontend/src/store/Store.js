@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 import { useReducer } from 'react'
 
 const Store = createContext()
@@ -38,10 +38,22 @@ function reducer(state, action) {
 
         case 'LOG_OUT':
             return {
+                cart: [], 
+                cartItems: 0,
+                item: {}, 
+                
+                userInfo: {
+                    email: '',
+                    token: null
+                }
+            }
+
+        case 'REFRESH_TOKEN':
+            return {
                 ...state, 
                 userInfo: {
                     ...state.userInfo,
-                    token: null
+                    token: action.payload
                 }
             }
         default:
@@ -50,9 +62,9 @@ function reducer(state, action) {
 
 function CartStoreProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState)
-
+    const [persist, setPersist] = useState(JSON.parse(localStorage.getItem('persist')) || true)
     return (
-        <Store.Provider value={{ state, dispatch }}>
+        <Store.Provider value={{ state, dispatch, persist, setPersist }}>
             {children}
         </Store.Provider>
     )

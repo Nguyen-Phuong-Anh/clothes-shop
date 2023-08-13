@@ -30,6 +30,9 @@ function NavBar() {
       console.error(err)
     }
   }
+
+  let humanButton = null
+  
   
   return (
     <div className='container'>
@@ -57,17 +60,17 @@ function NavBar() {
             </Form>
 
             <Nav>
-              <Link to={'/login'}>
+              <Link to={state.userInfo.token ? '/account' : '/login'}>
                   <Nav.Item className='mt-2'>
                     <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
                   </Nav.Item>
               </Link>
 
-              <Link to={'/account'}>
+              {/* <Link to={'/account'}>
                   <Nav.Item className='mt-2'>
                     <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
                   </Nav.Item>
-              </Link>
+              </Link> */}
 
               <Link to={"/cart"}>
                 <Nav.Item className='m-2'>

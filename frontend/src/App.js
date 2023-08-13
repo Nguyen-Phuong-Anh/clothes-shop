@@ -5,8 +5,9 @@ import Product from './views/Product';
 import Cart from './views/Cart';
 import Search from './views/Search';
 import HomeBody from './components/HomeBody';
-import LogIn from './components/register/LogIn';
+import LogIn from './components/auth/LogIn';
 import Account from './components/Account';
+import PersistLogin from './components/auth/PersistLogin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -17,10 +18,13 @@ function App() {
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/product/:id' element={<Home children={<Product/>} />}/>
-          <Route path='/cart' element={<Home children={<Cart/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
           <Route path='/search' element={<Search/>}/>
-          <Route path='/account' element={<Home children={<Account/>} />}/>
+
+          <Route element={<PersistLogin />}>
+              <Route path='/account' element={<Home children={<Account/>} />}/>
+              <Route path='/cart' element={<Home children={<Cart/>} />}/>
+          </Route>
         </Routes>
       </div>
     </Router>

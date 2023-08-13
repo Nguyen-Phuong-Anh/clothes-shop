@@ -20,24 +20,27 @@ const login = async (req, res) => {
     const match = await bcrypt.compare(pwd, foundUser.password)
 
     if(match) {
-        const role = Object.values(foundUser.isAdmin)
         const accessToken = jwt.sign(
             {
                 "UserInfo": {
-                    "user": foundUser.username,
-                    "isAdmin": role
+                    "email": foundUser.email,
+                    "isAdmin": foundUser.isAdmin
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresIn: '10s'
+                expiresIn: '1d'
             }
         )
 
         const refreshToken = jwt.sign(
-            {"user": foundUser.username},
+            {
+                "UserInfo": {
+                    "email": foundUser.email
+                }
+            },
             process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: "15s"}
+            {expiresIn: "30d"}
         )
 
         foundUser.refreshToken = refreshToken
@@ -58,7 +61,7 @@ const login = async (req, res) => {
     }
 }
 
-const refresh = (req, res) => {
+const refresh = async (req, res) => {
     const cookies = req.cookies
 
     if(!cookies?.jwt) return res.status(401).json({
@@ -66,21 +69,21 @@ const refresh = (req, res) => {
     })
 
     const refreshToken = cookies.jwt
+    const foundUser = await User.findOne({refreshToken}).exec()
+
+    if(!foundUser) return res.status(401).json({"message": "Unauthorized"})
+
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
         if(err) return res.status(403).json({"message": "Forbidden"})
-        const foundUser = User.findOne({username: decoded.user})
-
-        if(!foundUser) return res.status(401).json({"message": "Unauthorized"})
-
         const accessToken = jwt.sign(
             {
                 "UserInfo": {
-                    "user": foundUser.username,
-                    "role": foundUser.isAdmin
+                    "email": decoded.UserInfo.email,
+                    "isAdmin": foundUser.isAdmin
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "15s"}
+            { expiresIn: "1d"}
         )
 
         res.send({ accessToken })
