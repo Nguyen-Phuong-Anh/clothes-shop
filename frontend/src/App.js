@@ -6,7 +6,7 @@ import Cart from './views/Cart';
 import Search from './views/Search';
 import HomeBody from './components/HomeBody';
 import LogIn from './components/auth/LogIn';
-import Account from './components/Account';
+import Account from './views/Account';
 import PersistLogin from './components/auth/PersistLogin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

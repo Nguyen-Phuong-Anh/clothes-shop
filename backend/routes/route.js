@@ -2,31 +2,13 @@ require('dotenv').config()
 const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
+const accountController = require('../controllers/accountController')
 const loginLimiter = require('../middleware/loginLimiter')
-const User = require('../models/User')
 const verifyJWT = require('../middleware/verifyJWT')
 
 function route(app) {
-    app.post('/account', verifyJWT, async (req, res) => {
-        let foundUser
-        if(res.locals.email) {
-            foundUser = await User.findOne({email: res.locals.email}).exec()
-        } else {
-            foundUser = await User.findOne({email: req.body.email}).exec()
-        }
-
-        
-        if(!foundUser) {
-            res.status(401).json({"message": "no user found" });
-        } else {
-            res.json({
-                username: foundUser?.username,
-                email: foundUser?.email,
-                // refreshToken: foundUser?.refreshToken
-            })
-        }
-
-    })
+    app.post('/account', verifyJWT, accountController.accessAccount);
+    app.put('/account/update', accountController.updateAccout);
 
     app.get('/product/:id', (req, res) => {
         const id = parseInt(req.params.id)

@@ -1,0 +1,77 @@
+.wrapper {
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.315);
+    padding: 0 10px;
+}
+
+.info label {
+    width: 100px;
+}
+
+.info input {
+    border: none;
+    width: 300px;
+}
+
+.info button {
+    color: green;
+    padding: 5px 10px;
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.container {
+    position: relative;
+}
+
+.container p {
+    position: absolute;
+    left: -150px;
+    top: -15px;
+    cursor: context-menu;
+}
+
+.container input {
+    background-color: #c7e8ca5b;
+    padding: 10px 10px 5px;
+    margin-bottom: 5px;
+    border-top: 1px solid rgba(128, 128, 128, 0.181);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.181);
+}
+
+.show {
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.button_area {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.btn_size {
+    width: 100px;
+}
+
+.none {
+    display: none;
+}

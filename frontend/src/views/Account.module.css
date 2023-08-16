@@ -1,0 +1,69 @@
+.wrapper {
+    margin: 140px auto 0;
+    padding: 20px;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info {
+    width: 300px;
+    cursor: context-menu;
+    box-shadow: 4px 4px 5px 3px rgba(128, 128, 128, 0.315);
+    border-radius: 10px;
+}
+
+.info img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: red;
+    margin: 10px auto;
+    display: block;
+}
+
+.info h4, .info p {
+    text-align: center;
+    word-break: break-all;
+}
+
+.info p {
+    font-size: 0.9rem;
+}
+
+.content {
+    width: 600px;
+    box-shadow: 3px 3px 5px 1px rgba(128, 128, 128, 0.315);
+    padding: 10px 30px;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border-radius: 10px;
+}
+
+.selectCard {
+    background-color: white;
+    height: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px rgba(128, 128, 128, 0.315);
+}
+
+.selectCard:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 5px 1px rgba(128, 128, 128, 0.315);
+    transform: scale(1.05);
+}
+
+.icon {
+    margin-right: 10px;
+}

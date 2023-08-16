@@ -5,7 +5,7 @@ function useRefreshToken() {
     const { dispatch } = useStore()
 
     const refresh = async () => {
-        const res = await axios.post('/refresh', {
+        const res = await axios.post('refresh', {
             withCredentials: true
         })
         dispatch({

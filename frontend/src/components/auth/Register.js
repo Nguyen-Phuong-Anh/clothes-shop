@@ -1,6 +1,7 @@
 import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
 import { useReducer, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 
 const initialState = {
@@ -51,7 +52,11 @@ const reducer = (state, action) => {
 function Register() {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [check, setCheck] = useState(true)
-
+    
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    
     const handleChange = (event) => {
         const {name, value} = event.target
         if(name === 'TERMS') {
@@ -79,7 +84,10 @@ function Register() {
             if(state.pwd === state.repeatPwd) {
                 try {
                     await axios.post("/register", state)
-                    .then(res => console.log(res))
+                    .then(res => {
+                        console.log(res)
+                        navigate(from, { replace: true })
+                    })
                 } catch(err) {
                     console.error(err)
                 }
