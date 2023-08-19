@@ -238,3 +238,10 @@
 .border {
   background-color: var(--soft_pink);
 }
+
+/* input glow */
+.input:focus {
+  outline: none;
+  border-color: 2px #28a745 !important;
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.25) !important;
+}

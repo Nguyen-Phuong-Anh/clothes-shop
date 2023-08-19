@@ -1,12 +1,13 @@
 import useStore from "../store/useStore";
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Account.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/account/Profile";
 import ProductManagement from "../components/account/ProductManagement";
+import ShippingAddress from "../components/account/ShippingAddress";
 
 const SelectCard = ({name, setSelect}) => {
     return (
@@ -51,7 +52,7 @@ function Account() {
         return () => {
             isMounted = false;
         }
-    }, [user])
+    }, [])
 
     return (
         <div className={styles.wrapper}>
@@ -72,7 +73,8 @@ function Account() {
 
             <div className={styles.content}>
                 {select === 'Profile' && <Profile user={user} />}
-                {/* {select === 'Product Management' && useMemo(() => {return (<ProductManagement />)})} */}
+                {select === 'Product Management' && <ProductManagement />}
+                {select === 'Shipping Address' && <ShippingAddress user={user} />}
             </div>
         </div>
     );

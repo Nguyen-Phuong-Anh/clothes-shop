@@ -9,7 +9,6 @@ const accessAccount = async (req, res) => {
         foundUser = await User.findOne({email: req.body.email}).exec()
     }
 
-    
     if(!foundUser) {
         res.status(401).json({"message": "no user found" });
     } else {
@@ -20,18 +19,20 @@ const accessAccount = async (req, res) => {
 
         const userOptions = [
             'Profile', 
-            'Order',
-            "Shipping Address"
+            "Shipping Address",
+            'Order'
         ]
 
         if(foundUser.isAdmin) {
             res.json({
+                id: foundUser._id,
                 username: foundUser?.username,
                 email: foundUser?.email,
                 options: adminOptions
             })
         } else 
             res.json({
+                id: foundUser._id,
                 username: foundUser?.username,
                 email: foundUser?.email,
                 options: userOptions
@@ -41,16 +42,23 @@ const accessAccount = async (req, res) => {
 }
 
 const updateAccout = async (req, res) => {
-    console.log(req.body)
-
-    // if(res.body.username) await User.updateOne({_id: req.body.id}, {username: res.body.username}).exec()
-    // if(res.body.email) await User.updateOne({_id: req.body.id}, {email: res.body.email})
-    // if(res.body.password) {
-    //     const hashPwd = bcrypt(password, 10);
-    //     await User.updateOne({_id: req.body.id}, {password: hashPwd})
-    // }
-
-    // res.status(200)
+    let result
+    if(req.body?.username !== '') {
+        result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
+    }
+    if (req.body?.email !== '') {
+        result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
+    } 
+    if(req.body?.password !== '') {
+        result = await User.updateOne({ _id: req.body.id }, {password: req.body.password}).exec()
+    }
+    if (req.body?.shippingAddress) {
+        result = await User.updateOne({ _id: req.body.shippingAddress.id}, {shippingAddress: req.body.shippingAddress}).exec()
+    }
+    
+    res.status(200).json({
+        "message": "Successfully updated!"
+    })
 }
 
 module.exports = {

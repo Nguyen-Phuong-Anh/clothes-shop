@@ -59,7 +59,7 @@ function SignIn() {
                     <Form.Label htmlFor='user'>Email address</Form.Label>
                     <Form.Control 
                     value={user} 
-                    className={`${styles.input} p-2`} 
+                    className={`input p-2`} 
                     id='user' 
                     type="email"
                     ref={emailRef}
@@ -71,7 +71,7 @@ function SignIn() {
                     <Form.Label className='mt-3' htmlFor="pwd">Password</Form.Label>
                     <Form.Control
                         value={pwd}
-                        className={`${styles.input} p-2`}
+                        className={`input p-2`}
                         type="password"
                         id="pwd"
                         aria-describedby="passwordHelpBlock"

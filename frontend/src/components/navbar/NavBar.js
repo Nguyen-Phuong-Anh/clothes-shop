@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToggleBar from './toggleBar';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import styles from './NavBar.module.css'
 import useStore from '../../store/useStore';
@@ -15,6 +15,10 @@ import useStore from '../../store/useStore';
 function NavBar() {
   const [search, setSearch] = useState('')
   const { state, dispatch } = useStore()
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
   
   const handleHidden = () => {
     const elem = document.getElementsByClassName('toggle')
@@ -40,6 +44,8 @@ function NavBar() {
       dispatch({
         type: 'LOG_OUT'
       })
+      
+      navigate(from, { replace: true })
     } catch(err) {
       console.error(err);
     }

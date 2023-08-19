@@ -102,17 +102,17 @@ function Register() {
         <form onSubmit={handleSubmit} className={styles.columnRegister}>
 
             <div>
-                <Form.Control name='USERNAME' value={state.user} className={`${styles.input} p-2`} placeholder='Username' onChange={handleChange} />
+                <Form.Control name='USERNAME' value={state.user} className={`input p-2`} placeholder='Username' onChange={handleChange} />
             </div>
 
             <div>
-                <Form.Control name='EMAIL' value={state.email} className={`${styles.input} p-2`} type="email" placeholder='Email' onChange={handleChange} />
+                <Form.Control name='EMAIL' value={state.email} className={`input p-2`} type="email" placeholder='Email' onChange={handleChange} />
             </div>
             
             <div>
                 <Form.Control                
                     value={state.pwd}
-                    className={`${styles.input} p-2`}
+                    className={`input p-2`}
                     type="password"
                     name='PWD'
                     aria-describedby="passwordHelpBlock"
@@ -125,7 +125,7 @@ function Register() {
                 <p className={`${styles.warning} ${check===false ? '' : 'hidden'}`}>The repeat password doesn't match with the previous one!</p>
                 <Form.Control
                     value={state.repeatPwd}
-                    className={`${styles.input} ${check===true ? '' : styles.invalid} p-2`}
+                    className={`input ${check===true ? '' : styles.invalid} p-2`}
                     type="password"
                     name='REPEAT_PWD'
                     aria-describedby="passwordHelpBlock"

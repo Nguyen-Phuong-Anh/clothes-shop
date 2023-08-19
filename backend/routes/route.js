@@ -7,8 +7,8 @@ const loginLimiter = require('../middleware/loginLimiter')
 const verifyJWT = require('../middleware/verifyJWT')
 
 function route(app) {
-    app.post('/account', verifyJWT, accountController.accessAccount);
     app.put('/account/update', accountController.updateAccout);
+    app.post('/account', verifyJWT, accountController.accessAccount);
 
     app.get('/product/:id', (req, res) => {
         const id = parseInt(req.params.id)

@@ -9,16 +9,9 @@ const userSchema = new Schema({
     "refreshToken": {type: String},
     "shippingAddress": {
         fullName: { type: String, required: true, default: 'fullname' },
-        address: { type: String, required: true, default: 'address' },
+        tel: { type: String, required: true, default: 'tel' },
         city: { type: String, required: true, default: 'city' },
-        location: {
-          lat: Number,
-          lng: Number,
-          address: String,
-          name: String,
-          vicinity: String,
-          googleAddressId: String,
-        },
+        address: { type: String, required: true, default: 'address' }
     },
 })
 

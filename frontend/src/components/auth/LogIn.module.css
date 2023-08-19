@@ -79,12 +79,6 @@
     box-shadow: 2px 6px 10px var(--signature_color);
 }
 
-.input:focus {
-    outline: none;
-    border-color: 2px #28a745 !important;
-    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.25) !important;
-}
-
 /* register */
 .register {
     margin-top: 40px;
