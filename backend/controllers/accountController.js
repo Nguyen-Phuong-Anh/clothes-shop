@@ -28,6 +28,7 @@ const accessAccount = async (req, res) => {
                 id: foundUser._id,
                 username: foundUser?.username,
                 email: foundUser?.email,
+                shippingAddress: foundUser?.shippingAddress,
                 options: adminOptions
             })
         } else 
@@ -35,6 +36,7 @@ const accessAccount = async (req, res) => {
                 id: foundUser._id,
                 username: foundUser?.username,
                 email: foundUser?.email,
+                shippingAddress: foundUser?.shippingAddress,
                 options: userOptions
             })
     }

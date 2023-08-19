@@ -8,10 +8,10 @@ const userSchema = new Schema({
     "isAdmin": { type: Boolean, required: true, default: false},
     "refreshToken": {type: String},
     "shippingAddress": {
-        fullName: { type: String, required: true, default: 'fullname' },
-        tel: { type: String, required: true, default: 'tel' },
-        city: { type: String, required: true, default: 'city' },
-        address: { type: String, required: true, default: 'address' }
+        fullName: { type: String, required: true, default: ' ' },
+        tel: { type: String, required: true, default: ' ' },
+        city: { type: String, required: true, default: ' ' },
+        address: { type: String, required: true, default: ' ' }
     },
 })
 

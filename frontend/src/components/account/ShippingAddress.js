@@ -1,6 +1,8 @@
 import styles from './ManageAccount.module.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import data from '../../api/data'
 import { useState } from 'react';
 import axios from 'axios'
@@ -11,7 +13,11 @@ function ShippingAddress({user}) {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
 
-    const handleSubmit = async () => {
+    const [hidden, setHidden] = useState(false)
+    const [id, setId] = useState('')
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             await axios.put('/account/update', {
                 shippingAddress: {
@@ -30,9 +36,30 @@ function ShippingAddress({user}) {
             console.error(error)
         }
     }
+
+    const handleClick = (e) => {
+        if(fullname === '' || tel === '' || city === '' || address === '') {
+            setFullname(user.shippingAddress.fullName)
+            setTel(user.shippingAddress.tel)
+            setCity(user.shippingAddress.city)
+            setAddress(user.shippingAddress.address)
+        }
+        setId(e.target.dataset.value);
+        setHidden(!hidden)
+    }
+
+    const handleCancel = () => {
+        setHidden(!hidden)
+
+        setFullname(user.shippingAddress.fullName)
+        setTel(user.shippingAddress.tel)
+        setCity(user.shippingAddress.city)
+        setAddress(user.shippingAddress.address)
+    }
     
     return (
-        <div className={`${styles.wrapper} mt-3`}>
+        user.shippingAddress.fullName === ' ' && user.shippingAddress.tel === ' ' && user.shippingAddress.city === ' ' && user.shippingAddress.address === ' ' ? 
+        (<div className={`${styles.wrapper} mt-3`}>
             <h3>Shipping Address</h3>
             <Form className='mt-3'>
                 <Form.Group className={`mb-4`}>
@@ -90,7 +117,76 @@ function ShippingAddress({user}) {
                     <Button className={`${styles.btn_size}`} onClick={handleSubmit} variant="outline-success">Save</Button>
                 </div>
             </Form>
-        </div>
+        </div>) : (
+            <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
+                <h3>Shipping Address</h3>
+                <div className={styles.section}>
+                    <div className={styles.info}>
+                        <label htmlFor='fullname'>Fullname</label>
+                        <div className={styles.container}>
+                            <p className={`${(hidden === true && id === 'fullname') ? 'hidden' : styles.show}`}>{fullname ? fullname : user.shippingAddress.fullName}</p>
+                            <input
+                                className={`${(hidden === true && id === 'fullname') ? styles.show : 'hidden'}`}
+                                type='text'
+                                value={fullname}
+                                onChange={(e) => setFullname(e.target.value)}
+                                id='fullname'
+                            />
+                        </div>
+                        <button type='button' data-value='fullname' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                    </div>
+
+                    <div className={styles.info}>
+                        <label htmlFor='tel'>Tel</label>
+                        <div className={styles.container}>
+                            <p className={`${(hidden === true && id === 'tel') ? 'hidden' : styles.show}`}>{tel ? tel : user.shippingAddress.tel}</p>
+                            <input
+                                className={`${(hidden === true && id === 'tel') ? styles.show : 'hidden'}`}
+                                type='text'
+                                value={tel}
+                                onChange={(e) => setTel(e.target.value)}
+                                id='tel'
+                            />
+                        </div>
+                        <button type='button' data-value='tel' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                    </div>
+
+                    <div className={styles.info}>
+                        <label htmlFor='city'>City</label>
+                        <div className={styles.container}>
+                            <p className={`${(hidden === true && id === 'city') ? 'hidden' : styles.show}`}>{city ? city : user.shippingAddress.city}</p>
+                            <input
+                                className={`${(hidden === true && id === 'city') ? styles.show : 'hidden'}`}
+                                type='text'
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                id='city'
+                            />
+                        </div>
+                        <button type='button' data-value='city' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                    </div>
+                    
+                    <div className={`${styles.info} mb-4`}>
+                        <label htmlFor='address'>Address</label>
+                        <div className={styles.container}>
+                            <p className={`${(hidden === true && id === 'address') ? 'hidden' : styles.show}`}>{address ? address : user.shippingAddress.address}</p>
+                            <input
+                                className={`${(hidden === true && id === 'address') ? styles.show : 'hidden'}`}
+                                type='text'
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                id='address'
+                            />
+                        </div>
+                        <button type='button' data-value='address' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                    </div>
+                </div>
+                <div className={`${hidden === true ? styles.button_area : styles.none}`}>
+                    <Button type='submit' className={`${styles.btn_size}`} variant="outline-success">Save</Button>
+                    <Button className={`${styles.btn_size}`} onClick={handleCancel} variant="outline-secondary">Cancel</Button>
+                </div>
+            </form>
+        )
     );
 }
 
