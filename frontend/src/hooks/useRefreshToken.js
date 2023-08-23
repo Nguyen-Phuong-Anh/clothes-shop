@@ -5,12 +5,15 @@ function useRefreshToken() {
     const { dispatch } = useStore()
 
     const refresh = async () => {
-        const res = await axios.post('refresh', {
+        const res = await axios.post('/refresh', {
             withCredentials: true
         })
         dispatch({
             type: 'REFRESH_TOKEN',
-            payload: res.data.accessToken
+            payload: {
+                email: res.data.email,
+                token: res.data.accessToken
+            }
         })
         return res.data.accessToken
     }

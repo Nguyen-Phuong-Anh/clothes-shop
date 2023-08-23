@@ -5,9 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Button from '../Button';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useEffect } from 'react';
 
-function CartItem({item, product}) {
-    const [number, setNumber] = useState(`${Number(item.number)}`)
+function CartItem({accessKey = '', state, item}) {
+    const [number, setNumber] = useState(`${Number(item.quantity)}`)
+    const [product, setProduct] = useState({})
+    const [color, setColor] = useState(`${item.color}`)
+    const [size, setSize] = useState(`${item.size}`)
+
+    const axiosPrivate = useAxiosPrivate()
+
     const [rotate, setRotate] = useState(false)
     
     function handleCheck() {
@@ -19,6 +27,50 @@ function CartItem({item, product}) {
     const handleRotate = () => {
         setRotate(!rotate)
     }
+
+    const handleDelete = async () => {
+        try {
+            await axiosPrivate.post('/cart/delete', {
+                email: state.userInfo.email,
+                accessKey: accessKey,
+            }).then(res => console.log(res))
+        } catch (error) {
+            console.error(error)   
+        }
+    }
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await axiosPrivate.get(`/products/${item.product}`)
+                setProduct(res.data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getProduct()
+    }, [])
+
+    useEffect(() => {
+        const updateProduct = async () => {
+            const id = item.product.toString();
+            try {
+                const res = await axiosPrivate.post(`/cart/update`, {
+                    email: state.userInfo.email,
+                    accessKey: accessKey,
+                    number: number,
+                    color: color,
+                    size: size
+                })
+                
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        updateProduct()
+    }, [number, color, size])
 
     return (
         <>
@@ -41,19 +93,19 @@ function CartItem({item, product}) {
                     <div className={styles.itemInfo}>
                         <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
                         <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
-                        
-                        <div id='popup' className={styles.popWrapper}>
+                        {/* popUp custom */}
+                        <div className={styles.popWrapper}>
                             <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>
                                 <p>Color</p>
                                 <div className={styles.button_group}>
-                                    {product.colors.map((item, index) => (
-                                        <div><Button key={index} color={item} /></div>
+                                    {Array.isArray(product.colors) && product.colors.map((item, index) => (
+                                        <div onClick={() => setRotate(!rotate)}><Button setColor={setColor} key={index} color={item} /></div>
                                     ))}
                                 </div>
                                 <p>Size</p>
                                 <div className={styles.button_group}>
-                                    {product.sizes.map((item, index) => (
-                                        <div><Button key={index} size={item} /></div>
+                                    {Array.isArray(product.sizes) && product.sizes.map((item, index) => (
+                                        <div><Button setSize={setSize} value={item} key={index} size={item} /></div>
                                     ))}
                                 </div>
                             </div>
@@ -69,8 +121,10 @@ function CartItem({item, product}) {
             <td className={styles.num}>{number * product.price}</td>
 
             <td>
-                <div className={styles.delete}>
-                    <FontAwesomeIcon icon={faTrashCan} /> Delete
+                <div>
+                    <button onClick={() => handleDelete()} className={styles.delete}>
+                        <FontAwesomeIcon icon={faTrashCan} /> Delete
+                    </button>
                 </div>
             </td>
         </tr>

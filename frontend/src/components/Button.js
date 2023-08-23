@@ -1,4 +1,4 @@
-function Button({color, size}) {
+function Button({color, size, setColor, setSize}) {
     function handleClick(event) {
         const collection = document.getElementsByClassName('check')
         for(let elem of collection) {
@@ -11,6 +11,7 @@ function Button({color, size}) {
             elem.classList.remove('check')
         }
         
+        setColor && setColor(event.target.value)
     }
 
     function handleClickSize(event) {
@@ -24,6 +25,8 @@ function Button({color, size}) {
         } else {
             elem.classList.remove('border')
         }
+
+        setSize && setSize(event.target.value)
     }
 
     if(color) {

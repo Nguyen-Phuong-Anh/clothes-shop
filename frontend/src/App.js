@@ -17,7 +17,6 @@ function App() {
         <meta name="favicon" content="none" />
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
-          <Route path='/product/:id' element={<Home children={<Product/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
           <Route path='/search' element={<Search/>}/>
 
@@ -25,6 +24,7 @@ function App() {
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>
           </Route>
+          <Route path='/products/:id' element={<Home children={<Product/>} />}/>
 
         </Routes>
       </div>

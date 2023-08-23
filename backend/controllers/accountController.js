@@ -14,7 +14,11 @@ const accessAccount = async (req, res) => {
     } else {
         const adminOptions = [
             'Profile', 
-            'Product Management'
+            'Product Management',
+            smallOptions = [
+                'Add Product',
+                'Delete Product'
+            ]
         ]
 
         const userOptions = [
@@ -29,6 +33,7 @@ const accessAccount = async (req, res) => {
                 username: foundUser?.username,
                 email: foundUser?.email,
                 shippingAddress: foundUser?.shippingAddress,
+                isAdmin: foundUser.isAdmin,
                 options: adminOptions
             })
         } else 
@@ -37,6 +42,7 @@ const accessAccount = async (req, res) => {
                 username: foundUser?.username,
                 email: foundUser?.email,
                 shippingAddress: foundUser?.shippingAddress,
+                isAdmin: foundUser.isAdmin,
                 options: userOptions
             })
     }
@@ -52,7 +58,8 @@ const updateAccout = async (req, res) => {
         result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
     } 
     if(req.body?.password !== '') {
-        result = await User.updateOne({ _id: req.body.id }, {password: req.body.password}).exec()
+        const hashPwd = await bcrypt.hash(req.body.password, 10)
+        result = await User.updateOne({ _id: req.body.id }, {password: hashPwd}).exec()
     }
     if (req.body?.shippingAddress) {
         result = await User.updateOne({ _id: req.body.shippingAddress.id}, {shippingAddress: req.body.shippingAddress}).exec()

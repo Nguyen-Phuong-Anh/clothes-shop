@@ -8,8 +8,12 @@ function HomeBody() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:3500/products')
-            setProducts(result.data)
+            try {
+                const result = await axios.get('/products')
+                setProducts(result.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [])
@@ -34,8 +38,8 @@ function HomeBody() {
                     </ul>
                 </div>
                 <div className='card_group'>
-                    {products.map((product) => (
-                        <DetailCard key={product.id} product={product}/>
+                    {Array.isArray(products) && products.map((product) => (
+                        <DetailCard key={product._id} product={product}/>
                     ))}
                 </div>
             </div>

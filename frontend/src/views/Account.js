@@ -6,12 +6,29 @@ import styles from './Account.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/account/Profile";
-import ProductManagement from "../components/account/ProductManagement";
+import AddProduct from "../components/account/AddProduct";
 import ShippingAddress from "../components/account/ShippingAddress";
 
-const SelectCard = ({name, setSelect}) => {
+const SelectCard = ({name, setSelect, hidden, setHidden}) => {
+    if(setSelect) {
+        return (
+            <div className={styles.selectCard} onClick={() => setSelect(name)}>
+                <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
+            </div>
+        )
+
+    } else {
+        return (
+            <div className={styles.selectCard} onClick={() => setHidden(!hidden)}>
+                <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
+            </div>
+        )
+    }
+}
+
+const MiniCard = ({name, setSelect}) => {
     return (
-        <div className={styles.selectCard} onClick={() => setSelect(name)}>
+        <div className={styles.mini_card} onClick={() => setSelect(name)}>
             <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
         </div>
     )
@@ -26,6 +43,7 @@ function Account() {
     const location = useLocation()
 
     const [select, setSelect] = useState('');
+    const [hidden, setHidden] = useState(true)
 
     useEffect(() => {
         let isMounted = true;
@@ -64,16 +82,33 @@ function Account() {
                 </div>
                 <div className={`${styles.info} ${styles.selection}`}>
                     {
-                        Array.isArray(user.options) && user.options.map((item, index) => (
-                            <SelectCard key={index} name={item} setSelect={setSelect} />
-                        ))
+                        Array.isArray(user.options) && user.options.map((item) => {
+                            if((typeof item === 'string' && item !== 'Product Management') || (item instanceof String && item !== 'Product Management')) {
+                                return ( <SelectCard key={item} name={item} setSelect={setSelect} /> )
+                            }
+                        })
+                    }
+
+                    {
+                        user.isAdmin === true && (
+                        <>
+                            <SelectCard id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} />
+                            <div className={`hidden ${hidden ? '' : styles.show}`}>
+                                {
+                                    Array.isArray(user.options[2]) && user.options[2].map((item) => (
+                                        <MiniCard key={item} name={item} setSelect={setSelect} />
+                                    ))
+                                }
+                            </div>
+                        </>
+                        )
                     }
                 </div>
             </div>
 
             <div className={styles.content}>
                 {select === 'Profile' && <Profile user={user} />}
-                {select === 'Product Management' && <ProductManagement />}
+                {select === 'Add Product' && <AddProduct />}
                 {select === 'Shipping Address' && <ShippingAddress user={user} />}
             </div>
         </div>

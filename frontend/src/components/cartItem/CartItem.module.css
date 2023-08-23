@@ -100,11 +100,13 @@
     width: 160px;
 }
 
-.delete {
-    cursor: pointer;
+/* .delete {
+    background-color: transparent;
     color: white;
+    outline: none;
+    border: none;
     font-weight: bold;
-}
+} */
 
 /* checkbox */
 .checkBox_wrapper {

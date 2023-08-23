@@ -86,7 +86,10 @@ const refresh = async (req, res) => {
             { expiresIn: "1d"}
         )
 
-        res.send({ accessToken })
+        res.json({
+            email: decoded.UserInfo.email,
+            accessToken: accessToken
+        })
     })
 }
 

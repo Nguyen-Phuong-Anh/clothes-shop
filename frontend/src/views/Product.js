@@ -1,3 +1,5 @@
+import useStore from "../store/useStore";
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
@@ -5,20 +7,25 @@ import Button from '../components/Button';
 import Slider from '../components/Slider'
 import SnippetQuantity from '../components/SnippetQuantity';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
-import { Store } from '../store/Store';
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import useRefreshToken from "../hooks/useRefreshToken";
 
 function Product() {
+    const { state, dispatch } = useStore()
+    const axiosPrivate = useAxiosPrivate()
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
     const { id } = useParams()
-    const { dispatch } = useContext(Store)
+    const refresh = useRefreshToken()
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get(`/product/${id}`)
+            const result = await axiosPrivate.get(`/products/${id}`,
+            { withCredentials: true })
             setProduct(result.data)
         }
         fetchData()
@@ -31,21 +38,46 @@ function Product() {
             alert("Please select size and color of the product!")
         } else {
             const addedProduct = {
-                id: product.id,
-                category: product.category,
                 name: product.name, 
                 type: product.type, // shirts, sneakers...
                 size: size[0].value,
                 color: color[0].value,
-                material: product.material,
-                number: number
+                quantity: number,
+                price: product.price,
+                image: ' ',
+                product: product.id
             };
-            dispatch({
-                type: 'ADD_ITEM',
-                payload: addedProduct
-            })
-        }
 
+            const refreshTk = async () => {
+                try {
+                    await refresh();
+                } catch(err) {
+                    console.log(err)
+                }
+            }
+
+            refreshTk();
+            
+            const verifySigin = async () => {
+                try {
+                    const res = await axiosPrivate.post('/products/addCart', {
+                        email: state.userInfo.email,
+                        token: state.userInfo.token,
+                        addedProduct: addedProduct
+                    })
+    
+                    dispatch({
+                        type: 'ADD_ITEM',
+                        payload: addedProduct
+                    })
+                } catch(err) {
+                    console.error(err)
+                    navigate('/login', { state: { from: location }, replace: true})
+                }
+            }
+
+            verifySigin()
+        }
     }
 
     return (

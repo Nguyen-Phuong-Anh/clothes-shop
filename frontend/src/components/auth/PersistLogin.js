@@ -5,7 +5,7 @@ import useStore from "../../store/useStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
-function PersistLogin() {
+const PersistLogin = () => {
     const [isLoading, setLoading] = useState(true)
     const refresh = useRefreshToken()
     const { state } = useStore()

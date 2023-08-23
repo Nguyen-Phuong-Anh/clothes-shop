@@ -5,7 +5,6 @@ const Cart = new Schema({
     userId: {type: String, required: true},
     cart: [
         {
-            productId: { type: String, required: true},
             name: { type: String, required: true},
             type: { type: String, required: true},
             size: { type: String, required: true},

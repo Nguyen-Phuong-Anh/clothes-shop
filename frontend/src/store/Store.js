@@ -6,7 +6,6 @@ const Store = createContext()
 const initialState = {
     cart: [], 
     cartItems: 0,
-    item: {},
 
     userInfo: {
         email: '',
@@ -17,7 +16,7 @@ const initialState = {
 function reducer(state, action) {
     switch(action.type) {
         case 'ADD_ITEM':
-            let total = state.cartItems + action.payload.number
+            let total = state.cartItems + action.payload.quantity
 
             localStorage.setItem('cartItems', JSON
             .stringify(total))
@@ -40,7 +39,6 @@ function reducer(state, action) {
             return {
                 cart: [], 
                 cartItems: 0,
-                item: {}, 
                 
                 userInfo: {
                     email: '',
@@ -52,8 +50,8 @@ function reducer(state, action) {
             return {
                 ...state, 
                 userInfo: {
-                    ...state.userInfo,
-                    token: action.payload
+                    email: action.payload.email,
+                    token: action.payload.token
                 }
             }
         default:

@@ -7,7 +7,7 @@ function DetailCard({product}) {
   const image = require("../../images/clothes3.jpg");
   
   return (
-    <Link to={`product/${product.id}`} className='link'>
+    <Link to={`/products/${product._id}`} className='link'>
       <div className={styles.wrapper}>
           <div className={styles.image}>
               <img src={image} alt='product' />

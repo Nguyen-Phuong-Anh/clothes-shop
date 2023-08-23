@@ -1,8 +1,14 @@
 import styles from './Cart.module.css'
 import CartItem from '../components/cartItem/CartItem';
-import data from '../data';
+import { useEffect, useState } from 'react';
+import useStore from '../store/useStore';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function Cart() {
+    const { state } = useStore()
+    const [cart, setCart] = useState([])
+    const axiosPrivate = useAxiosPrivate()
+    
     function handleCheckAll() {
         const checkAll = document.getElementById('checkAll')
         const elems = document.getElementsByClassName('checkbox')
@@ -10,6 +16,22 @@ function Cart() {
             elem.checked = checkAll.checked
         }
     }
+
+    useEffect(() => {
+        const getCart = async () => {
+            try {
+                const result = await axiosPrivate.post('/cart', {
+                    email: state.userInfo.email,
+                    token: state.userInfo.token
+                })
+                setCart(result.data)
+            } catch (error) {   
+                console.log(error)
+            }
+        }
+
+        getCart();
+    }, [])
 
     return (
         <div>
@@ -36,10 +58,8 @@ function Cart() {
 
                 <tbody>
                     {
-                    
-                    data.Cart.map((item) => {
-                        const product = data.Products.find(product => product.id === item.id)
-                        return ( <CartItem key={item.id} item={item} product={product} /> )
+                    Array.isArray(cart) && cart.map((item) => {
+                        return ( <CartItem state={state} accessKey={item._id} key={item.product.toString()} item={item} /> )
                     })}
                 </tbody>
             </table>
