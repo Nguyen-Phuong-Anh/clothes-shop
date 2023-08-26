@@ -77,15 +77,16 @@ function CartItem({accessKey = '', state, item}) {
         <tr>
             <td>
                 <div className={styles.item}>
-                <div className={styles.checkBox_wrapper}>
-                    <input 
-                    className='checkbox' type="checkbox" 
-                    id={`item${item.id}`}
-                    name='checkItem[]'
-                    onChange={handleCheck}
-                    />
+                    <div className={styles.checkBox_wrapper}>
+                        <input 
+                        className='checkbox' type="checkbox" 
+                        id={`item${item.id}`}
+                        name='checkItem[]'
+                        onChange={handleCheck}
+                        />
                         <label htmlFor={`item${item.id}`}></label>
                     </div>
+
                     <div className={styles.itemBody}>
                         <img src={image3} alt='item'/>
                         <p>{item.name}</p>

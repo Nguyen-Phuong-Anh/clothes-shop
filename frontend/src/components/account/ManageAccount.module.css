@@ -20,7 +20,7 @@
 }
 
 .info label {
-    width: 100px;
+    width: 120px;
 }
 
 .info input {
@@ -52,7 +52,22 @@
     padding: 10px 10px 5px;
     margin-bottom: 5px;
     border-top: 1px solid rgba(128, 128, 128, 0.181);
-    border-bottom: 1px solid rgba(128, 128, 128, 0.181);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+.container textarea {
+    width: 460px;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid green;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: none;
+}
+
+.container textarea:focus {
+    outline: none;
 }
 
 .show {
@@ -78,4 +93,88 @@
     display: none;
 }
 
-/* shipping add */
+.selectGroup:focus {
+    outline: none;
+    border-color: 2px green !important;
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.25) !important;
+}
+
+/* checkbox */
+.check_wrapper {
+    display: flex;
+}
+
+.checkAll {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.checkAll p {
+    margin: 0 0 0 5px;
+}
+
+.checkAll input {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 99;
+}
+
+.checkAll label {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+}
+
+.checkAll label::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: green;
+    margin-right: 10px;
+    border: 1px solid green;
+}
+
+.checkAll input:hover + label:before {
+    border: 1px solid green;
+}
+
+.checkAll input:checked + label:before{
+    content: '\2713';
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 15px;
+    border: 1px solid green;
+}
+
+/* alert */
+.alert {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: rgba(248, 215, 218, 1);
+    border-color: rgba(220, 53, 69, 1);
+    color: rgba(114, 28, 36,1);
+}
+
+.warning_wrapper {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.315);
+}
+
+.warning_wrapper .info {
+    border-bottom: none;
+    /* padding: 0; */
+}

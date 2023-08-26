@@ -9,7 +9,9 @@ const getProduct = async (req, res) => {
         })
     }
     const foundCart = await Cart.findOne({ userId: foundUser._id }).lean().exec()
-    res.send(foundCart.cart);
+    if(foundCart) {
+        res.send(foundCart.cart);
+    }
 }
 
 const addProduct = async (req, res) => {
