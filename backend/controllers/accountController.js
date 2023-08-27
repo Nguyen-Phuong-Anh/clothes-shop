@@ -17,7 +17,7 @@ const accessAccount = async (req, res) => {
             'Product Management',
             smallOptions = [
                 'Add Product',
-                'Delete Product'
+                'Manage Product'
             ]
         ]
 

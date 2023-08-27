@@ -1,14 +1,14 @@
 function Button({color, size, setColor, setSize}) {
-    function handleClick(event) {
-        const collection = document.getElementsByClassName('check')
+    function handleClickColor(event) {
+        const collection = document.getElementsByClassName('border1')
         for(let elem of collection) {
-            elem.classList.toggle('check')
+            elem.classList.toggle('border1')
         }
         const elem = event.target
-        if(!elem.classList.contains('check')) {
-            elem.classList.add('check')
+        if(!elem.classList.contains('border1')) {
+            elem.classList.add('border1')
         } else {
-            elem.classList.remove('check')
+            elem.classList.remove('border1')
         }
         
         setColor && setColor(event.target.value)
@@ -32,7 +32,7 @@ function Button({color, size, setColor, setSize}) {
     if(color) {
         return (
             <>
-                <button value={color} className={`${color} button`} onClick={(event) => handleClick(event)}></button>
+                <button value={color} className={`color_btn button`} onClick={(event) => handleClickColor(event)}>{color}</button>
             </>
         )
     } else {

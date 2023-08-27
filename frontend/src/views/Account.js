@@ -7,14 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/account/Profile";
 import AddProduct from "../components/account/AddProduct";
+import ManageProduct from "../components/account/ManageProduct";
 import ShippingAddress from "../components/account/ShippingAddress";
 
 const SelectCard = ({name, setSelect, hidden, setHidden}) => {
     if(setSelect) {
         return (
-            <div className={styles.selectCard} onClick={() => setSelect(name)}>
-                <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
-            </div>
+                <div className={styles.selectCard} onClick={() => setSelect(name)}>
+                    <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
+                </div>
         )
 
     } else {
@@ -34,7 +35,7 @@ const MiniCard = ({name, setSelect}) => {
     )
 }
 
-function Account() {
+function Account({children}) {
     const { state } = useStore()
     const [user, setUser] = useState({})
     const axiosPrivate = useAxiosPrivate()
@@ -92,8 +93,8 @@ function Account() {
                     {
                         user.isAdmin === true && (
                         <>
-                            <SelectCard id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} />
-                            <div className={`hidden ${hidden ? '' : styles.show}`}>
+                            <SelectCard className={styles.productMng} id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} />
+                            <div className={`${styles.popUp} hidden ${hidden ? '' : styles.show}`}>
                                 {
                                     Array.isArray(user.options[2]) && user.options[2].map((item) => (
                                         <MiniCard key={item} name={item} setSelect={setSelect} />
@@ -109,7 +110,9 @@ function Account() {
             <div className={styles.content}>
                 {select === 'Profile' && <Profile user={user} />}
                 {select === 'Add Product' && <AddProduct />}
+                {select === 'Manage Product' && <ManageProduct />}
                 {select === 'Shipping Address' && <ShippingAddress user={user} />}
+                {children}
             </div>
         </div>
     );

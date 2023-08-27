@@ -178,3 +178,49 @@
     border-bottom: none;
     /* padding: 0; */
 }
+
+/* manage product */
+.searchBox {
+    margin: 40px 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.searchBox input {
+    border: 1px solid green;
+    padding: 10px;
+    width: 450px;
+}
+
+.searchCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border: 1px solid green;
+    position: relative;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.searchCard img{
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    display: block;
+}
+
+.searchCard h4 {
+    color: var(--heavy_pink);
+}
+
+.searchCard p {
+    margin-bottom: 5px;
+    color: rgba(128, 128, 128, 0.771);
+}
+
+.price {
+    position: absolute;
+    right: 20px;
+}

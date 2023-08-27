@@ -25,16 +25,6 @@ function NavBar() {
     elem[0].classList.toggle('hidden')
   }
 
-  const handleSearch = async () => {
-    try {
-      await axios.post("/search", {
-        search
-      }).then(res => console.log(res.data))
-    } catch(err) {
-      console.error(err)
-    }
-  }
-
   const handleLogout = async () => {
     try {
       await axios.get('/logout', {
@@ -48,6 +38,12 @@ function NavBar() {
       navigate(from, { replace: true })
     } catch(err) {
       console.error(err);
+    }
+  }
+
+  const handleEnter = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
     }
   }
   
@@ -68,10 +64,10 @@ function NavBar() {
             </Nav>
 
             <Form className="d-flex m-2">
-              <input value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search' className={styles.nav_search} />
-              <Link to={"/search"}>
+              <input onKeyDown={handleEnter} value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search' className={styles.nav_search} />
+              <Link to={`/search/${search}`}>
                 <Nav.Item className='m-2'>
-                  <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} onClick={handleSearch} size='lg' />
+                  <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} size='lg' />
                 </Nav.Item>
               </Link>
             </Form>

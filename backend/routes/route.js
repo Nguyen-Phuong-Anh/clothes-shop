@@ -1,5 +1,4 @@
 require('dotenv').config()
-const data = require('../data')
 const registerController = require('../controllers/registerController')
 const authController = require('../controllers/authController')
 const accountController = require('../controllers/accountController')
@@ -31,11 +30,7 @@ function route(app) {
 
 
     //search
-    app.post('/search', (req, res) => {
-        const products = data.Products
-        const result = products.filter(item => item.name.includes(req.body.search))
-        res.send(result)
-    })
+    app.get('/search/:search', productController.searchProduct)
 }
 
 module.exports = route

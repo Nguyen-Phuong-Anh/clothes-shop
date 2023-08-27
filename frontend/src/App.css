@@ -165,6 +165,12 @@
   background-color: white;
 }
 
+.color_btn {
+  border: 1px solid var(--heavy_pink);
+  background-color: white;
+  width: 100px;
+}
+
 .snippet_container {
   display: grid;
   grid-template-columns: 150px 300px;
@@ -209,22 +215,6 @@
   padding-right: 10px;
 }
 
-.red {
-  background-color: red;
-}
-
-.orange {
-  background-color: orange;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.white {
-  background-color: white;
-}
-
 .signature {
   background-color: var(--signature_color);
 }
@@ -239,9 +229,19 @@
   background-color: var(--soft_pink);
 }
 
+.border1 {
+  background-color: var(--soft_pink);
+}
+
 /* input glow */
 .input:focus {
   outline: none;
   border-color: 2px #28a745 !important;
   box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.25) !important;
+}
+
+/* search */
+.search_wrapper h3 {
+  border-bottom: 1px solid orange;
+  margin-bottom: 30px;
 }

@@ -9,6 +9,7 @@ import LogIn from './components/auth/LogIn';
 import Account from './views/Account';
 import PersistLogin from './components/auth/PersistLogin';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddProduct from './components/account/AddProduct';
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
-          <Route path='/search' element={<Search/>}/>
-
+          <Route path='/search/:search' element={<Home children={<Search/>} />}/>
+          
           <Route element={<PersistLogin />}>
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>

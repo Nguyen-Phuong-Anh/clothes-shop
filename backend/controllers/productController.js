@@ -50,9 +50,21 @@ const updateProduct = async (req, res) => {
 
 }
 
+const searchProduct = async (req, res) => {
+    const result = await Product.find({
+        'name': {
+            $regex: req.params.search,
+            $options: "i" // case-insensitive search
+        }
+    })
+
+    res.status(200).send(result)
+}
+
 module.exports = {
     getAllProduct,
     getProduct,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    searchProduct
 }
