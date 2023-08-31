@@ -2,8 +2,6 @@ import DetailCard from "../components/card/Card";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 function Search() {
     const { search } = useParams();

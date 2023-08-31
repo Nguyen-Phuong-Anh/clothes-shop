@@ -8,11 +8,13 @@ const loginLimiter = require('../middleware/loginLimiter')
 const verifyJWT = require('../middleware/verifyJWT')
 function route(app) {
     //manage account
-    app.put('/account/update', accountController.updateAccout);
+    app.put('/account/update', accountController.updateAccount);
     app.post('/account', verifyJWT, accountController.accessAccount);
 
     //manage product
     app.get('/products/:id', productController.getProduct)
+    app.put('/manage_product/:id', productController.updateProduct)
+    app.delete('/manage_product/:id', productController.deleteProduct)
     app.get('/products', productController.getAllProduct)
     app.post('/account/addProduct', productController.addProduct)
     

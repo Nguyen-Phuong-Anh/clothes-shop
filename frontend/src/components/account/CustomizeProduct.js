@@ -2,9 +2,12 @@ import styles from './ManageAccount.module.css'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
-import { useReducer, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import { useEffect, useReducer, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const initialState = {
+    id: '',
     category: '',
     name: '',
     type: '',
@@ -18,6 +21,20 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case 'SET_PRODUCT':
+            const sizesCheckbox = document.querySelectorAll('input[name="SIZES[]"]')
+            for(let item of action.payload.sizes) {
+                for(let checkbox of sizesCheckbox) {
+                    if(checkbox.value.toUpperCase() === item.toUpperCase()) {
+                        checkbox.checked = true
+                        break;
+                    }
+                }
+            }
+            return {
+                ...state,
+                ...action.payload
+            }
         case 'SET_CATEGORY':
             return {
                 ...state, 
@@ -76,23 +93,6 @@ const reducer = (state, action) => {
                 price: action.payload
             }
 
-        case 'SET_CANCEL':
-            const sizesArray = document.querySelectorAll('input[name="SIZES[]"]:checked')
-            sizesArray.forEach((item) => {
-                item.checked = false
-            })
-            return {
-                category: '',
-                name: '',
-                type: '',
-                sizes: '',
-                colors: '',
-                material: '',
-                description: '',
-                countInStock: '',
-                price: ''
-            }
-
         default:
             return {
                 ...state
@@ -100,7 +100,7 @@ const reducer = (state, action) => {
     }
 }
 
-function AddProduct() {
+function CustomizeProduct({id}) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [hidden, setHidden] = useState(true)
     const [target, setTarget] = useState('')
@@ -138,16 +138,20 @@ function AddProduct() {
         })
     }
 
-    const handleCancel = () => {
-        dispatch({
-            type: 'SET_CANCEL'
-        })
-    }
-
-    const handleSubmit = async (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await axiosPrivate.post('/account/addProduct', state)
+            await axiosPrivate.put(`/manage_product/${id}`, state)
+            .then(res => console.log(res))
+        } catch (error) {  
+            console.error(error)
+        }
+    }
+
+    const handleDelete = async (event) => {
+        event.preventDefault();
+        try {
+            await axiosPrivate.delete(`/manage_product/${id}`)
             .then(res => console.log(res))
             window.location.reload(); 
         } catch (error) {  
@@ -155,9 +159,24 @@ function AddProduct() {
         }
     }
 
+    useEffect(() => {
+        try {
+            const fetchData = async () => {
+                const result = await axiosPrivate.get(`/products/${id}`,
+                { withCredentials: true })
+                console.log(result.data)
+                dispatch({
+                    type: "SET_PRODUCT", payload: result.data
+                })
+            }
+            fetchData()
+        } catch (error) {
+            console.error(error)
+        }
+    }, [])
+
     return (
-        <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
-            <h3>Add Product</h3>
+        <form onSubmit={(event) => event.preventDefault()} className={`${styles.wrapper} mt-3`}>
             <div>
                 <Form.Group>
                     <Form.Label>Category</Form.Label>
@@ -306,13 +325,13 @@ function AddProduct() {
                 </div>
             </div>
             <div className={styles.button_area}>
-                <Button type='submit' className={`${styles.btn_size}`} 
-                variant="outline-success">Save</Button>
-                <Button className={`${styles.btn_size}`} 
-                onClick={handleCancel}  variant="outline-secondary">Cancel</Button>
+                <Button onClick={handleUpdate} type='submit' className={`${styles.btn_size}`} 
+                variant="outline-success">Update</Button>
+                <Button onClick={handleDelete} type='submit' className={`${styles.btn_size}`} 
+                variant="outline-danger">Delete</Button>
             </div>
         </form>
     );
 }
 
-export default AddProduct;
+export default CustomizeProduct;

@@ -49,7 +49,7 @@ const accessAccount = async (req, res) => {
 
 }
 
-const updateAccout = async (req, res) => {
+const updateAccount = async (req, res) => {
     let result
     if(req.body?.username !== '') {
         result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
@@ -72,5 +72,5 @@ const updateAccout = async (req, res) => {
 
 module.exports = {
     accessAccount,
-    updateAccout
+    updateAccount
 }

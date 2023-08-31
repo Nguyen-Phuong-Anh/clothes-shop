@@ -23,12 +23,16 @@ function Product() {
     const location = useLocation()
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axiosPrivate.get(`/products/${id}`,
-            { withCredentials: true })
-            setProduct(result.data)
+        try {
+            const fetchData = async () => {
+                const result = await axiosPrivate.get(`/products/${id}`,
+                { withCredentials: true })
+                setProduct(result.data)
+            }
+            fetchData()
+        } catch (error) {
+            console.error(error)
         }
-        fetchData()
     }, [])
 
     function handlePurchase() {

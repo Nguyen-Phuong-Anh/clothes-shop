@@ -1,15 +1,16 @@
 import DetailCard from './card/Card';
 import { useState, useEffect } from 'react';
-import axios from 'axios'
 import Slider from '../components/Slider';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function HomeBody() {
     const [products, setProducts] = useState([])
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await axios.get('/products')
+                const result = await axiosPrivate.get('/products')
                 setProducts(result.data)
             } catch (error) {
                 console.log(error)

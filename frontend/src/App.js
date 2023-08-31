@@ -8,8 +8,8 @@ import HomeBody from './components/HomeBody';
 import LogIn from './components/auth/LogIn';
 import Account from './views/Account';
 import PersistLogin from './components/auth/PersistLogin';
+import CustomizeProduct from './components/account/CustomizeProduct';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AddProduct from './components/account/AddProduct';
 
 function App() {
   return (

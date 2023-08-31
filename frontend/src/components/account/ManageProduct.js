@@ -3,11 +3,12 @@ import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { Link } from 'react-router-dom';
+import CustomizeProduct from './CustomizeProduct';
 
 function ManageProduct() {
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState('')
+    const [id, setId] = useState('')
     const [show, setShow] = useState(false);
     const axiosPrivate = useAxiosPrivate()
 
@@ -17,22 +18,21 @@ function ManageProduct() {
     const SearchCard = ({product}) => {
         const sizes = product.sizes.map(item => item).join(', ')
         const colors = product.colors.map(item => item).join(' ')
+        setId(product._id)
         return (
-            <Link to={`/account/manage_product/${product._id}`} className='link'>
-                <div className={styles.searchCard}>
-                    <div>
-                        <img />
-                    </div>
-                    <div>
-                        <h4>{product.name}</h4>
-                        <p>Sizes: {sizes}</p>
-                        <p>Colors: {colors}</p>
-                    </div>
-                    <h4 className={styles.price}>
-                        {product.price}$
-                    </h4>
+            <div className={styles.searchCard} onClick={handleShow}>
+                <div>
+                    <img />
                 </div>
-            </Link>
+                <div>
+                    <h4>{product.name}</h4>
+                    <p>Sizes: {sizes}</p>
+                    <p>Colors: {colors}</p>
+                </div>
+                <h4 className={styles.price}>
+                    {product.price}$
+                </h4>
+            </div>
         )
     }
 
@@ -56,19 +56,13 @@ function ManageProduct() {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} size="lg">
                 <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Manage Product</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <CustomizeProduct id={id}/>
+                </Modal.Body>
             </Modal>
 
             <div className={styles.searchBox}>
