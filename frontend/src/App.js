@@ -8,7 +8,7 @@ import HomeBody from './components/HomeBody';
 import LogIn from './components/auth/LogIn';
 import Account from './views/Account';
 import PersistLogin from './components/auth/PersistLogin';
-import CustomizeProduct from './components/account/CustomizeProduct';
+import Order from './views/Order';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
           <Route element={<PersistLogin />}>
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>
+              <Route path='/order' element={<Home children={<Order/>} />}/>
           </Route>
           <Route path='/products/:id' element={<Home children={<Product/>} />}/>
 

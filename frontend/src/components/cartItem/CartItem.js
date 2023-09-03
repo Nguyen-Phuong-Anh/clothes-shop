@@ -8,7 +8,7 @@ import Button from '../Button';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useEffect } from 'react';
 
-function CartItem({accessKey = '', state, item}) {
+function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
     const [number, setNumber] = useState(`${Number(item.quantity)}`)
     const [product, setProduct] = useState({})
     const [color, setColor] = useState(`${item.color}`)
@@ -20,7 +20,16 @@ function CartItem({accessKey = '', state, item}) {
     
     function handleCheck() {
         const checkAll = document.getElementById('checkAll')
-        var isCheckedAll = document.querySelectorAll('input[name="checkItem[]"]:checked').length === document.querySelectorAll('input[name="checkItem[]"]').length
+        const allProducts = Array.from(document.querySelectorAll('input[name="checkItem[]"]:checked'));
+        let totalMoney = 0;
+        let totalItem = 0;
+        for(let item of allProducts) {
+            totalMoney += Number(item.getAttribute('data-price')) * Number(item.getAttribute('data-quantity'))
+            totalItem += Number(item.getAttribute('data-quantity'))
+        }
+        setTotalProduct(totalItem)
+        setTotalAmount(totalMoney)
+        var isCheckedAll = allProducts.length === document.querySelectorAll('input[name="checkItem[]"]').length
         checkAll.checked = isCheckedAll
     }
 
@@ -32,7 +41,7 @@ function CartItem({accessKey = '', state, item}) {
         try {
             await axiosPrivate.post('/cart/delete', {
                 email: state.userInfo.email,
-                accessKey: accessKey,
+                accessKey: item._id,
             }).then(res => console.log(res))
         } catch (error) {
             console.error(error)   
@@ -56,9 +65,9 @@ function CartItem({accessKey = '', state, item}) {
         const updateProduct = async () => {
             const id = item.product.toString();
             try {
-                const res = await axiosPrivate.post(`/cart/update`, {
+                await axiosPrivate.post(`/cart/update`, {
                     email: state.userInfo.email,
-                    accessKey: accessKey,
+                    accessKey: item._id,
                     number: number,
                     color: color,
                     size: size
@@ -79,12 +88,15 @@ function CartItem({accessKey = '', state, item}) {
                 <div className={styles.item}>
                     <div className={styles.checkBox_wrapper}>
                         <input 
-                        className='checkbox' type="checkbox" 
-                        id={`item${item.id}`}
-                        name='checkItem[]'
-                        onChange={handleCheck}
+                            className='checkbox' type="checkbox" 
+                            id={`${item._id}`}
+                            data-price={item.price}
+                            data-quantity={item.quantity}
+                            data-name={item.name}
+                            name='checkItem[]'
+                            onChange={handleCheck}
                         />
-                        <label htmlFor={`item${item.id}`}></label>
+                        <label htmlFor={`${item._id}`}></label>
                     </div>
 
                     <div className={styles.itemBody}>
@@ -94,6 +106,7 @@ function CartItem({accessKey = '', state, item}) {
                     <div className={styles.itemInfo}>
                         <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
                         <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
+                        
                         {/* popUp custom */}
                         <div className={styles.popWrapper}>
                             <div className={`${styles.popUp} ${rotate ? styles.show : ''}`}>

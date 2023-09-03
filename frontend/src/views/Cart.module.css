@@ -84,3 +84,36 @@
     font-size: 15px;
     border: 1px solid green;
 }
+
+/* cart_footer */
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    border: 1px solid var(--heavy_pink);
+    padding: 20px 0;
+}
+
+.cart_footer {
+    display: flex;
+    height: 50px;
+    gap: 20px;
+    margin-right: 20px;
+}
+
+.cart_footer p {
+    margin: 0;
+}
+
+.purchase_btn {
+    height: 40px;
+    width: 150px;
+    outline: none;
+    border: none;
+    background-color: var(--soft_pink);
+}
+
+.purchase_btn:hover {
+    border: 2px solid var(--heavy_pink);
+    transform: scale(1.02);
+}

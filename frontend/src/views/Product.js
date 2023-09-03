@@ -36,7 +36,7 @@ function Product() {
     }, [])
 
     function handlePurchase() {
-        const color = document.getElementsByClassName('check')
+        const color = document.getElementsByClassName('border1')
         const size = document.getElementsByClassName('border')
         if(!size[0] || !color[0]) {
             alert("Please select size and color of the product!")

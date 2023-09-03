@@ -49,6 +49,18 @@ const accessAccount = async (req, res) => {
 
 }
 
+const getShippingAddress = async (req, res) => {
+    const foundUser = await User.findOne({email: req.body.email}).exec()
+
+    if(foundUser) {
+        res.json({
+            shippingAddress: foundUser?.shippingAddress
+        })
+    } else {
+        res.status(500)
+    }
+}
+
 const updateAccount = async (req, res) => {
     let result
     if(req.body?.username !== '') {
@@ -72,5 +84,6 @@ const updateAccount = async (req, res) => {
 
 module.exports = {
     accessAccount,
+    getShippingAddress,
     updateAccount
 }

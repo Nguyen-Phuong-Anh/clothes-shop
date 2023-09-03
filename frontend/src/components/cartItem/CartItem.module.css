@@ -58,8 +58,8 @@
 .popUp {
     position: absolute;
     top: -45px;
-    width: 220px;
-    height: 200px;
+    width: 280px;
+    /* height: 200px; */
     background-color: white;
     display: none;
     z-index: 99;
@@ -88,7 +88,8 @@
 .button_group {
     width: 100%;
     display: flex;
-    gap: 0 10px;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 10px;
 }
 
@@ -98,6 +99,13 @@
 
 .center {
     width: 160px;
+}
+
+.delete {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: green;
 }
 
 /* checkbox */
