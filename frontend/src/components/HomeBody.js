@@ -20,10 +20,16 @@ function HomeBody() {
     }, [])
 
     return (
-        <div>
+        <div className='home_body'>
+            <div className='home_quotes'>
+                <h2>To become fashionable...</h2>
+                <p>
+                    <i>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</i>
+                </p>
+            </div>
             <div className='home_slider'><Slider/></div>
             <div className='body'>
-                <div className='body_sidebar'>
+                {/* <div className='body_sidebar'>
                     <h3>List</h3>
                     <h5>Clothes</h5>
                     <ul>
@@ -37,7 +43,8 @@ function HomeBody() {
                         <li>fals</li>
                         <li>fals</li>
                     </ul>
-                </div>
+                </div> */}
+                <h1>Choose your styles</h1>
                 <div className='card_group'>
                     {Array.isArray(products) && products.map((product) => (
                         <DetailCard key={product._id} product={product}/>

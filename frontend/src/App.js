@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
-          <Route path='/search/:search' element={<Home children={<Search/>} />}/>
+          <Route path='/search' element={<Home children={<Search/>} />}/>
           
           <Route element={<PersistLogin />}>
               <Route path='/account' element={<Home children={<Account/>} />}/>

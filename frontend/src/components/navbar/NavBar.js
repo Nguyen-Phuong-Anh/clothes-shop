@@ -16,6 +16,7 @@ function NavBar() {
   const [search, setSearch] = useState('')
   const { state, dispatch } = useStore()
 
+  
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
@@ -44,18 +45,19 @@ function NavBar() {
   const handleEnter = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
+      navigate(`/search/${search}`)
+      setSearch('')
     }
   }
   
   return (
-    <div className='container'>
-      <Navbar fixed="top" className={styles.navbar_body}>
-        <Container fluid>
-          <Link to={"/"} className='link'><Navbar.Brand>RAYNE</Navbar.Brand></Link>
+    <div className={`container`}>
+      <Navbar fixed="top" className={`${styles.navbar}`}>
+        <Container fluid className={styles.navbar_body}>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
-              className="m-auto"
+              // className="m-auto"
               style={{ maxHeight: '50px' }}
               navbarScroll
             >
@@ -63,11 +65,12 @@ function NavBar() {
               <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Shoes</Nav.Item>
             </Nav>
 
-            <Form className="d-flex m-2">
-              <input onKeyDown={handleEnter} value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search' className={styles.nav_search} />
-              <Link to={`/search/${search}`}>
-                <Nav.Item className='m-2'>
-                  <FontAwesomeIcon className={styles.icon} icon={faMagnifyingGlass} size='lg' />
+            <Link to={"/"} className='link m-auto'><Navbar.Brand className={styles.brand}><span>RAYNE</span></Navbar.Brand></Link>
+
+            <Form className={`d-flex me-3 ${styles.search_wrapper}`}>
+              <Link to={`/search`}>
+                <Nav.Item className={`${styles.search_btn} ${styles.search_box}`}>
+                    <FontAwesomeIcon className={styles.icon_search} icon={faMagnifyingGlass} />
                 </Nav.Item>
               </Link>
             </Form>
@@ -75,13 +78,13 @@ function NavBar() {
             <Nav>
               <Link to={state.userInfo.token ? '/account' : '/login'}>
                   <Nav.Item className='mt-2'>
-                    <FontAwesomeIcon className={styles.icon} icon={faUser} size='lg' />
+                    <FontAwesomeIcon className={styles.icon} icon={faUser} />
                   </Nav.Item>
               </Link>
 
               <Link to={state.userInfo.token ? '/cart' : '/login'}>
                 <Nav.Item className='m-2'>
-                  <FontAwesomeIcon className={styles.icon} icon={faBagShopping} size='lg' />
+                  <FontAwesomeIcon className={styles.icon} icon={faBagShopping} />
                   <span className={styles.badge}>
                     {state.cartItems > 0 && <Badge pill bg="danger">{state.cartItems}</Badge>}
                   </span>
@@ -89,7 +92,7 @@ function NavBar() {
               </Link>
               
               <Nav.Item className={`mt-2 ${state.userInfo.token ? '' : 'hidden'}`} onClick={handleLogout}>
-                    <FontAwesomeIcon className={styles.icon} icon={faArrowRightFromBracket} size='lg' />
+                    <FontAwesomeIcon className={styles.icon} icon={faArrowRightFromBracket} />
               </Nav.Item>
 
             </Nav>

@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
-import image from '../images/clothes1.jpg'
-import image2 from '../images/clothes2.jpg'
-import image3 from '../images/clothes3.jpg'
+import image from '../images/clothes7.jpg'
+import image2 from '../images/clothes5.jpg'
+import image3 from '../images/clothes6.jpg'
 
 function Slider() {
   return (
@@ -13,10 +13,10 @@ function Slider() {
               src={image}
               alt="First slide"
             />
-            <Carousel.Caption>
+            {/* <Carousel.Caption>
               <h3>Vintage</h3>
               <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -24,10 +24,10 @@ function Slider() {
               src={image2}
               alt="Second slide"
             />
-            <Carousel.Caption>
+            {/* <Carousel.Caption>
               <h3>Warm and hug</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -35,12 +35,12 @@ function Slider() {
               src={image3}
               alt="Third slide"
             />
-            <Carousel.Caption>
+            {/* <Carousel.Caption>
               <h3>Slay every day</h3>
               <p>
                 Praesent commodo cursus magna, vel scelerisque nisl consectetur.
               </p>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
           </Carousel.Item>
         </Carousel>
     </div>

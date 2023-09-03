@@ -1,29 +1,72 @@
-
 /* Navbar CSS */
-.container {
+.search_wrapper {
+    /* padding: 0 0 10px 5px; */
+    /* margin-top: 10px; */
     position: relative;
-    margin-top: 100px;
-    width: 100%;
-    color: white;
-    font-size: 1.1rem;
+}
+
+@keyframes showDiv {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
   
 .nav_search {
-    outline: none;
     border: none;
-    width: 300px;
-    padding: 0 10px;
+    border-bottom: 1px solid black;
+    outline: none;
+    width: 180px;
+    padding: 0 0 5px 10px;
+    caret-color: var(--heavy_pink);
+    position: absolute;
+    display: none;
+    transition: 1s;
+    right: -100px;
+    
 }
 
-input:focus {
-    border: none;
-    outline: none;
+.search_wrapper:hover .nav_search {
+    display: block;
+    animation: showDiv 1s ease-in both;
+    right: 30px;
 }
 
-.icon {
-    color: var(--heavy_pink);
+.nav_search::placeholder:focus {
+    font-weight: 200;
+}
+
+.search_btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding-top: 2px;
+}
+
+.icon, .icon_search {
+    color: black;
     margin: 0 10px;
     cursor: pointer;
+    padding: 5px;
+}
+
+.search_box {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.search_box:hover {
+    /* transform: translateY(-5px); */
+    background-color: black;
+    transition: all 0.3s ease-out;
+}
+
+.icon_search:hover {
+    color: white;
+    transition: all 0.1s;
+
 }
 
 .badge {
@@ -37,15 +80,55 @@ input:focus {
 }
 
 .navlink {
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 0.95rem;
 }
 
 .navlink:hover {
     cursor: pointer;
-    color: var(--soft_pink) !important;
+    color: var(--heavy_pink) !important;
+    transition: transform 0.2s ease;
+    transform: translateY(4px);
+}
+
+.navbar {
+    background-color: white;
 }
 
 .navbar_body {
-    background-color: var(--soft_white);
-    box-shadow: 2px 2px #d5d1be;
+    padding: 5px 10px;
+}
+
+.brand span{
+    font-family: 'Satisfy', cursive;
+    position: relative;
+    display: block;
+    font-size: 2rem;
+}
+
+.brand span::before, .brand span::after {
+    border:  1px solid white;
+    transition: all 0.4s;
+    content: '';
+    height: 0;
+    position: absolute;
+    width: 0%;
+    background-color: white;
+}
+
+.brand span::before {
+    border-top: 1px solid transparent;
+    top: -4px;
+    left: 0px;
+}
+
+.brand span::after {
+    border-bottom: 1px solid transparent;
+    top: 45px;
+    right: 0px;
+}
+
+.brand span:hover:before, .brand span:hover:after {
+    width: 100%;
+    border-color: var(--heavy_pink);
 }

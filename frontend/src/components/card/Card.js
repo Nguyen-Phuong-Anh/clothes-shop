@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 
 function DetailCard({product}) {
-  const image = require("../../images/clothes3.jpg");
+  const image = require("../../images/shirt2.jpg");
   
   return (
     <Link to={`/products/${product._id}`} className='link'>
@@ -14,7 +14,7 @@ function DetailCard({product}) {
           </div>
           <div className={styles.content}>
               <p>{product.name}</p>
-              <p className={styles.price}>{product.price}</p>
+              <p className={styles.price}>${product.price}</p>
           </div>
 
           <div className={styles.toggle_buy}>

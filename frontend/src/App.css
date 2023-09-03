@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Satisfy&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto Slab', serif;
+
   --signature_color: #617143;
   --soft_white: #EDE9D5;
   --soft_pink: #E7AB9A;
-  --heavy_pink: #DF7857;
+  --heavy_pink: #F6635C;
 }
 
 .link {
@@ -45,28 +46,79 @@
 
 .slider {
   margin: auto;
-  height: 800px;
+  height: 1000px;
   width: 100%;
 }
 
 .slider img {
-  height: 800px;
+  height: 1000px;
 }
 
 /* body */
+.home_body {
+  margin: 100px auto 40px;
+  /* max-width: 1100px; */
+  width: 90%;
+}
+
+.home_quotes {
+  /* margin: auto; */
+  border-left: 4px solid black;
+  max-width: 900px;
+  cursor: context-menu;
+}
+
+.home_quotes h2, .home_quotes p {
+  margin-left: 15px;
+}
+
+.home_quotes h2 {
+  font-family: 'Satisfy', cursive;
+}
+
 .home_slider {
-  width: 80%;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
 }
 
 .body {
-  margin: 40px auto 40px;
-  max-width: 1100px;
-  display: flex;
+  margin-top: 50px;
 }
 
+.body h1 {
+  font-family: 'Satisfy', cursive;
+  width: 340px;
+  cursor: context-menu;
+  position: relative;
+  font-size: 3rem;
+  margin: 0 auto;
+}
+
+.body h1::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 0;
+  top: 35px;
+  left: -7px;
+  border:  1px solid white;
+  background-color: white;
+  width: 100%;
+  border-color: black;
+}
+
+.body h1:hover {
+  transition: all 0.4s;
+  transform: translateY(-3px);
+}
+
+/* .body h1:hover::after {
+  transition: all 0.4s;
+  width: 100%;
+  border-color: black;
+} */
+
 .body_sidebar {
-  border-right: 1px solid green;
+  border-right: 1px solid black;
   width: 250px;
   margin-right: 40px;
   padding-left: 20px;
@@ -82,6 +134,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
+  margin-top: 20px;
 }
 
 @media screen and (max-width:900px) {
