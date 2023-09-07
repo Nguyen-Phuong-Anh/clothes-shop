@@ -157,8 +157,8 @@ function AddProduct() {
 
     return (
         <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
-            <h3>Add Product</h3>
-            <div>
+            <h1>Add Product</h1>
+            <div className='mt-4'>
                 <Form.Group>
                     <Form.Label>Category</Form.Label>
                     <Form.Select 
@@ -196,7 +196,7 @@ function AddProduct() {
                     />
                 </div>
                 <div className={`mt-4 pb-3 ${styles.check_wrapper} ${styles.info}`}>
-                    Size
+                    <label for="SIZES[]">Size</label>
                     <div className={styles.checkAll}>
                         <input
                             type="checkbox"
@@ -307,9 +307,9 @@ function AddProduct() {
             </div>
             <div className={styles.button_area}>
                 <Button type='submit' className={`${styles.btn_size}`} 
-                variant="outline-success">Save</Button>
+                variant="outline-dark">Save</Button>
                 <Button className={`${styles.btn_size}`} 
-                onClick={handleCancel}  variant="outline-secondary">Cancel</Button>
+                onClick={handleCancel}  variant="light">Cancel</Button>
             </div>
         </form>
     );

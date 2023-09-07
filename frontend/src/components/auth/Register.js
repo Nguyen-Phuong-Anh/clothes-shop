@@ -119,6 +119,7 @@ function Register() {
                     placeholder='Password'
                     onChange={handleChange}
                     autoComplete=''
+                    autoFocus
                 />
             </div>
             <div>

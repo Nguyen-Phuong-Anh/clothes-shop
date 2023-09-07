@@ -49,8 +49,8 @@ function Profile({user}) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
-            <h3>My Account</h3>
+        <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-2`}>
+            <h1>My Account</h1>
             <div className={styles.section}>
                 <div className={styles.info}>
                     <label htmlFor='username'>Username</label>
@@ -98,8 +98,11 @@ function Profile({user}) {
                 </div>
             </div>
             <div className={`${hidden === false ? styles.none : styles.button_area}`}>
-                <Button type='submit' className={`${styles.btn_size}`} variant="outline-success">Save</Button>
-                <Button className={`${styles.btn_size}`} onClick={handleCancel} variant="outline-secondary">Cancel</Button>
+                <Button type='submit' 
+                    className={`${styles.btn_size}`}
+                    variant="outline-dark"
+                >Save</Button>
+                <Button className={`${styles.btn_size}`} onClick={handleCancel} variant="light">Cancel</Button>
             </div>
         </form>
     );

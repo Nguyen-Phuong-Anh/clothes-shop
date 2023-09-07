@@ -71,8 +71,9 @@
 
 .badge {
     position: relative;
-    left: -10px;
-    top: -5px;
+    font-size: 0.7rem;
+    left: -12px;
+    top: -10px;
 }
 
 .navDropdown {

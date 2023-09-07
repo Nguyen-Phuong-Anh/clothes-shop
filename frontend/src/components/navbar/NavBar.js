@@ -61,8 +61,8 @@ function NavBar() {
               style={{ maxHeight: '50px' }}
               navbarScroll
             >
-              <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Clothes</Nav.Item>
-              <Nav.Item className={`${styles.navlink} m-3`} onClick={handleHidden}>Shoes</Nav.Item>
+              <Nav.Item className={`${styles.navlink} m-3`} >Clothes</Nav.Item>
+              <Nav.Item className={`${styles.navlink} m-3`} >Shoes</Nav.Item>
             </Nav>
 
             <Link to={"/"} className='link m-auto'><Navbar.Brand className={styles.brand}><span>RAYNE</span></Navbar.Brand></Link>
@@ -98,9 +98,9 @@ function NavBar() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-        <div className='toggle hidden'>
+        {/* <div className='toggle hidden'>
           <ToggleBar/>
-        </div>
+        </div> */}
       </Navbar>
     </div>
   );

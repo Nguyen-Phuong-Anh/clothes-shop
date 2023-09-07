@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from './Order.module.css'
 import shippingStyles from '../components/account/ManageAccount.module.css'
@@ -15,9 +15,9 @@ const OrderItem = ({item}) => {
                     <p><span>Size:</span> {item.size}</p>
                 </div>
             </td>
-            <td>{item.price}</td>
+            <td>${item.price}</td>
             <td><span>Quantity:</span> {item.quantity}</td>
-            <td>{item.quantity * item.price}</td>
+            <td>${item.quantity * item.price}</td>
         </tr>
     )
 }
@@ -27,6 +27,7 @@ function Order() {
     const value = location.state;
     const [shippingAddress, setShippingAddress] = useState({})
     const axiosPrivate = useAxiosPrivate()
+    const navigate = useNavigate()
 
     const handleOrder = async () => {
         try {
@@ -37,8 +38,13 @@ function Order() {
                 totalProduct: value.totalProduct,
                 status: 'Processing',
                 paymentMethod: {
-                    online: Boolean,
-                    offline: Boolean
+                    online: false,
+                    offline: true
+                }
+            })
+            .then(res => {
+                if(res.status === 201) {
+                    navigate('/order_success', { state: { from: location }, replace: true})
                 }
             })
         } catch (error) {   
@@ -46,8 +52,12 @@ function Order() {
         }
     }
 
-    const handleClick = () => {
-        console.log("hello")
+    const handleShow = () => {
+        const elem = document.getElementById('alert')
+        elem.classList.add(`${styles.show}`)
+        setTimeout(() => {
+            elem.classList.remove(`${styles.show}`)
+        }, 3000);
     }
 
     useEffect(() => {
@@ -92,49 +102,60 @@ function Order() {
 
             <div className={styles.payment}>
                 <h4>Payment</h4>
-                <div>
+                <div className={styles.payment_shipAdr}>
                     <h5>Shipping Address</h5>
-                <div className={shippingStyles.section}>
-                    <div className={shippingStyles.info}>
-                        <label htmlFor='fullname'>Fullname</label>
-                        <div className={shippingStyles.container}>
-                            <p>{shippingAddress.fullName}</p>
+                    <div className={`${shippingStyles.section}`}>
+                        <div className={styles.info}>
+                            <label htmlFor='fullname'>Fullname</label>
+                            <div className={styles.container}>
+                                <p>{shippingAddress.fullName}</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className={shippingStyles.info}>
-                        <label htmlFor='tel'>Tel</label>
-                        <div className={shippingStyles.container}>
-                            <p>{shippingAddress.tel}</p>
+                        <div className={styles.info}>
+                            <label htmlFor='tel'>Tel</label>
+                            <div className={styles.container}>
+                                <p>{shippingAddress.tel}</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className={shippingStyles.info}>
-                        <label htmlFor='city'>City</label>
-                        <div className={shippingStyles.container}>
-                            <p>{shippingAddress.city}</p>
+                        <div className={styles.info}>
+                            <label htmlFor='city'>City</label>
+                            <div className={styles.container}>
+                                <p>{shippingAddress.city}</p>
+                            </div>
+                        </div>
+                        
+                        <div className={`${styles.info} mb-4`}>
+                            <label htmlFor='address'>Address</label>
+                            <div className={styles.container}>
+                                <p>{shippingAddress.address}</p>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    
-                    <div className={`${shippingStyles.info} mb-4`}>
-                        <label htmlFor='address'>Address</label>
-                        <div className={shippingStyles.container}>
-                            <p>{shippingAddress.address}</p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div>
-                    <h5>Payment Method</h5>
-                    <div>
-                        <button>Online</button>
-                        <button 
-                        onClick={handleClick}
-                        >Offline</button>
-                    </div>
-                    <div className={styles.alert} role="alert">This payment method hasn't available yet!</div>
+            </div>
+
+            <div className={styles.payment_method}>
+                <h5>Payment Method</h5>
+                <div className={styles.payment_options}>
+                    <button>Offline</button>
+                    <button 
+                    onClick={handleShow}
+                    >Online</button>
                 </div>
             </div>
+
+            <div className={styles.confirm}>
+                <p>Merchandise cost: ${value.totalAmount}</p>
+                <p>Shipping cost: $0</p>
+                <p>Total cost: ${value.totalAmount}</p>
+                <div>
+                    <button onClick={handleOrder}>Order</button>
+                </div>
+            </div>
+
+            <div id="alert" className={`${styles.alert}`} role="alert">This payment method hasn't available yet!</div>
         </div>
     );
 }

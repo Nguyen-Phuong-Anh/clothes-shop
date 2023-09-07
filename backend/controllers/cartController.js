@@ -90,9 +90,16 @@ const updateProduct = async (req, res) => {
     
 }
 
+const finishOrder = async (req, res) => {
+    res.status(200).json({
+        "message": "Deleted successfully"
+    })
+}
+
 module.exports = {
     getProduct,
     addProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    finishOrder
 }

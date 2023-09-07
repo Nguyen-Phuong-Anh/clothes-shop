@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import image from '../images/clothes7.jpg'
+import image from '../images/clothes8.jpg'
 import image2 from '../images/clothes5.jpg'
 import image3 from '../images/clothes6.jpg'
 
@@ -10,7 +10,7 @@ function Slider() {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src={image}
+              src={image2}
               alt="First slide"
             />
             {/* <Carousel.Caption>
@@ -21,7 +21,7 @@ function Slider() {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src={image2}
+              src={image}
               alt="Second slide"
             />
             {/* <Carousel.Caption>

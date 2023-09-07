@@ -16,8 +16,10 @@
 .wrapper h1 {
     text-align: center;
     margin-bottom: 40px;
-    border-bottom: 1px solid green;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
     cursor: context-menu;
+    font-family: 'Satisfy', cursive;
 }
 
 .choice {
@@ -29,8 +31,14 @@
     width: 150px;
     padding: 10px;
     border: none;
-    background-color: var(--signature_color);
-    color: grey;
+    background-color: black;
+    color: white;
+}
+
+.choice button:hover {
+    transition: all 0.4s;
+    /* background-color: black; */
+    color: var(--heavy_pink);
 }
 
 .body {
@@ -43,8 +51,8 @@
 }
 
 .body a {
-    text-decoration: none;
-    color: green;
+    /* text-decoration: none; */
+    color: black;
 }
 
 .signin {
@@ -65,18 +73,28 @@
     gap: 20px;
 }
 
+.columnSignIn label {
+    margin-bottom: 0;
+}
+
+.columnSignIn span {
+    font-size: 1.2em;
+    font-family: 'Satisfy', cursive;
+}
+
 .btn {
     width: 100%;
     padding: 10px 0;
     border: none;
-    background-color: green;
+    background-color: black;
     color: white;
     box-shadow: 2px 4px 7px var(--signature_color);
     margin-bottom: 10px;
 }
 
 .btn:hover {
-    box-shadow: 2px 6px 10px var(--signature_color);
+    color: var(--heavy_pink);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.107);
 }
 
 /* register */
@@ -97,7 +115,7 @@
 .term {
     display: flex;
     justify-content: center;
-    color: green;
+    color: black;
     position: relative;
 }
 
@@ -124,7 +142,7 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    border: 1px solid green;
+    border: 1px solid black;
     z-index: 99;
     margin-right: 10px;
 }
@@ -135,10 +153,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    background-color: green;
+    background-color: black;
     font-size: 14px;
-    border: 1px solid green;
+    color: white;
 }
 
 .term p {
@@ -180,5 +197,6 @@
     border: none;
     background-color: transparent;
     padding: 0 10px;
-    color: green;
+    color: var(--heavy_pink);
+    text-decoration: underline;
 }

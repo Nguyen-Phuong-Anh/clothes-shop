@@ -24,6 +24,7 @@ function route(app) {
     app.post('/products/addCart', verifyJWT, cartController.addProduct)
     app.post('/cart', verifyJWT, cartController.getProduct)
     app.post('/cart/delete', verifyJWT, cartController.deleteProduct)
+    app.post('/cart/finish_order', verifyJWT, cartController.finishOrder)
     app.post('/cart/update', verifyJWT, cartController.updateProduct)
 
     // authorization

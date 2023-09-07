@@ -1,6 +1,6 @@
 .item img {
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
     margin-right: 20px;
 }
 
@@ -9,19 +9,23 @@
     grid-template-columns: 15px repeat(2, auto);
     gap: 10px;
     padding-left: 10px;
+    cursor: context-menu;
 }
 
 .itemBody {
     display: flex;
-    width: 250px;
+    width: 280px;
 }
 
 .itemBody p {
+    width: 140px;
     word-break: break-all;
+    font-family: 'Lobster', cursive;
+    font-size: 1.2rem;
 }
 
 .itemInfo {
-    width: 200px;
+    width: 150px;
     word-wrap: break-word;
 }
 
@@ -31,6 +35,11 @@
 
 .popWrapper {
     position: relative;
+}
+
+.type_wrapper p{
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
 }
 
 .type {
@@ -64,8 +73,13 @@
     display: none;
     z-index: 99;
     padding: 10px;
-    border: 1px solid var(--heavy_pink);
-    /* box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.343); */
+    border: 1px solid black;
+}
+
+.popUp p {
+    font-family: 'Lobster', cursive;
+
+    font-size: 1.2rem;
 }
 
 .popUp::before {
@@ -95,17 +109,32 @@
 
 .num {
     cursor: context-menu;
+    color: var(--heavy_pink);
+    font-family: 'Lobster', cursive;
+
 }
 
 .center {
-    width: 160px;
+    width: 220px;   
+}
+
+.center span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .delete {
     outline: none;
     border: none;
     background-color: transparent;
-    color: green;
+    color: black;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.delete:hover {
+    color: var(--heavy_pink);
 }
 
 /* checkbox */
@@ -132,20 +161,16 @@
     display: inline-block;
     width: 15px;
     height: 15px;
+    border: 1px solid black;
     background-color: white;
 }
-
-.checkBox_wrapper input:hover + label:before {
-    border: 1px solid green;
-}
-
 .checkBox_wrapper input:checked + label:before{
     content: '\2713';
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: green;
+    color: white;
+    background-color: black;
     font-size: 15px;
-    border: 1px solid green;
 }

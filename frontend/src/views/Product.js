@@ -90,7 +90,7 @@ function Product() {
                 <Slider image={image3}/>
             </div>
             <div className="product_content">
-                <h2>{product.name}</h2>
+                <h1>{product.name}</h1>
                 <div className='sell'>
                     <div className='star'>
                         <FontAwesomeIcon icon={faStar} />
@@ -103,7 +103,7 @@ function Product() {
                     <div>{product.sold} sold</div>
                 </div>
                 <div className='product_content_body'>
-                    <h3 className='price'>{product.price}</h3>
+                    <h3 className='price'>${product.price}</h3>
                     <hr></hr>
                     <h5>Choose</h5>
                     <div className='color'>

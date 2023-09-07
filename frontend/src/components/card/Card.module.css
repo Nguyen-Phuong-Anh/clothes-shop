@@ -26,13 +26,15 @@ img {
     word-break: break-all;
     margin-bottom: 0;
     font-weight: 500;
+    font-family: 'Lobster', cursive;
+    font-size: 1.2rem;
 }
 
 .price {
+    font-family: 'Lobster', cursive;
     color: var(--heavy_pink);
-    width: 100px;
+    width: 100%;
     margin-top: 2px;
-    font-size: 1.3rem;
 }
 
 @keyframes showBtn {

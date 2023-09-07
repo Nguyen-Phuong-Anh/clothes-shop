@@ -4,6 +4,15 @@
     width: 100%;    
 }
 
+.wrapper label {
+    font-family: 'Lobster', cursive;
+
+}
+
+.wrapper h1 {
+    font-family: 'Lobster', cursive;
+}
+
 .section {
     display: flex;
     flex-direction: column;
@@ -20,6 +29,7 @@
 }
 
 .info label {
+    font-family: 'Playfair Display', serif;
     width: 120px;
 }
 
@@ -29,11 +39,15 @@
 }
 
 .info button {
-    color: green;
+    color: black;
     padding: 5px 10px;
     outline: none;
     background-color: transparent;
     border: none;
+}
+
+.info button:hover {
+    color: var(--heavy_pink);
 }
 
 .container {
@@ -48,11 +62,16 @@
 }
 
 .container input {
-    background-color: #c7e8ca5b;
+    background-color: rgba(0, 0, 0, 0.107);
     padding: 10px 10px 5px;
     margin-bottom: 5px;
     border-top: 1px solid rgba(128, 128, 128, 0.181);
     border-bottom: 1px solid rgba(128, 128, 128, 0.18);
+    caret-color: var(--heavy_pink);
+}
+
+.container input:focus {
+    outline: none;
 }
 
 .container textarea {
@@ -60,7 +79,7 @@
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid green;
+    border: 2px solid var(--heavy_pink);
     border-radius: 4px;
     font-size: 16px;
     resize: none;
@@ -134,13 +153,12 @@
     display: inline-block;
     width: 15px;
     height: 15px;
-    background-color: green;
     margin-right: 10px;
-    border: 1px solid green;
+    border: 1px solid black;
 }
 
 .checkAll input:hover + label:before {
-    border: 1px solid green;
+    border: 1px solid black;
 }
 
 .checkAll input:checked + label:before{
@@ -149,9 +167,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: black;
     font-size: 15px;
-    border: 1px solid green;
+    border: 1px solid black;
+    font-weight: 600;
 }
 
 /* alert */
@@ -188,9 +207,10 @@
 }
 
 .searchBox input {
-    border: 1px solid green;
+    border: 1px solid  var(--heavy_pink);
     padding: 10px;
     width: 450px;
+    caret-color: var(--heavy_pink);
 }
 
 .searchCard {
@@ -207,7 +227,7 @@
 .searchCard img{
     height: 100px;
     width: 100px;
-    background-color: red;
+    background-color: black;
     display: block;
 }
 

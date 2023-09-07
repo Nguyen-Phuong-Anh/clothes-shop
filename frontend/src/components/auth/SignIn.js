@@ -56,19 +56,20 @@ function SignIn() {
         <form onSubmit={handleSubmit} className={styles.columnSignIn}>
             <div>
                 <div>
-                    <Form.Label htmlFor='user'>Email address</Form.Label>
+                    <Form.Label htmlFor='user'><span>Email address</span></Form.Label>
                     <Form.Control 
-                    value={user} 
-                    className={`input p-2`} 
-                    id='user' 
-                    type="email"
-                    ref={emailRef}
-                    onChange={e => setUser(e.target.value)}
-                    autoComplete=''
+                        value={user} 
+                        className={`input p-2`} 
+                        id='user' 
+                        type="email"
+                        ref={emailRef}
+                        onChange={e => setUser(e.target.value)}
+                        autoComplete=''
+                        autoFocus
                     />
                 </div>
                 <div>
-                    <Form.Label className='mt-3' htmlFor="pwd">Password</Form.Label>
+                    <Form.Label className='mt-3' htmlFor="pwd"><span>Password</span></Form.Label>
                     <Form.Control
                         value={pwd}
                         className={`input p-2`}

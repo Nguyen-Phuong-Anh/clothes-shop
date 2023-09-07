@@ -72,7 +72,7 @@ function ManageProduct() {
                     onKeyDown={handleEnter} 
                 />
                 <Button onClick={handleSearch} className={`${styles.btn_size}`} 
-                variant="outline-success">Search</Button>
+                variant="outline-dark">Search</Button>
             </div>
 
             <div className={styles.searchResult}>

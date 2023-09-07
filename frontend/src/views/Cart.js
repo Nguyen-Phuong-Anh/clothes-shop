@@ -57,64 +57,80 @@ function Cart() {
         let itemArray = []
         for(let item of allProducts) {
             const product = cart.find(cartItem => cartItem._id === item.id)
-            itemArray.push(product)
+            const finalProduct = {
+                name: product.name,
+                size: product.size,
+                color:  product.color,
+                quantity: product.quantity,
+                price: product.price,
+                total: product.price * product.quantity,
+                _id: item.id
+            }
+            itemArray.push(finalProduct)
         }
         setItems(itemArray)
     }, [totalProduct])
 
     return (
-        <div>
-            <table className={styles.table}>
-                <thead>
-                    <tr className={styles.header}>
-                        <th>
-                        <div className={styles.checkAll}>
-                            <input
-                                id="checkAll"
-                                type="checkbox"
-                                onClick={handleCheckAll}
-                            />
-                            <label htmlFor="checkAll"></label>
-                            <p>Product</p>
+        <>
+            {cart.length > 0 ? (
+                <div>
+                    <table className={styles.table}>
+                    <thead>
+                        <tr className={styles.header}>
+                            <th>
+                            <div className={styles.checkAll}>
+                                <input
+                                    id="checkAll"
+                                    type="checkbox"
+                                    onClick={handleCheckAll}
+                                />
+                                <label htmlFor="checkAll"></label>
+                                <p>Product</p>
+                            </div>
+                            </th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                        Array.isArray(cart) && cart.map((item, index) => {
+                            return (
+                            <CartItem state={state} key={`${item.product.
+                                toString()}${index}`} item={item}
+                                setTotalAmount={setTotalAmount}
+                                setTotalProduct={setTotalProduct}
+                                setItems={setItems}
+                             /> )
+                        })}
+                    </tbody>
+                    </table>
+                    
+                    <div className={`position-fixed bottom-0 ${styles.footer}`}>
+                    <div className={styles.cart_footer}>
+                        <div>
+                            <p>Total products: <span>{totalProduct}</span></p>
+                            <p>Total amount: <span>${totalAmount}</span></p>
                         </div>
-                        </th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Option</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {
-                    Array.isArray(cart) && cart.map((item, index) => {
-                        return ( 
-                        <CartItem state={state} key={`${item.product.
-                            toString()}${index}`} item={item} 
-                            setTotalAmount={setTotalAmount}  
-                            setTotalProduct={setTotalProduct}
-                            setItems={setItems}
-                         /> )
-                    })}
-                </tbody>
-            </table>
-
-            <div className={`position-fixed bottom-0 ${styles.footer}`}>
-                <div className={styles.cart_footer}>
-                    <div>
-                        <p>Total products: {totalProduct}</p>
-                        <p>Total amount: ${totalAmount}</p>
+                        <Link to='/order'
+                        state={{
+                            items: items,
+                            email: state.userInfo.email,
+                            totalAmount: totalAmount,
+                            totalProduct: totalProduct
+                        }}><button className={styles.purchase_btn}>Purchase</button></Link>
+                        </div>
                     </div>
-                    <Link to='/order' 
-                    state={{
-                        items: items, 
-                        email: state.userInfo.email,
-                        totalAmount: totalAmount,
-                        totalProduct: totalProduct
-                    }}><button className={styles.purchase_btn}>Purchase</button></Link>
                 </div>
-            </div>
-        </div>
+            ) : 
+                (<div className={styles.no_item}>
+                    <p>The cart is empty!</p>
+                </div>)
+            }
+        </>
     );
 }
 

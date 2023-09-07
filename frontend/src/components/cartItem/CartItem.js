@@ -1,6 +1,6 @@
 import styles from './CartItem.module.css'
 import SnippetQuantity from '../SnippetQuantity'
-import image3 from '../../images/clothes3.jpg'
+import image3 from '../../images/shirt2.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -104,8 +104,10 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                         <p>{item.name}</p>
                     </div>
                     <div className={styles.itemInfo}>
-                        <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
-                        <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
+                        <div className={styles.type_wrapper}>
+                            <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
+                            <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
+                        </div>
                         
                         {/* popUp custom */}
                         <div className={styles.popWrapper}>
@@ -128,11 +130,13 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                 </div>
             </td>
             
-            <td className={styles.num}>{product.price}</td>
+            <td className={styles.num}>${product.price}</td>
             
-            <td className={styles.center}><SnippetQuantity number={number} setNumber={setNumber}/></td>
+            <td className={styles.center}><span>
+                <SnippetQuantity number={number} setNumber={setNumber}/>
+            </span></td>
             
-            <td className={styles.num}>{number * product.price}</td>
+            <td className={styles.num}>${number * product.price}</td>
 
             <td>
                 <div>

@@ -60,7 +60,7 @@ function ShippingAddress({user}) {
     return (
         user.shippingAddress.fullName === ' ' && user.shippingAddress.tel === ' ' && user.shippingAddress.city === ' ' && user.shippingAddress.address === ' ' ? 
         (<div className={`${styles.wrapper} mt-3`}>
-            <h3>Shipping Address</h3>
+            <h1>Shipping Address</h1>
             <Form className='mt-3'>
                 <Form.Group className={`mb-4`}>
                     <Form.Label>Fullname</Form.Label>
@@ -119,7 +119,7 @@ function ShippingAddress({user}) {
             </Form>
         </div>) : (
             <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
-                <h3>Shipping Address</h3>
+                <h1>Shipping Address</h1>
                 <div className={styles.section}>
                     <div className={styles.info}>
                         <label htmlFor='fullname'>Fullname</label>
@@ -182,7 +182,7 @@ function ShippingAddress({user}) {
                     </div>
                 </div>
                 <div className={`${hidden === true ? styles.button_area : styles.none}`}>
-                    <Button type='submit' className={`${styles.btn_size}`} variant="outline-success">Save</Button>
+                    <Button type='submit' className={`${styles.btn_size}`} variant="outline-dark">Save</Button>
                     <Button className={`${styles.btn_size}`} onClick={handleCancel} variant="outline-secondary">Cancel</Button>
                 </div>
             </form>

@@ -326,9 +326,9 @@ function CustomizeProduct({id}) {
             </div>
             <div className={styles.button_area}>
                 <Button onClick={handleUpdate} type='submit' className={`${styles.btn_size}`} 
-                variant="outline-success">Update</Button>
+                variant="outline-dark">Update</Button>
                 <Button onClick={handleDelete} type='submit' className={`${styles.btn_size}`} 
-                variant="outline-danger">Delete</Button>
+                variant="danger">Delete</Button>
             </div>
         </form>
     );
