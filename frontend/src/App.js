@@ -10,6 +10,7 @@ import Account from './views/Account';
 import PersistLogin from './components/auth/PersistLogin';
 import Order from './views/Order';
 import OrderSuccessfully from './views/OrderSuccessfully';
+import Invoice from './views/Invoice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>
               <Route path='/order' element={<Home children={<Order/>} />}/>
+              <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
           </Route>
           <Route path='/products/:id' element={<Home children={<Product/>} />}/>
           <Route path='/order_success' element={<Home children={<OrderSuccessfully/>} />}/>

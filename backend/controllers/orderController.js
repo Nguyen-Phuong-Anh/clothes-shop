@@ -37,6 +37,20 @@ const createOrder = async (req, res) => {
     }
 }
 
+const getOrder = async (req, res) => {
+    const foundOrder = await Order.find({userId: req.body.userId}, 'cart totalAmount totalProduct status').exec();
+
+    if(foundOrder) {
+        res.send(foundOrder)
+    } else {
+        res.status(404).json({
+            "message": "no order found"
+        })
+
+    }
+}
+
 module.exports = {
-    createOrder
+    createOrder,
+    getOrder
 }

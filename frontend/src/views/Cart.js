@@ -99,11 +99,11 @@ function Cart() {
                         {
                         Array.isArray(cart) && cart.map((item, index) => {
                             return (
-                            <CartItem state={state} key={`${item.product.
-                                toString()}${index}`} item={item}
-                                setTotalAmount={setTotalAmount}
-                                setTotalProduct={setTotalProduct}
-                                setItems={setItems}
+                                <CartItem state={state} key={`${item.product.
+                                    toString()}${index}`} item={item}
+                                    setTotalAmount={setTotalAmount}
+                                    setTotalProduct={setTotalProduct}
+                                    setItems={setItems}
                              /> )
                         })}
                     </tbody>

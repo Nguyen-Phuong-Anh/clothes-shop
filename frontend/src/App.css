@@ -355,7 +355,52 @@
 }
 
 /* search */
-.search_wrapper h3 {
-  border-bottom: 1px solid orange;
-  margin-bottom: 30px;
+.search_wrapper {
+  margin-top: 100px;
+  cursor: context-menu;
+}
+
+.search_bar, .search_bar span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search_bar input {
+    outline: none;
+    border: 2px solid black;
+    width: 500px;
+    height: 50px;
+    font-size: 1.2rem;
+    padding-left: 10px;
+}
+
+.search_bar button {
+  outline: none;
+  border: 2px solid black;
+  background-color: black;
+  width: 50px;
+  height: 50px;
+}
+
+.search_icon {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.search_result {
+  margin: 50px auto;
+  max-width: 900px;
+}
+
+.search_result h3 {
+  font-family: 'Roboto Slab', serif;
+  border-bottom: 2px solid var(--heavy_pink);
+  width: 80px;
+  padding-bottom: 3px;
+}
+
+.no_result {
+  font-size: 1.4rem;
+  font-family: 'Roboto Slab', serif;
 }

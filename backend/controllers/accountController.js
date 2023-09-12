@@ -63,13 +63,13 @@ const getShippingAddress = async (req, res) => {
 
 const updateAccount = async (req, res) => {
     let result
-    if(req.body?.username !== '') {
+    if(req.body?.username && req.body?.username !== '') {
         result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
     }
-    if (req.body?.email !== '') {
+    if (req.body?.email && req.body?.email !== '') {
         result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
     } 
-    if(req.body?.password !== '') {
+    if(req.body?.password && req.body?.password !== '') {
         const hashPwd = await bcrypt.hash(req.body.password, 10)
         result = await User.updateOne({ _id: req.body.id }, {password: hashPwd}).exec()
     }

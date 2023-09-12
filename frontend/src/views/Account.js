@@ -9,6 +9,7 @@ import Profile from "../components/account/Profile";
 import AddProduct from "../components/account/AddProduct";
 import ManageProduct from "../components/account/ManageProduct";
 import ShippingAddress from "../components/account/ShippingAddress";
+import UserOrder from "../components/account/UserOrder";
 
 const SelectCard = ({name, setSelect, hidden, setHidden}) => {
     if(setSelect) {
@@ -112,6 +113,7 @@ function Account({children}) {
                 {select === 'Add Product' && <AddProduct />}
                 {select === 'Manage Product' && <ManageProduct />}
                 {select === 'Shipping Address' && <ShippingAddress user={user} />}
+                {select === 'Order' && <UserOrder userId={user.id} />}
                 {children}
             </div>
         </div>

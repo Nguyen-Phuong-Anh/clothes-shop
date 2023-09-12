@@ -63,7 +63,6 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
 
     useEffect(() => {
         const updateProduct = async () => {
-            const id = item.product.toString();
             try {
                 await axiosPrivate.post(`/cart/update`, {
                     email: state.userInfo.email,

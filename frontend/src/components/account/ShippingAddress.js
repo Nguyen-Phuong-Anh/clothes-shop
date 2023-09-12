@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import data from '../../api/data'
 import { useState } from 'react';
-import axios from 'axios'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import axiosPrivate from '../../api/axios';
 
 function ShippingAddress({user}) {
     const [fullname, setFullname] = useState('')
@@ -13,13 +14,14 @@ function ShippingAddress({user}) {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
 
+    const axiosPrivate = useAxiosPrivate()
     const [hidden, setHidden] = useState(false)
     const [id, setId] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put('/account/update', {
+            await axiosPrivate.put('/account/update', {
                 shippingAddress: {
                     id: user.id,
                     fullName: fullname,

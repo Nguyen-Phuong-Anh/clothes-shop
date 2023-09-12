@@ -7,10 +7,11 @@ const cartController = require('../controllers/cartController')
 const orderController = require('../controllers/orderController')
 const loginLimiter = require('../middleware/loginLimiter')
 const verifyJWT = require('../middleware/verifyJWT')
+
 function route(app) {
     //manage account
     app.put('/account/update', accountController.updateAccount);
-    app.post('/account/getAddress', accountController.getShippingAddress);
+    app.post('/account/getAddress', verifyJWT, accountController.getShippingAddress);
     app.post('/account', verifyJWT, accountController.accessAccount);
 
     //manage product
@@ -35,6 +36,7 @@ function route(app) {
 
     // manage order
     app.post('/order/createOrder', orderController.createOrder)
+    app.post('/order/getOrder', orderController.getOrder)
 
     //search
     app.get('/search/:search', productController.searchProduct)
