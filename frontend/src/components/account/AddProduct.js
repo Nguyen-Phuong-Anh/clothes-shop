@@ -156,7 +156,7 @@ function AddProduct() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
+        <form name='AddProduct' onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
             <h1>Add Product</h1>
             <div className='mt-4'>
                 <Form.Group>

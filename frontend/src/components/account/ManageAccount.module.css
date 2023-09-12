@@ -51,14 +51,12 @@
 }
 
 .container {
-    position: relative;
+    width: 300px;
 }
 
 .container p {
-    position: absolute;
-    left: -150px;
-    top: -15px;
-    cursor: context-menu;
+    margin: 0;
+    word-break: break-all;
 }
 
 .container input {

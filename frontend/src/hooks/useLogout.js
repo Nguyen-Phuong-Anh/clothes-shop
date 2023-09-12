@@ -10,7 +10,7 @@ function useLogout() {
         })
 
         try {
-            const res = await axios('/logout', {
+            await axios('/logout', {
                 withCredentials: true
             })
         } catch(err) {

@@ -6,7 +6,6 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import data from '../../api/data'
 import { useState } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import axiosPrivate from '../../api/axios';
 
 function ShippingAddress({user}) {
     const [fullname, setFullname] = useState('')

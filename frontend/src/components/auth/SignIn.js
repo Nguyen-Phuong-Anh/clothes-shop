@@ -1,7 +1,7 @@
 import styles from './LogIn.module.css'
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useEffect, useState, useRef } from 'react';
 import useStore from '../../store/useStore';
 
@@ -9,6 +9,7 @@ function SignIn() {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
 
+    const axiosPrivate = useAxiosPrivate()
     const { dispatch } = useStore()
     
     const emailRef = useRef()
@@ -20,20 +21,18 @@ function SignIn() {
         event.preventDefault();
 
         try {   
-            await axios.post("http://localhost:3500/signin", JSON.stringify({
+            await axiosPrivate.post("/signin", JSON.stringify({
                 user: user, 
                 pwd: pwd
-            }), {
-                headers: {'Content-Type': 'application/json'},
-                withCredentials: true
-            }).then(res => {
-                const { user, accessToken } = res.data
+            })).then(res => {
+                const { user, accessToken, cartLength } = res.data
                 if(res.status === 201) {
                     dispatch({
                         type: 'LOG_IN',
                         payload: {
                             email: user,
-                            token: accessToken
+                            token: accessToken,
+                            cartLength: cartLength
                         }
                     })
                 }
@@ -53,7 +52,7 @@ function SignIn() {
     }, [])
 
     return (
-        <form onSubmit={handleSubmit} className={styles.columnSignIn}>
+        <form name='SignIn' onSubmit={handleSubmit} className={styles.columnSignIn}>
             <div>
                 <div>
                     <Form.Label htmlFor='user'><span>Email address</span></Form.Label>

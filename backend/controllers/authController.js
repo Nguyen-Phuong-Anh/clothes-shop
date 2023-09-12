@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Cart = require('../models/Cart')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -42,18 +43,21 @@ const login = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: "30d"}
         )
+        const foundCart = await Cart.findOne({ userId: foundUser._id }).lean().exec()
+        if(foundCart) {
+            foundUser.refreshToken = refreshToken
+            const result = await foundUser.save()
 
-        foundUser.refreshToken = refreshToken
-        const result = await foundUser.save()
-
-        res.cookie('jwt', refreshToken, {
-            httpOnly: true, 
-            secure: true,
-            sameSite: 'None',
-            maxAge: 24 * 60 * 60 * 1000
-        });
+            res.cookie('jwt', refreshToken, {
+                httpOnly: true, 
+                secure: true,
+                sameSite: 'None',
+                maxAge: 24 * 60 * 60 * 1000
+            });
         
-        res.status(201).send({ user, accessToken })
+            res.status(201).send({ user, accessToken, cartLength: foundCart.cart.length })
+        }
+        
     } else {
         res.status(401).send({
             "message": "Invalid email or password"
@@ -70,6 +74,7 @@ const refresh = async (req, res) => {
 
     const refreshToken = cookies.jwt
     const foundUser = await User.findOne({refreshToken}).exec()
+    const foundCart = await Cart.findOne({ userId: foundUser._id }).lean().exec()
 
     if(!foundUser) return res.status(401).json({"message": "Unauthorized"})
 
@@ -88,7 +93,8 @@ const refresh = async (req, res) => {
 
         res.json({
             email: decoded.UserInfo.email,
-            accessToken: accessToken
+            accessToken: accessToken,
+            cartLength: foundCart.cart.length
         })
     })
 }

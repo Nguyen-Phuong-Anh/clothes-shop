@@ -12,7 +12,8 @@ function useRefreshToken() {
             type: 'REFRESH_TOKEN',
             payload: {
                 email: res.data.email,
-                token: res.data.accessToken
+                token: res.data.accessToken,
+                cartLength: res.data.cartLength
             }
         })
         return res.data.accessToken

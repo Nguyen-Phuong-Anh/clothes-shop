@@ -176,7 +176,7 @@ function CustomizeProduct({id}) {
     }, [])
 
     return (
-        <form onSubmit={(event) => event.preventDefault()} className={`${styles.wrapper} mt-3`}>
+        <form name='CustomizeProduct' onSubmit={(event) => event.preventDefault()} className={`${styles.wrapper} mt-3`}>
             <div>
                 <Form.Group>
                     <Form.Label>Category</Form.Label>

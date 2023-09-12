@@ -99,7 +99,7 @@ function Register() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.columnRegister}>
+        <form name='Register' onSubmit={handleSubmit} className={styles.columnRegister}>
 
             <div>
                 <Form.Control name='USERNAME' value={state.user} className={`input p-2`} placeholder='Username' onChange={handleChange} />

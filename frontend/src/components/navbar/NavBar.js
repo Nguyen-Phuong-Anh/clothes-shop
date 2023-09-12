@@ -5,26 +5,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
-import ToggleBar from './toggleBar';
-import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import styles from './NavBar.module.css'
 import useStore from '../../store/useStore';
 
 function NavBar() {
-  const [search, setSearch] = useState('')
   const { state, dispatch } = useStore()
-
   
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
-  
-  const handleHidden = () => {
-    const elem = document.getElementsByClassName('toggle')
-    elem[0].classList.toggle('hidden')
-  }
 
   const handleLogout = async () => {
     try {
@@ -39,14 +30,6 @@ function NavBar() {
       navigate(from, { replace: true })
     } catch(err) {
       console.error(err);
-    }
-  }
-
-  const handleEnter = (event) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      navigate(`/search/${search}`)
-      setSearch('')
     }
   }
   
@@ -68,7 +51,7 @@ function NavBar() {
             <Link to={"/"} className='link m-auto'><Navbar.Brand className={styles.brand}><span>RAYNE</span></Navbar.Brand></Link>
 
             <Form className={`d-flex me-3 ${styles.search_wrapper}`}>
-              <Link to={`/search`}>
+              <Link aria-label='search' to={`/search`}>
                 <Nav.Item className={`${styles.search_btn} ${styles.search_box}`}>
                     <FontAwesomeIcon className={styles.icon_search} icon={faMagnifyingGlass} />
                 </Nav.Item>
@@ -76,13 +59,13 @@ function NavBar() {
             </Form>
 
             <Nav>
-              <Link to={state.userInfo.token ? '/account' : '/login'}>
+              <Link aria-label='account' to={state.userInfo.token ? '/account' : '/login'}>
                   <Nav.Item className='mt-2'>
                     <FontAwesomeIcon className={styles.icon} icon={faUser} />
                   </Nav.Item>
               </Link>
 
-              <Link to={state.userInfo.token ? '/cart' : '/login'}>
+              <Link aria-label='cart' to={state.userInfo.token ? '/cart' : '/login'}>
                 <Nav.Item className='m-2'>
                   <FontAwesomeIcon className={styles.icon} icon={faBagShopping} />
                   <span className={styles.badge}>

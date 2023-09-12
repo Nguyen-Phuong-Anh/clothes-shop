@@ -1,6 +1,5 @@
 import useStore from "../store/useStore";
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
-import image3 from '../images/clothes3.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import Button from '../components/Button';
@@ -64,7 +63,7 @@ function Product() {
             
             const verifySigin = async () => {
                 try {
-                    const res = await axiosPrivate.post('/products/addCart', {
+                    await axiosPrivate.post('/products/addCart', {
                         email: state.userInfo.email,
                         token: state.userInfo.token,
                         addedProduct: addedProduct
@@ -87,7 +86,7 @@ function Product() {
     return (
         <div className="product_container">
             <div className="product_image">
-                <Slider image={image3}/>
+                <Slider/>
             </div>
             <div className="product_content">
                 <h1>{product.name}</h1>

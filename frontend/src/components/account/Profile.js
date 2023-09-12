@@ -49,7 +49,7 @@ function Profile({user}) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-2`}>
+        <form name='Profile' onSubmit={handleSubmit} className={`${styles.wrapper} mt-2`}>
             <h1>My Account</h1>
             <div className={styles.section}>
                 <div className={styles.info}>

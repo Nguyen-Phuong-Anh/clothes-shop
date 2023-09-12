@@ -29,6 +29,7 @@ function reducer(state, action) {
         case 'LOG_IN':
             return {
                 ...state, 
+                cartItems: action.payload.cartLength,
                 userInfo: {
                     email: action.payload.email,
                     token: action.payload.token
@@ -49,6 +50,7 @@ function reducer(state, action) {
         case 'REFRESH_TOKEN':
             return {
                 ...state, 
+                cartItems: action.payload.cartLength,
                 userInfo: {
                     email: action.payload.email,
                     token: action.payload.token
