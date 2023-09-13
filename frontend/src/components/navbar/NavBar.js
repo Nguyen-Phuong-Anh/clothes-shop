@@ -48,7 +48,7 @@ function NavBar() {
               <Nav.Item className={`${styles.navlink} m-3`} >Shoes</Nav.Item>
             </Nav>
 
-            <Link to={"/"} className='link m-auto'><Navbar.Brand className={styles.brand}><span>RAYNE</span></Navbar.Brand></Link>
+            <Link to={"/"} className='link m-auto'><span className={styles.brand}>RAYNE</span></Link>
 
             <Form className={`d-flex me-3 ${styles.search_wrapper}`}>
               <Link aria-label='search' to={`/search`}>

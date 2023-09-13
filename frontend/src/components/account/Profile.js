@@ -62,6 +62,7 @@ function Profile({user}) {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             id='username'
+                            autoComplete=''
                         />
                     </div>
                     <button type='button' data-value='username' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
@@ -77,6 +78,7 @@ function Profile({user}) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             id='email'
+                            autoComplete=''
                         />
                     </div>
                     <button type='button' data-value='email' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
@@ -90,8 +92,8 @@ function Profile({user}) {
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            autoComplete=''
                             id='password'
+                            autoComplete='current-password'
                         />
                     </div>
                     <button type='button' data-value='password' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>

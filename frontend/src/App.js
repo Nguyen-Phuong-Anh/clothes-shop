@@ -21,15 +21,15 @@ function App() {
         <Routes>
           <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
-          <Route path='/search' element={<Home children={<Search/>} />}/>
           
           <Route element={<PersistLogin />}>
               <Route path='/account' element={<Home children={<Account/>} />}/>
               <Route path='/cart' element={<Home children={<Cart/>} />}/>
               <Route path='/order' element={<Home children={<Order/>} />}/>
               <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
+              <Route path='/search' element={<Home children={<Search/>} />}/>
+              <Route path='/products/:id' element={<Home children={<Product/>} />}/>
           </Route>
-          <Route path='/products/:id' element={<Home children={<Product/>} />}/>
           <Route path='/order_success' element={<Home children={<OrderSuccessfully/>} />}/>
 
         </Routes>

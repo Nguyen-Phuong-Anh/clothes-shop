@@ -78,7 +78,7 @@ function Account({children}) {
         <div className={styles.wrapper}>
             <div className={styles.user}>
                 <div className={styles.info}>
-                    <img />
+                    <img title="avatar" />
                     <h4>{user.username}</h4>
                     <p>{user.email}</p>
                 </div>

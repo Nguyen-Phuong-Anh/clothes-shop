@@ -173,7 +173,7 @@ function AddProduct() {
                     </Form.Select>
                 </Form.Group>
 
-                <div className={`${styles.info} mt-3 ${styles.container}`}>
+                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                     <label htmlFor='name'>Name</label>
                     <input
                         type='text'
@@ -184,7 +184,7 @@ function AddProduct() {
                         required
                     />
                 </div>
-                <div className={`${styles.info} mt-3 ${styles.container}`}>
+                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                     <label htmlFor='type'>Type</label>
                     <input
                         type='text'
@@ -240,7 +240,7 @@ function AddProduct() {
                 </div>
 
                 <div className={styles.warning_wrapper}>
-                    <div className={`${styles.info} mt-3 ${styles.container}`}>
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                         <label htmlFor='colors'>Colors</label>
                         <input
                             type='text'
@@ -254,7 +254,7 @@ function AddProduct() {
                     <div className={`${(hidden === false && target === 'color') ? styles.alert : styles.none}`} role="alert">Invalid form: The colors should be a string that contains hex color codes and each code is separated by a space ' '</div>
                 </div>
 
-                <div className={`${styles.info} mt-3 ${styles.container}`}>
+                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                     <label htmlFor='material'>Material</label>
                     <input
                         type='text'
@@ -265,7 +265,7 @@ function AddProduct() {
                         value={state.material}
                     />
                 </div>
-                <div className={`${styles.info} mt-3 ${styles.container}`}>
+                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                     <label htmlFor='type'>Description</label>
                     <textarea 
                         className='mb-3'
@@ -277,7 +277,7 @@ function AddProduct() {
                     </textarea>
                 </div>
                 <div className={styles.warning_wrapper}>
-                    <div className={`${styles.info} mt-3 ${styles.container}`}>
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                         <label htmlFor='type'>Count in Stock</label>
                         <input
                             type='text'
@@ -291,7 +291,7 @@ function AddProduct() {
                     <div className={`${(hidden === false && target === 'count') ? styles.alert : styles.none}`} role="alert">Invalid form: The count in stock should be a number</div>
                 </div>
                 <div className={styles.warning_wrapper}>
-                    <div className={`${styles.info} mt-3 ${styles.container}`}>
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                         <label htmlFor='type'>Price</label>
                         <input
                             type='text'

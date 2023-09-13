@@ -44,18 +44,20 @@ const login = async (req, res) => {
             {expiresIn: "30d"}
         )
         const foundCart = await Cart.findOne({ userId: foundUser._id }).lean().exec()
-        if(foundCart) {
-            foundUser.refreshToken = refreshToken
-            const result = await foundUser.save()
+        foundUser.refreshToken = refreshToken
+        const result = await foundUser.save()
 
-            res.cookie('jwt', refreshToken, {
-                httpOnly: true, 
-                secure: true,
-                sameSite: 'None',
-                maxAge: 24 * 60 * 60 * 1000
-            });
-        
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true, 
+            secure: true,
+            sameSite: 'None',
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        if(foundCart) {
             res.status(201).send({ user, accessToken, cartLength: foundCart.cart.length })
+        } else {
+            if(foundUser.isAdmin === true) res.status(201).send({ user, accessToken, cartLength: 0 })
         }
         
     } else {
@@ -74,7 +76,7 @@ const refresh = async (req, res) => {
 
     const refreshToken = cookies.jwt
     const foundUser = await User.findOne({refreshToken}).exec()
-    const foundCart = await Cart.findOne({ userId: foundUser._id }).lean().exec()
+    const foundCart = await Cart.findOne({ userId: foundUser._id }).exec()
 
     if(!foundUser) return res.status(401).json({"message": "Unauthorized"})
 
@@ -91,12 +93,21 @@ const refresh = async (req, res) => {
             { expiresIn: "1d"}
         )
 
-        res.json({
-            email: decoded.UserInfo.email,
-            accessToken: accessToken,
-            cartLength: foundCart.cart.length
-        })
+        if(foundCart) {
+            res.json({
+                email: decoded.UserInfo.email,
+                accessToken: accessToken,
+                cartLength: foundCart.cart.length
+            })
+        } else {
+            res.json({
+                email: decoded.UserInfo.email,
+                accessToken: accessToken,
+                cartLength: 0
+            })
+        }
     })
+    
 }
 
 const logout = async (req, res) => {

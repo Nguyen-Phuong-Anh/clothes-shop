@@ -81,6 +81,7 @@ function Cart() {
                             <th>
                             <div className={styles.checkAll}>
                                 <input
+                                    title='checkAll'
                                     id="checkAll"
                                     type="checkbox"
                                     onClick={handleCheckAll}
@@ -99,8 +100,9 @@ function Cart() {
                         {
                         Array.isArray(cart) && cart.map((item, index) => {
                             return (
-                                <CartItem state={state} key={`${item.product.
-                                    toString()}${index}`} item={item}
+                                <CartItem state={state} 
+                                    key={`${item.product.
+                                    toString()}CT${index}`} item={item}
                                     setTotalAmount={setTotalAmount}
                                     setTotalProduct={setTotalProduct}
                                     setItems={setItems}

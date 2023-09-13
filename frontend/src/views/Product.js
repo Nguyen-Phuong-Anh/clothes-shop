@@ -21,11 +21,12 @@ function Product() {
     const navigate = useNavigate()
     const location = useLocation()
 
+    const image = require('../images/shirt2.jpg')
+
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const result = await axiosPrivate.get(`/products/${id}`,
-                { withCredentials: true })
+                const result = await axiosPrivate.get(`/products/${id}`)
                 setProduct(result.data)
             }
             fetchData()
@@ -86,7 +87,8 @@ function Product() {
     return (
         <div className="product_container">
             <div className="product_image">
-                <Slider/>
+                {/* <Slider/> */}
+                <img src={image} alt='product' />
             </div>
             <div className="product_content">
                 <h1>{product.name}</h1>

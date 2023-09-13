@@ -60,39 +60,40 @@ function ShippingAddress({user}) {
     
     return (
         user.shippingAddress.fullName === ' ' && user.shippingAddress.tel === ' ' && user.shippingAddress.city === ' ' && user.shippingAddress.address === ' ' ? 
-        (<div className={`${styles.wrapper} mt-3`}>
+        (
+        <div className={`${styles.wrapper} mt-3`}>
             <h1>Shipping Address</h1>
             <Form className='mt-3'>
                 <Form.Group className={`mb-4`}>
                     <Form.Label>Fullname</Form.Label>
                     <Form.Control 
-                    className='input'
-                    type="text" 
-                    placeholder="Enter your fullname"
-                    value={fullname}
-                    onChange={e => setFullname(e.target.value)}
-                    required
+                        className='input'
+                        type="text" 
+                        placeholder="Enter your fullname"
+                        value={fullname}
+                        onChange={e => setFullname(e.target.value)}
+                        required
                     />
                 </Form.Group>
                 <Form.Group className={`mb-4`}>
                     <Form.Label>Phone number</Form.Label>
                     <Form.Control 
-                    className='input'
-                    type="tel" 
-                    placeholder="Enter your phone number" 
-                    value={tel}
-                    onChange={e => setTel(e.target.value)}
-                    required
+                        className='input'
+                        type="tel" 
+                        placeholder="Enter your phone number" 
+                        value={tel}
+                        onChange={e => setTel(e.target.value)}
+                        required
                     />
                 </Form.Group>
                 <Form.Group className={`mb-4`}>
                     <Form.Label>City</Form.Label>
                     <Form.Select 
-                    className='input'
-                    id="citySelector"
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
-                    required
+                        className='input'
+                        id="citySelector"
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        required
                     >
                         <option disabled>Select your city</option>
                         {
@@ -105,12 +106,12 @@ function ShippingAddress({user}) {
                 <Form.Group className={`mb-4`}>
                     <Form.Label>Address</Form.Label>
                     <Form.Control 
-                    className='input'
-                    type="text"
-                    placeholder="Enter your address" 
-                    value={address}
-                    onChange={e => setAddress(e.target.value)}
-                    required
+                        className='input'
+                        type="text"
+                        placeholder="Enter your address" 
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                        required
                     />
                 </Form.Group>
 
@@ -119,7 +120,7 @@ function ShippingAddress({user}) {
                 </div>
             </Form>
         </div>) : (
-            <form onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
+            <form name='submit_shippingAds' onSubmit={handleSubmit} className={`${styles.wrapper} mt-3`}>
                 <h1>Shipping Address</h1>
                 <div className={styles.section}>
                     <div className={styles.info}>
@@ -132,6 +133,7 @@ function ShippingAddress({user}) {
                                 value={fullname}
                                 onChange={(e) => setFullname(e.target.value)}
                                 id='fullname'
+                                autoComplete=''
                             />
                         </div>
                         <button type='button' data-value='fullname' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
@@ -147,6 +149,7 @@ function ShippingAddress({user}) {
                                 value={tel}
                                 onChange={(e) => setTel(e.target.value)}
                                 id='tel'
+                                autoComplete=''
                             />
                         </div>
                         <button type='button' data-value='tel' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
@@ -162,6 +165,7 @@ function ShippingAddress({user}) {
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
                                 id='city'
+                                autoComplete=''
                             />
                         </div>
                         <button type='button' data-value='city' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
@@ -177,6 +181,7 @@ function ShippingAddress({user}) {
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                                 id='address'
+                                autoComplete=''
                             />
                         </div>
                         <button type='button' data-value='address' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>

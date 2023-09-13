@@ -53,9 +53,8 @@
 }
 
 .checkAll label {
-    display: inline-block;
     position: absolute;
-    /* top: -3px; */
+    top: 6px;
     cursor: pointer;
     width: 100%;
 }
@@ -69,16 +68,18 @@
     margin-right: 10px;
 }
 
-.checkAll input:checked + label:before{
-    content: '\2713';
-    text-align: center;
+.checkAll input + label:before {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.checkAll input:checked + label:before {
+    content: '\2713';
+    text-align: center;
     color: black;
     font-weight: 600;
     font-size: 15px;
-    /* border: 1px solid black; */
 }
 
 /* cart_footer */

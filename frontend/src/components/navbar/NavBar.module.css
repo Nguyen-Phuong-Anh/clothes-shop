@@ -100,14 +100,14 @@
     padding: 5px 10px;
 }
 
-.brand span{
+.brand {
     font-family: 'Satisfy', cursive;
     position: relative;
     display: block;
     font-size: 2rem;
 }
 
-.brand span::before, .brand span::after {
+.brand::before, .brand::after {
     border:  1px solid white;
     transition: all 0.4s;
     content: '';
@@ -117,19 +117,19 @@
     background-color: white;
 }
 
-.brand span::before {
+.brand::before {
     border-top: 1px solid transparent;
     top: -4px;
     left: 0px;
 }
 
-.brand span::after {
+.brand::after {
     border-bottom: 1px solid transparent;
     top: 45px;
     right: 0px;
 }
 
-.brand span:hover:before, .brand span:hover:after {
+.brand:hover:before, .brand:hover:after {
     width: 100%;
     border-color: var(--heavy_pink);
 }

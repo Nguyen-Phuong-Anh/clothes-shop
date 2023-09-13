@@ -32,13 +32,21 @@ function Button({color, size, setColor, setSize}) {
     if(color) {
         return (
             <>
-                <button value={color} className={`color_btn button`} onClick={(event) => handleClickColor(event)}>{color}</button>
+                <button 
+                    title="color_btn"
+                    value={color} 
+                    className={`color_btn button`} 
+                    onClick={(event) => handleClickColor(event)}>
+                {color}</button>
             </>
         )
     } else {
        return (
         <>
-            <button value={size} className={`size button`} onClick={(event) => handleClickSize(event)}>{size}</button>
+            <button 
+                title="size_btn"
+                value={size} className={`size button`} onClick={(event) => handleClickSize(event)}>
+            {size}</button>
         </>
        )
     }

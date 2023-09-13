@@ -87,7 +87,8 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                 <div className={styles.item}>
                     <div className={styles.checkBox_wrapper}>
                         <input 
-                            className='checkbox' type="checkbox" 
+                            title='checkbox'
+                            type="checkbox" 
                             id={`${item._id}`}
                             data-price={item.price}
                             data-quantity={item.quantity}
@@ -114,13 +115,13 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                                 <p>Color</p>
                                 <div className={styles.button_group}>
                                     {Array.isArray(product.colors) && product.colors.map((item, index) => (
-                                        <div onClick={() => setRotate(!rotate)}><Button setColor={setColor} key={index} color={item} /></div>
+                                        <div onClick={() => setRotate(!rotate)}><Button setColor={setColor} key={`${index}CB`} color={item} /></div>
                                     ))}
                                 </div>
                                 <p>Size</p>
                                 <div className={styles.button_group}>
                                     {Array.isArray(product.sizes) && product.sizes.map((item, index) => (
-                                        <div><Button setSize={setSize} value={item} key={index} size={item} /></div>
+                                        <div><Button setSize={setSize} value={item} key={`${index}BG`} size={item} /></div>
                                     ))}
                                 </div>
                             </div>

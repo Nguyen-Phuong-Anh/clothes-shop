@@ -1,7 +1,6 @@
 import DetailCard from "../components/card/Card";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,18 +22,21 @@ function Search() {
         <div className={`search_wrapper`}>
             <div className={`search_bar`}>
                 <input 
+                    title="search_bar"
                     type="text"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
+                    placeholder=""
+                    autoComplete=""
                 />
-                <button onClick={handleSearch}><FontAwesomeIcon className="search_icon" icon={faMagnifyingGlass} /></button>
+                <button title="handleSearch" onClick={handleSearch}><FontAwesomeIcon className="search_icon" icon={faMagnifyingGlass} /></button>
             </div>
             <div className="search_result">
                 <h3>Result</h3>
                 <div className='card_group'>
                     {
                         products.length > 0 ? Array.isArray(products) && products.map((product) => (
-                            <DetailCard key={product._id} product={product}/>
+                            <DetailCard key={`${product._id}PD`} product={product}/>
                         )) : <p className="no_result">0 result</p>
                     }
                 </div>
