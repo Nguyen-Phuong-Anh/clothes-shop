@@ -25,8 +25,8 @@ function LogIn() {
         <div className={styles.wrapper}>
             <h1>RAYNE</h1>
             <div className={styles.choice}>
-                <button onClick={handleLogIn}>LOGIN</button>
-                <button onClick={handleRegister}>REGISTER</button>
+                <button name='login' onClick={handleLogIn}>LOGIN</button>
+                <button name='register' onClick={handleRegister}>REGISTER</button>
             </div>
 
             <div className={styles.body}>

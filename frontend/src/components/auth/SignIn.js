@@ -84,7 +84,7 @@ function SignIn() {
                 <a href='/'>Forgot password?</a>
             </div>
             <div>
-                <button type='submit' className={styles.btn}>SIGN IN</button>
+                <button name='signin_btn' type='submit' className={styles.btn}>SIGN IN</button>
             </div>
             
         </form>

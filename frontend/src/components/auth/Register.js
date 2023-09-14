@@ -143,7 +143,7 @@ function Register() {
                 <p>I have read and agree to the terms</p>
             </div>
             <div>
-                <button className={styles.btn}>SIGN UP</button>
+                <button name='signup' className={styles.btn}>SIGN UP</button>
             </div>
         </form>
     );

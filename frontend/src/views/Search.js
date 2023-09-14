@@ -29,7 +29,7 @@ function Search() {
                     placeholder=""
                     autoComplete=""
                 />
-                <button title="handleSearch" onClick={handleSearch}><FontAwesomeIcon className="search_icon" icon={faMagnifyingGlass} /></button>
+                <button name="handleSearch" onClick={handleSearch}><FontAwesomeIcon className="search_icon" icon={faMagnifyingGlass} /></button>
             </div>
             <div className="search_result">
                 <h3>Result</h3>

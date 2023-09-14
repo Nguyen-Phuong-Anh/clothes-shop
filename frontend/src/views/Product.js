@@ -3,12 +3,12 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import Button from '../components/Button';
-import Slider from '../components/Slider'
 import SnippetQuantity from '../components/SnippetQuantity';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useRefreshToken from "../hooks/useRefreshToken";
+import axios from "axios";
 
 function Product() {
     const { state, dispatch } = useStore()
@@ -26,7 +26,9 @@ function Product() {
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const result = await axiosPrivate.get(`/products/${id}`)
+                const result = await axios.get(`/products/${id}`, {
+                    withCredentials: true
+                })
                 setProduct(result.data)
             }
             fetchData()
@@ -127,7 +129,7 @@ function Product() {
                     </div>
                     <div className='snippet_container'>
                         <SnippetQuantity number={number} setNumber={setNumber}/>
-                        <button className='btn_purchase' onClick={handlePurchase}> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
+                        <button name="purchase_btn" className='btn_purchase' onClick={handlePurchase}> <FontAwesomeIcon className='purchase_icon' icon={faBagShopping} 
                         />Add to the cart</button>
                     </div>
                     <hr></hr>

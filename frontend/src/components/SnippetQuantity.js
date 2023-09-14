@@ -13,7 +13,6 @@ function SnippetQuantity({ number, setNumber}) {
             ><FontAwesomeIcon icon={faPlus} /></button>
             <input 
                 aria-label="input_quantity"
-                autoComplete=""
                 value={number} 
                 type="text"
                 onChange={(event) => {setNumber(event.target.value)}}

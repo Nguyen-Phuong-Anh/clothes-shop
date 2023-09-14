@@ -14,22 +14,26 @@ import Invoice from './views/Invoice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+
   return (
     <Router>
       <div className="App">
         <meta name="favicon" content="none" />
         <Routes>
-          <Route path='/' element={<Home children={<HomeBody/>} />}/>
           <Route path='/login' element={<LogIn/>}/>
-          
+
           <Route element={<PersistLogin />}>
-              <Route path='/account' element={<Home children={<Account/>} />}/>
-              <Route path='/cart' element={<Home children={<Cart/>} />}/>
-              <Route path='/order' element={<Home children={<Order/>} />}/>
-              <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
-              <Route path='/search' element={<Home children={<Search/>} />}/>
-              <Route path='/products/:id' element={<Home children={<Product/>} />}/>
+            <Route path='/' element={<Home children={<HomeBody/>} />}/>
+
+            <Route path='/account' element={<Home children={<Account/>} />}/>
+            <Route path='/cart' element={<Home children={<Cart/>} />}/>
+            <Route path='/order' element={<Home children={<Order/>} />}/>
+            <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
+            <Route path='/products/:id' element={<Home children={<Product/>} />}/>
+            <Route path='/search' element={<Home children={<Search/>} />}/>
+
           </Route>
+
           <Route path='/order_success' element={<Home children={<OrderSuccessfully/>} />}/>
 
         </Routes>

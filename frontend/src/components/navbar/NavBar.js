@@ -6,27 +6,22 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'
 import styles from './NavBar.module.css'
 import useStore from '../../store/useStore';
+import useLogout from '../../hooks/useLogout';
 
 function NavBar() {
-  const { state, dispatch } = useStore()
-  
+  const { state } = useStore()
+  const logout = useLogout()
+
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
 
   const handleLogout = async () => {
     try {
-      await axios.get('/logout', {
-        withCredentials: true
-      })
-      
-      dispatch({
-        type: 'LOG_OUT'
-      })
-      
+      logout()
+
       navigate(from, { replace: true })
     } catch(err) {
       console.error(err);

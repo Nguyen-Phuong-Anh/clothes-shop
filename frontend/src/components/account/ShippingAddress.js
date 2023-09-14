@@ -116,7 +116,7 @@ function ShippingAddress({user}) {
                 </Form.Group>
 
                 <div className={`${styles.button_area} mb-3`}>
-                    <Button className={`${styles.btn_size}`} onClick={handleSubmit} variant="outline-success">Save</Button>
+                    <Button className={`${styles.btn_size}`} onClick={handleSubmit} variant="outline-dark">Save</Button>
                 </div>
             </Form>
         </div>) : (

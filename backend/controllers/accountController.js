@@ -14,6 +14,7 @@ const accessAccount = async (req, res) => {
     } else {
         const adminOptions = [
             'Profile', 
+            "Shipping Address",
             'Product Management',
             smallOptions = [
                 'Add Product',

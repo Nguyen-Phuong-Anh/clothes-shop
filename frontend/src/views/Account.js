@@ -97,7 +97,7 @@ function Account({children}) {
                             <SelectCard className={styles.productMng} id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} />
                             <div className={`${styles.popUp} hidden ${hidden ? '' : styles.show}`}>
                                 {
-                                    Array.isArray(user.options[2]) && user.options[2].map((item) => (
+                                    Array.isArray(user.options[3]) && user.options[3].map((item) => (
                                         <MiniCard key={item} name={item} setSelect={setSelect} />
                                     ))
                                 }

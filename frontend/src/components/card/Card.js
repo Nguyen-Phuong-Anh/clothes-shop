@@ -18,7 +18,7 @@ function DetailCard({product}) {
           </div>
 
           <div className={styles.toggle_buy}>
-            <button><FontAwesomeIcon className={styles.icon} icon={faBagShopping} />
+            <button name='addCart'><FontAwesomeIcon className={styles.icon} icon={faBagShopping} />
               Add to cart</button>
           </div>
       </div>
