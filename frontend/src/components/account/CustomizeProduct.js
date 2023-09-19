@@ -2,9 +2,7 @@ import styles from './ManageAccount.module.css'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
-import Modal from 'react-bootstrap/Modal';
 import { useEffect, useReducer, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const initialState = {
     id: '',
@@ -16,7 +14,8 @@ const initialState = {
     material: '',
     description: '',
     countInStock: '',
-    price: ''
+    price: '',
+    image : [],
 }
 
 const reducer = (state, action) => {
@@ -79,6 +78,15 @@ const reducer = (state, action) => {
                 ...state, 
                 description: action.payload
             }
+
+        case 'SET_DELETEIMG':
+            const indexToRemove = action.payload;
+            const updatedImage = state.image
+            updatedImage[indexToRemove].delete = true
+            return {
+                ...state,
+                image: updatedImage
+            };
         
         case 'SET_COUNTINSTOCK':
             return {
@@ -104,45 +112,92 @@ function CustomizeProduct({id}) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [hidden, setHidden] = useState(true)
     const [target, setTarget] = useState('')
+    const [newImg, setNewImg] = useState([])
 
     const axiosPrivate = useAxiosPrivate()
 
     const handleChange = (event) => {
         const {name, value} = event.target
 
-        if(name === 'COLORS') {
-            const regex = /^#[0-9A-Fa-f]{6};$/;
-            const words = value.split(' ')
-            const isValid = words.map(item => regex.test(item.trim())).find(item => item === false)
-            setTarget('color')
-            if(isValid === false) {
-                setHidden(false)
-            } else {
-                if(hidden === false) setHidden(true)
-            }
-        } else if(name === 'COUNTINSTOCK' || name === 'PRICE') {
-            if(name === 'COUNTINSTOCK') {
-                setTarget('count')
-            } else {
-                setTarget('price')
-            }
-            const regex = /^\d+$/;
-            if(!(regex.test(value) && value.length <= 6)) {
-                setHidden(false)
-            } else {
-                if(hidden === false) setHidden(true)
-            }
+        switch (name) {
+            case 'COLORS':
+                const regex = /^[a-zA-Z]+(?:;[a-zA-Z]+)*$/;
+                const words = value.split(' ')
+                const isValid = words.map(item => regex.test(item.trim())).find(item => item === false)
+                setTarget('color')
+                if(isValid === false) {
+                    setHidden(false)
+                } else {
+                    if(hidden === false) setHidden(true)
+                }
+                dispatch({
+                    type: "SET_" + name, payload: value
+                })
+                break;
+            case 'COUNTINSTOCK': case 'PRICE':
+                if(name === 'COUNTINSTOCK') {
+                    setTarget('count')
+                } else {
+                    setTarget('price')
+                }
+                const regex1 = /^\d+$/;
+                if(!(regex1.test(value) && value.length <= 6)) {
+                    setHidden(false)
+                } else {
+                    if(hidden === false) setHidden(true)
+                }
+                dispatch({
+                    type: "SET_" + name, payload: value
+                })
+                break;
+            case 'IMAGES':
+                if(event.target.files) {
+                    const fileArray = Array.from(event.target.files)
+                    const uploadedArray = []
+                    const maxImg = parseInt(event.target.getAttribute('data-max_length'))
+                    if(fileArray.length <= maxImg && (state.image.length + newImg.length) < maxImg && (state.image.length + newImg.length + fileArray.length) <= maxImg) {
+                        const processImg = async () => {
+                            for(const item of fileArray) {
+                                const reader = new FileReader()
+
+                                await new Promise((resolve, reject) => {
+                                    reader.onloadend = () => {
+                                        uploadedArray.push(reader.result)
+                                        resolve()
+                                    }
+                                    reader.readAsDataURL(item)
+                                })
+                            }
+
+                        }
+                        processImg().then(() => {
+                            setNewImg((prevImg) => [...prevImg, ...uploadedArray])
+                        })
+
+                    } else {
+                        event.preventDefault();
+                        alert(`The maximum image you can choose is ${maxImg} images`)
+                    }
+                }
+                break;
+            default:
+                dispatch({
+                    type: "SET_" + name, payload: value
+                })
+                break;
         }
-        dispatch({
-            type: "SET_" + name, payload: value
-        })
     }
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        const newState = {
+            ...state,
+            newImg: newImg
+        }
         try {
-            await axiosPrivate.put(`/manage_product/${id}`, state)
+            await axiosPrivate.put(`/manage_product/${id}`, newState)
             .then(res => console.log(res))
+            window.location.reload()
         } catch (error) {  
             console.error(error)
         }
@@ -157,6 +212,46 @@ function CustomizeProduct({id}) {
         } catch (error) {  
             console.error(error)
         }
+    }
+
+    const handleCloseImg = (e) => {
+        const deleteIndex = parseInt(e.target.getAttribute('data-index'))
+        if(e.target.getAttribute('data-new')) {
+            const newArr = newImg.filter((_, index) => index !== deleteIndex);
+            setNewImg(newArr)
+        } else {
+            dispatch({
+                type: "SET_DELETEIMG", payload: deleteIndex
+            })
+        }
+    }
+
+    const Image = ({img, new_val, index}) => {
+        if(new_val) {
+            return (
+                <div className={styles.img_wrap}>
+                    <img alt='' src={img} key={index} />
+                    <p
+                        className={`d-flex justify-content-center align-items-center`}
+                        data-new={true}
+                        data-index={index}
+                        onClick={handleCloseImg}>
+                            &#10005;
+                    </p>
+                </div>
+            )
+        } else
+            return (
+                <div className={styles.img_wrap}>
+                    <img alt='' src={img} key={index} />
+                    <p
+                        className={`d-flex justify-content-center align-items-center`}
+                        data-index={index}
+                        onClick={handleCloseImg}>
+                            &#10005;
+                    </p>
+                </div>
+            )
     }
 
     useEffect(() => {
@@ -295,6 +390,42 @@ function CustomizeProduct({id}) {
                     >
                     </textarea>
                 </div>
+
+                <div className={`${styles.info} mt-3 pb-3 ${styles.container_ad}`}>
+                    <label htmlFor='type'>Images</label>
+                    <div>
+                        <div className={styles.upload_box}>
+                            <p>Upload images <input 
+                                type="file" 
+                                multiple 
+                                data-max_length="5" 
+                                onChange={handleChange}
+                                name='IMAGES'
+                            /></p>
+                        </div>
+                        <div className={styles.img_box}>
+                            <div className={styles.uploadedImg}>
+                                {
+                                    Array.isArray(state.image) && state.image.map((img, index) => {
+                                        if(!img.delete && img!='' || img?.delete === false && img!='') {
+                                            return (
+                                                <Image key={`${img.url}${index}`} img={img.url} index={index} />
+                                            )
+                                        }
+                                    })
+                                }
+
+                                {
+                                    Array.isArray(newImg) && newImg.map((item, index) => (
+                                        <Image
+                                            key={`${item}${index}GH`} img={item} index={index} new_val={true} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className={styles.warning_wrapper}>
                     <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
                         <label htmlFor='type'>Count in Stock</label>

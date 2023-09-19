@@ -29,21 +29,6 @@ function HomeBody() {
             </div>
             <div className='home_slider'><Slider/></div>
             <div className='body'>
-                {/* <div className='body_sidebar'>
-                    <h3>List</h3>
-                    <h5>Clothes</h5>
-                    <ul>
-                        <li>fals</li>
-                        <li>fals</li>
-                        <li>fals</li>
-                    </ul>
-                    <h5>Shoes</h5>
-                    <ul>
-                        <li>fals</li>
-                        <li>fals</li>
-                        <li>fals</li>
-                    </ul>
-                </div> */}
                 <h1>Choose your styles</h1>
                 <div className='card_group'>
                     {Array.isArray(products) && products.map((product) => (

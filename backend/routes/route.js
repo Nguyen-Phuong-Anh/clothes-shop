@@ -13,6 +13,7 @@ function route(app) {
     app.put('/account/update', accountController.updateAccount);
     app.post('/account/getAddress', verifyJWT, accountController.getShippingAddress);
     app.post('/account', verifyJWT, accountController.accessAccount);
+    app.post('/set_ava', verifyJWT, accountController.addAvatar);
 
     //manage product
     app.get('/products/:id', productController.getProduct)

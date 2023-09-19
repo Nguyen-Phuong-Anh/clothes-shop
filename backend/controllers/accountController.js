@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
+const cloudinary = require('../cloudinary/cloudinary')
 
 const accessAccount = async (req, res) => {
     let foundUser
@@ -35,6 +36,7 @@ const accessAccount = async (req, res) => {
                 email: foundUser?.email,
                 shippingAddress: foundUser?.shippingAddress,
                 isAdmin: foundUser.isAdmin,
+                avatar: foundUser.avatar,
                 options: adminOptions
             })
         } else 
@@ -44,6 +46,7 @@ const accessAccount = async (req, res) => {
                 email: foundUser?.email,
                 shippingAddress: foundUser?.shippingAddress,
                 isAdmin: foundUser.isAdmin,
+                avatar: foundUser.avatar,
                 options: userOptions
             })
     }
@@ -83,8 +86,38 @@ const updateAccount = async (req, res) => {
     })
 }
 
+const addAvatar = async (req, res) => {
+    const { avatar, username } = req.body
+
+    try {
+        const uploadedImg = await cloudinary.uploader.upload(avatar,
+        { 
+            upload_preset: 'ava_upload',
+            public_id: `${username}_avatar`,
+            allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
+            overwrite: true,
+            invalidate: true
+        }, 
+        async function(error, result) {
+            if(error) {
+                console.log(error)
+                res.status(500)
+            } else if (result) {
+                const ress = await User.updateOne({ email: req.body.email }, { avatar: result.url }).exec()
+                res.status(200).json({
+                    "message": "Changed successfully"
+                })
+            }
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500)
+    }
+}
+
 module.exports = {
     accessAccount,
     getShippingAddress,
-    updateAccount
+    updateAccount,
+    addAvatar
 }

@@ -11,7 +11,12 @@ const Products = new Schema({
     description: {type: String},
     countInStock: {type: Number, required: true}, //number of remain products
     price: {type: Number, required: true},
-    image: { type: String, required: true, default: ' ' },
+    image: {type: [
+        {
+            url: {type: String},
+            pb_id: {type: String}
+        }
+    ]},
 })
 
 module.exports = mongoose.model("Products", Products)

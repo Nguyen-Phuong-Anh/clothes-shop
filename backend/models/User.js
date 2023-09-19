@@ -13,6 +13,7 @@ const userSchema = new Schema({
         city: { type: String, required: true, default: ' ' },
         address: { type: String, required: true, default: ' ' }
     },
+    "avatar": { type: String, default: '' }
 })
 
 module.exports = mongoose.model('User', userSchema)

@@ -47,6 +47,33 @@ function Account({children}) {
     const [select, setSelect] = useState('');
     const [hidden, setHidden] = useState(true)
 
+    const uploadImg = async (imgUrl) => {
+        try {
+            await axiosPrivate.post('/set_ava', {
+                email: state.userInfo.email,
+                avatar: imgUrl,
+                username: user.username
+            }).then((res) => {
+                console.log(res)
+                window.location.reload();        
+            })  
+        } catch (error) {
+            console.log(error)
+            alert("Please choose image again!")
+        }
+    }
+
+    const handleUpload = (event) => {
+        let imgFile = event.target.files[0]
+
+        const reader = new FileReader()
+        reader.readAsDataURL(imgFile)
+
+        reader.onloadend = () => {
+            uploadImg(reader.result)
+        }
+    }
+
     useEffect(() => {
         let isMounted = true;
         
@@ -78,7 +105,12 @@ function Account({children}) {
         <div className={styles.wrapper}>
             <div className={styles.user}>
                 <div className={styles.info}>
-                    <img title="avatar" />
+                <div className={styles.image_box}>
+                <div className={styles.img_wrap}>
+                    <input onChange={handleUpload} type="file" alt="" accept="image/png, image/jpeg, image/jpg, image/jfif" />
+                    <img src={user.avatar} />
+                    </div>
+                </div>
                     <h4>{user.username}</h4>
                     <p>{user.email}</p>
                 </div>

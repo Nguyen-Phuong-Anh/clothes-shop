@@ -91,6 +91,82 @@
     outline: none;
 }
 
+.upload_wrap {
+    width: 440px;
+}
+
+.upload_box {
+    width: 440px;
+    margin-bottom: 20px;
+}
+
+.upload_box p {
+    position: relative;
+    width: 140px;
+    padding: 10px 0;
+    text-align: center;
+    background-color: black;
+    color: var(--heavy_pink);
+    cursor: pointer;
+
+}
+
+.upload_box input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+
+}
+
+.upload_box input[type="file"]::file-selector-button {
+    cursor: pointer;
+}
+
+.uploadedImg {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    /* justify-items: center;    */
+}
+
+.img_wrap {
+    position: relative;
+    
+}
+
+.img_wrap img {
+    width: 120px;
+    height: 130px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+}
+
+.img_wrap p {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    padding-bottom: 2px;
+    right: 25px;
+    top: 4px;
+    background-color: black;
+    color: var(--heavy_pink);
+}
+
+.img_wrap p:hover {
+    color: black;
+    background-color: whitesmoke;
+}
+
 .container_ad textarea {
     width: 460px;
     height: 150px;
@@ -174,17 +250,18 @@
     border: 1px solid black;
 }
 
-.checkAll input:hover + label:before {
+.checkAll input + label:before {
     border: 1px solid black;
-}
-
-.checkAll input:checked + label:before{
-    content: '\2713';
-    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
+}
+
+.checkAll input:checked + label:before {
+    content: '\2713';
+    text-align: center;
+    color: var(--heavy_pink);
+    background-color: black;
     font-size: 15px;
     border: 1px solid black;
     font-weight: 600;
