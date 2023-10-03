@@ -11,17 +11,17 @@ import useRefreshToken from "../hooks/useRefreshToken";
 import axios from "axios";
 
 function Product() {
+    const { id } = useParams()
     const { state, dispatch } = useStore()
-    const axiosPrivate = useAxiosPrivate()
     const [number, setNumber] = useState(1)
     const [product, setProduct] = useState({})
-    const { id } = useParams()
+    const [preview, setPreview] = useState('')
+    
+    const axiosPrivate = useAxiosPrivate()
     const refresh = useRefreshToken()
 
     const navigate = useNavigate()
     const location = useLocation()
-
-    const image = require('../images/shirt2.jpg')
 
     useEffect(() => {
         try {
@@ -30,6 +30,11 @@ function Product() {
                     withCredentials: true
                 })
                 setProduct(result.data)
+                if(result.data?.image[0]) {
+                    setPreview(result.data.image[0].url)
+                } else {
+                    setPreview('')
+                }
             }
             fetchData()
         } catch (error) {
@@ -50,7 +55,7 @@ function Product() {
                 color: color[0].value,
                 quantity: number,
                 price: product.price,
-                image: ' ',
+                image: product.image[0].url,
                 product: product.id
             };
 
@@ -86,11 +91,25 @@ function Product() {
         }
     }
 
+    const handlePreviewImg = (event) => {
+        setPreview(event.target.src)
+    }
+
     return (
         <div className="product_container">
-            <div className="product_image">
-                {/* <Slider/> */}
-                <img src={image} alt='product' />
+            <div className="image_wrap">
+                <div className="product_image">
+                    {
+                        preview ? <img src={preview} alt='product' /> : <div className="fake_img d-flex justify-content-center align-items-center">R</div>
+                    }
+                </div>
+                <div className="image_grid">
+                    {
+                        Array.isArray(product.image) && product.image.map((item, index) => (
+                            <img onClick={handlePreviewImg} src={item.url} key={`image${index}`} />
+                        ))
+                    }
+                </div>
             </div>
             <div className="product_content">
                 <h1>{product.name}</h1>
@@ -102,8 +121,8 @@ function Product() {
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStar} />
                     </div>
-                    <div>{product.review} reviews</div>
-                    <div>{product.sold} sold</div>
+                    <div>{product.review ? product.review : 0} reviews</div>
+                    <div>{product.sold ? product.sold : 0} sold</div>
                 </div>
                 <div className='product_content_body'>
                     <h3 className='price'>${product.price}</h3>

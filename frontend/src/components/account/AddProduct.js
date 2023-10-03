@@ -17,7 +17,7 @@ function AddProduct() {
 
         switch (name) {
             case 'COLORS':
-                const regex = /^[a-zA-Z]+(?:;[a-zA-Z]+)*$/;
+                const regex = /^[a-zA-Z]+(;[a-zA-Z]+)*$/;
                 const words = value.split(' ')
                 const isValid = words.map(item => regex.test(item.trim())).find(item => item === false)
                 setTarget('color')
@@ -26,6 +26,7 @@ function AddProduct() {
                 } else {
                     if(hidden === false) setHidden(true)
                 }
+                if(value === "") setHidden(true)
                 dispatch({
                     type: "SET_" + name, payload: value
                 })
@@ -42,6 +43,7 @@ function AddProduct() {
                 } else {
                     if(hidden === false) setHidden(true)
                 }
+                if(value === "") setHidden(true)
                 dispatch({
                     type: "SET_" + name, payload: value
                 })

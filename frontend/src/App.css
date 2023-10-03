@@ -155,17 +155,66 @@
   display: flex;
   margin: 120px auto 50px;
   /* background-color: #ede9d56e; */
-  width: 1450px;
+  width: 1250px;
   padding: 15px;
   cursor: context-menu;
 }
 
 .product_image {
-  width: 750px;
+  width: 550px;
+  height: 720px;
+  margin-bottom: 20px;
 }
 
 .product_image img {
   height: 100%;
+  outline: none;
+  border: none;
+}
+
+.fake_img {
+  border: 1px solid rgba(0, 0, 0, 0.31);
+  height: 100%;
+  font-size: 7rem;
+  font-family: 'Satisfy', cursive;
+  color: var(--heavy_pink);
+}
+
+.image_grid {
+  width: 550px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.image_grid::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+
+.image_grid::-webkit-scrollbar-track {
+  border-radius: 0;
+  background: rgba(255, 192, 203, 0.461);
+}
+
+.image_grid::-webkit-scrollbar-thumb{
+  background-color: black;
+  border-radius: 20px;
+}
+
+.image_grid img {
+  width: 100px;
+  height: 100px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.image_grid img:not(:last-child) {
+  margin-right: 10px;
+}
+
+.image_grid img:hover {
+  opacity: 1;
 }
 
 .product_content {
@@ -187,6 +236,7 @@
   display: flex;
   justify-content: space-between;
   width: 300px;
+  margin-bottom: 20px;
 }
 
 .sell div:not(:first-child) {
@@ -197,6 +247,10 @@
 .product_content_body {
   display: grid;
   gap: 15px;
+}
+
+.product_content_body hr {
+  margin: 0;
 }
 
 .product_content_body h5 {
@@ -403,4 +457,51 @@
 .no_result {
   font-size: 1.4rem;
   font-family: 'Roboto Slab', serif;
+}
+
+/* pagination */
+.pagination {
+  margin: 40px 0;
+  
+}
+
+.pagination button {
+  outline: 1px solid rgba(128, 128, 128, 0.162);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  /* border: none; */
+  /* border: 4px double transparent; */
+  background-color: white;
+  color: black;
+  /* font-family: 'Lobster', cursive; */
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.pagination button:hover {
+  background-color: black;
+  /* border: 4px double var(--heavy_pink); */
+  color: var(--heavy_pink);
+  transition: all 0.5s ease;
+}
+
+.pagination button:disabled {
+  outline: 1px solid rgba(128, 128, 128, 0.162);
+  cursor: context-menu;
+  background-color: white;
+  color: grey;
+}
+
+.pagination button[disabled]:not([disabled]:hover) {
+  /* Reset hover styles for disabled button */
+  color: white;
+  background-color: white;
+  cursor: context-menu;
+  color: grey;
+}
+
+.pagination button:active {
+  outline: 1px solid rgba(128, 128, 128, 0.162) !important;
 }

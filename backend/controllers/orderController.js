@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const User = require('../models/User')
 const Cart = require('../models/Cart');
+const Product = require('../models/Product')
 
 const createOrder = async (req, res) => {
     const foundUser = await User.findOne({ email: req.body.email}).exec();
@@ -26,6 +27,9 @@ const createOrder = async (req, res) => {
             "status": req.body.status,
             "paymentMethod": req.body.paymentMethod
         })
+
+        //after create order successfully, change the number of sold item in each product
+
     
         res.status(201).json({
             "message": "Created sucessfully"

@@ -12,10 +12,15 @@
     transform: translateY(-3px);
 }
 
-img {
+img, .fake_img {
     width: 100%;
     height: 300px;
     border: 1px solid rgba(0, 0, 0, 0.31);
+}
+
+.fake_img {
+    font-size: 5rem;
+    font-family: 'Satisfy', cursive;
 }
 
 .content {
@@ -51,6 +56,8 @@ img {
     bottom: 0;
     background-color: black;
     color: white;
+    font-family: 'Roboto Slab', serif;
+
 }
 
 .wrapper .toggle_buy button {
@@ -62,6 +69,11 @@ img {
     display: block;
     opacity: 1;
     animation: showBtn 0.5s ease both;
+}
+
+.wrapper:hover .fake_img {
+    color: var(--heavy_pink);
+    transition: all 0.5s ease-out;
 }
 
 .icon {

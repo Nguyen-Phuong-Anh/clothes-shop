@@ -2,11 +2,28 @@ const Product = require('../models/Product')
 const cloudinary = require('../cloudinary/cloudinary')
 
 const getAllProduct = async (req, res) => {
-    const allProducts = await Product.find({}).exec();
-    if(!allProducts) return res.status(204).json({
-        'message': 'No products found'
-    })
-    res.json(allProducts)
+    const page = req.query.page || 0
+    const skip = (page - 1) * process.env.ITEMS_PER_PAGE
+    try {
+        const countPromise = await Product.estimatedDocumentCount();
+        const allProductsPromise = await Product.find({}).limit(process.env
+            .ITEMS_PER_PAGE).skip(skip).exec();
+        
+        const [count, allProducts] = await Promise.all([countPromise, allProductsPromise])
+        const pageCount = count / process.env.ITEMS_PER_PAGE
+        res.json({
+            allProducts,
+            pagination: {
+                count, 
+                pageCount
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(204).json({
+            'message': 'No products found'
+        })
+    }
 }
 
 const getProduct = async (req, res) => {
@@ -102,7 +119,6 @@ const updateProduct = async (req, res) => {
         result = await Product.updateOne({ _id: req.body.id }, {type: req.body.type}).exec()
     } 
     if (typeof req.body?.sizes !== 'object') {
-        console.log(req.body?.sizes)
         const arrayStr = JSON.stringify(oldProduct.sizes);
         if(arrayStr !== req.body?.sizes) {
             const sizesArray = Array.from(req.body.sizes.split(';'))

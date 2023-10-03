@@ -108,7 +108,9 @@ function Account({children}) {
                 <div className={styles.image_box}>
                 <div className={styles.img_wrap}>
                     <input onChange={handleUpload} type="file" alt="" accept="image/png, image/jpeg, image/jpg, image/jfif" />
-                    <img src={user.avatar} />
+                    {
+                        user.avatar ? <img src={user.avatar} /> : <div className={`d-flex justify-content-center align-items-center ${styles.fake_img}`}>R</div>
+                    }
                     </div>
                 </div>
                     <h4>{user.username}</h4>

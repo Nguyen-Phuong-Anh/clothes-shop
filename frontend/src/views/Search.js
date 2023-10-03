@@ -1,4 +1,4 @@
-import DetailCard from "../components/card/Card";
+import DetailCard from "../components/card/DetailCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
