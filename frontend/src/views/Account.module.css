@@ -168,4 +168,5 @@
     background-color: white;
     /* box-shadow: 4px 4px 5px 3px rgba(128, 128, 128, 0.315); */
     z-index: 1;
+    margin-top: 10px;
 }

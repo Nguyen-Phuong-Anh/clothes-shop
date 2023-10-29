@@ -7,6 +7,7 @@ import Search from './views/Search';
 import HomeBody from './components/HomeBody';
 import LogIn from './components/auth/LogIn';
 import Account from './views/Account';
+import CustomizeProduct from './components/account/CustomizeProduct';
 import PersistLogin from './components/auth/PersistLogin';
 import Order from './views/Order';
 import OrderSuccessfully from './views/OrderSuccessfully';
@@ -30,6 +31,7 @@ function App() {
             <Route path='/order' element={<Home children={<Order/>} />}/>
             <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
             <Route path='/products/:id' element={<Home children={<Product/>} />}/>
+            <Route path='/custom_product/:id' element={<Home children={<CustomizeProduct/>} />}/>
             <Route path='/search' element={<Home children={<Search/>} />}/>
 
           </Route>

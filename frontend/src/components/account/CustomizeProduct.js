@@ -3,6 +3,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import { useEffect, useReducer, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const initialState = {
     id: '',
@@ -108,11 +109,13 @@ const reducer = (state, action) => {
     }
 }
 
-function CustomizeProduct({id}) {
+function CustomizeProduct() {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [hidden, setHidden] = useState(true)
+    const [hiddenDialog, setHiddenDialog] = useState(true)
     const [target, setTarget] = useState('')
     const [newImg, setNewImg] = useState([])
+    const { id } = useParams()
 
     const axiosPrivate = useAxiosPrivate()
 
@@ -196,7 +199,6 @@ function CustomizeProduct({id}) {
         }
         try {
             await axiosPrivate.put(`/manage_product/${id}`, newState)
-            .then(res => console.log(res))
             window.location.reload()
         } catch (error) {  
             console.error(error)
@@ -206,9 +208,11 @@ function CustomizeProduct({id}) {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            await axiosPrivate.delete(`/manage_product/${id}`)
-            .then(res => console.log(res))
-            window.location.reload(); 
+            await axiosPrivate.post(`/manage_product/${id}`)
+            .then(res => {
+                console.log(res)
+                window.location.href = '../account'
+            })
         } catch (error) {  
             console.error(error)
         }
@@ -259,7 +263,6 @@ function CustomizeProduct({id}) {
             const fetchData = async () => {
                 const result = await axiosPrivate.get(`/products/${id}`,
                 { withCredentials: true })
-                console.log(result.data)
                 dispatch({
                     type: "SET_PRODUCT", payload: result.data
                 })
@@ -271,197 +274,209 @@ function CustomizeProduct({id}) {
     }, [])
 
     return (
-        <form name='CustomizeProduct' onSubmit={(event) => event.preventDefault()} className={`${styles.wrapper} mt-3`}>
-            <div>
-                <Form.Group>
-                    <Form.Label>Category</Form.Label>
-                    <Form.Select 
-                        className={styles.selectGroup}
-                        name='CATEGORY'
-                        value={state.category}
-                        onChange={handleChange}
-                    >
-                        <option disabled>Choose the category</option>
-                        <option value="Clothes">Clothes</option>
-                        <option value="Shoes">Shoes</option>
-                    </Form.Select>
-                </Form.Group>
-
-                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                    <label htmlFor='name'>Name</label>
-                    <input
-                        type='text'
-                        id='name'
-                        name='NAME'
-                        value={state.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                    <label htmlFor='type'>Type</label>
-                    <input
-                        type='text'
-                        id='type'
-                        name='TYPE'
-                        value={state.type}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className={`mt-4 pb-3 ${styles.check_wrapper} ${styles.info}`}>
-                    Size
-                    <div className={styles.checkAll}>
-                        <input
-                            type="checkbox"
-                            name='SIZES[]'
+        <div className={`${styles.wrapper} ${styles.cus_wrap} mt-3`}>
+            <h1>Customize Product</h1>
+            <form name='CustomizeProduct' onSubmit={(event) => event.preventDefault()}>
+                <div>
+                    <Form.Group>
+                        <Form.Label>Category</Form.Label>
+                        <Form.Select
+                            className={styles.selectGroup}
+                            name='CATEGORY'
+                            value={state.category}
                             onChange={handleChange}
-                            value='S'
-                        />
-                        <label></label>
-                        <p>S</p>
-                    </div> 
-                    <div className={styles.checkAll}>
-                        <input
-                            type="checkbox"
-                            name='SIZES[]'
-                            onChange={handleChange}
-                            value='M'
-                        />
-                        <label></label>
-                        <p>M</p>
-                    </div> 
-                    <div className={styles.checkAll}>
-                        <input
-                            type="checkbox"
-                            name='SIZES[]'
-                            onChange={handleChange}
-                            value='L'
-                        />
-                        <label></label>
-                        <p>L</p>
-                    </div> 
-                    <div className={styles.checkAll}>
-                        <input
-                            type="checkbox"
-                            name='SIZES[]'
-                            onChange={handleChange}
-                            value='XL'
-                        />
-                        <label></label>
-                        <p>XL</p>
-                    </div> 
-                </div>
-
-                <div className={styles.warning_wrapper}>
+                        >
+                            <option disabled>Choose the category</option>
+                            <option value="Clothes">Clothes</option>
+                            <option value="Shoes">Shoes</option>
+                        </Form.Select>
+                    </Form.Group>
                     <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                        <label htmlFor='colors'>Colors</label>
+                        <label htmlFor='name'>Name</label>
                         <input
                             type='text'
-                            id='colors'
-                            name='COLORS'
-                            value={state.colors}
+                            id='name'
+                            name='NAME'
+                            value={state.name}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    <div className={`${(hidden === false && target === 'color') ? styles.alert : styles.none}`} role="alert">Invalid form: The colors should be a string that contains hex color codes and each code is separated by a space ' '</div>
-                </div>
-
-                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                    <label htmlFor='material'>Material</label>
-                    <input
-                        type='text'
-                        id='material'
-                        name='MATERIAL'
-                        onChange={handleChange}
-                        required
-                        value={state.material}
-                    />
-                </div>
-                <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                    <label htmlFor='type'>Description</label>
-                    <textarea 
-                        className='mb-3'
-                        onChange={handleChange}
-                        name='DESCRIPTION'
-                        value={state.description}
-                        required
-                    >
-                    </textarea>
-                </div>
-
-                <div className={`${styles.info} mt-3 pb-3 ${styles.container_ad}`}>
-                    <label htmlFor='type'>Images</label>
-                    <div>
-                        <div className={styles.upload_box}>
-                            <p>Upload images <input 
-                                type="file" 
-                                multiple 
-                                data-max_length="5" 
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                        <label htmlFor='type'>Type</label>
+                        <input
+                            type='text'
+                            id='type'
+                            name='TYPE'
+                            value={state.type}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className={`mt-4 pb-3 ${styles.check_wrapper} ${styles.info}`}>
+                        Size
+                        <div className={styles.checkAll}>
+                            <input
+                                type="checkbox"
+                                name='SIZES[]'
                                 onChange={handleChange}
-                                name='IMAGES'
-                            /></p>
+                                value='S'
+                            />
+                            <label></label>
+                            <p>S</p>
                         </div>
-                        <div className={styles.img_box}>
-                            <div className={styles.uploadedImg}>
-                                {
-                                    Array.isArray(state.image) && state.image.map((img, index) => {
-                                        if(!img.delete && img!='' || img?.delete === false && img!='') {
-                                            return (
-                                                <Image key={`${img.url}${index}`} img={img.url} index={index} />
-                                            )
-                                        }
-                                    })
-                                }
-
-                                {
-                                    Array.isArray(newImg) && newImg.map((item, index) => (
-                                        <Image
-                                            key={`${item}${index}GH`} img={item} index={index} new_val={true} />
-                                    ))
-                                }
+                        <div className={styles.checkAll}>
+                            <input
+                                type="checkbox"
+                                name='SIZES[]'
+                                onChange={handleChange}
+                                value='M'
+                            />
+                            <label></label>
+                            <p>M</p>
+                        </div>
+                        <div className={styles.checkAll}>
+                            <input
+                                type="checkbox"
+                                name='SIZES[]'
+                                onChange={handleChange}
+                                value='L'
+                            />
+                            <label></label>
+                            <p>L</p>
+                        </div>
+                        <div className={styles.checkAll}>
+                            <input
+                                type="checkbox"
+                                name='SIZES[]'
+                                onChange={handleChange}
+                                value='XL'
+                            />
+                            <label></label>
+                            <p>XL</p>
+                        </div>
+                    </div>
+                    <div className={styles.warning_wrapper}>
+                        <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                            <label htmlFor='colors'>Colors</label>
+                            <input
+                                type='text'
+                                id='colors'
+                                name='COLORS'
+                                value={state.colors}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className={`${(hidden === false && target === 'color') ? styles.alert : styles.none}`} role="alert">Invalid form: The colors should be a string that contains hex color codes and each code is separated by a space ' '</div>
+                    </div>
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                        <label htmlFor='material'>Material</label>
+                        <input
+                            type='text'
+                            id='material'
+                            name='MATERIAL'
+                            onChange={handleChange}
+                            required
+                            value={state.material}
+                        />
+                    </div>
+                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                        <label htmlFor='type'>Description</label>
+                        <textarea
+                            className='mb-3'
+                            onChange={handleChange}
+                            name='DESCRIPTION'
+                            value={state.description}
+                            required
+                        >
+                        </textarea>
+                    </div>
+                    <div className={`${styles.info} mt-3 pb-3 ${styles.container_ad}`}>
+                        <label htmlFor='type'>Images</label>
+                        <div>
+                            <div className={styles.upload_box}>
+                                <p>Upload images <input
+                                    type="file"
+                                    multiple
+                                    data-max_length="5"
+                                    onChange={handleChange}
+                                    name='IMAGES'
+                                /></p>
+                            </div>
+                            <div className={styles.img_box}>
+                                <div className={styles.uploadedImg}>
+                                    {
+                                        Array.isArray(state.image) && state.image.map((img, index) => {
+                                            if(!img.delete && img!='' || img?.delete === false && img!='') {
+                                                return (
+                                                    <Image key={`${img.url}${index}`} img={img.url} index={index} />
+                                                )
+                                            }
+                                        })
+                                    }
+                                    {
+                                        Array.isArray(newImg) && newImg.map((item, index) => (
+                                            <Image
+                                                key={`${item}${index}GH`} img={item} index={index} new_val={true} />
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className={styles.warning_wrapper}>
+                        <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                            <label htmlFor='type'>Count in Stock</label>
+                            <input
+                                type='text'
+                                id='count'
+                                name='COUNTINSTOCK'
+                                onChange={handleChange}
+                                required
+                                value={state.countInStock}
+                            />
+                        </div>
+                        <div className={`${(hidden === false && target === 'count') ? styles.alert : styles.none}`} role="alert">Invalid form: The count in stock should be a number</div>
+                    </div>
+                    <div className={styles.warning_wrapper}>
+                        <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
+                            <label htmlFor='type'>Price</label>
+                            <input
+                                type='text'
+                                id='price'
+                                name='PRICE'
+                                onChange={handleChange}
+                                required
+                                value={state.price}
+                            />
+                        </div>
+                        <div className={`${(hidden === false && target === 'price') ? styles.alert : styles.none}`} role="alert">Invalid form: The price should be a number</div>
+                    </div>
                 </div>
+                <div className={styles.button_area}>
+                    <Button onClick={handleUpdate} type='submit' className={`${styles.btn_size}`}
+                    variant="outline-dark">Update</Button>
+                    <Button onClick={() => setHiddenDialog(false)} type='button' className={`${styles.btn_size}`}
+                    variant="danger">Delete</Button>
+                </div>
+            </form>
 
-                <div className={styles.warning_wrapper}>
-                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                        <label htmlFor='type'>Count in Stock</label>
-                        <input
-                            type='text'
-                            id='count'
-                            name='COUNTINSTOCK'
-                            onChange={handleChange}
-                            required
-                            value={state.countInStock}
-                        />
+            <div className={`${styles.modal} ${hiddenDialog ? styles.none : ''}`}>
+                <div className={styles.modal_content}>
+                    <div className={`${styles.modal_header} d-flex align-items-center`}>
+                        <h3>Confirm Delete</h3>
+                        <div><span onClick={() => setHiddenDialog(true)} className={`${styles.modal_close}`}>&times;</span></div>
                     </div>
-                    <div className={`${(hidden === false && target === 'count') ? styles.alert : styles.none}`} role="alert">Invalid form: The count in stock should be a number</div>
-                </div>
-                <div className={styles.warning_wrapper}>
-                    <div className={`${styles.info} mt-3 ${styles.container_ad}`}>
-                        <label htmlFor='type'>Price</label>
-                        <input
-                            type='text'
-                            id='price'
-                            name='PRICE'
-                            onChange={handleChange}
-                            required
-                            value={state.price}
-                        />
+                    <hr />
+                    <p>Do you want to delete this product?</p>
+                    <div className='mt-4 d-flex justify-content-end align-items-center'>
+                        <Button onClick={() => setHiddenDialog(true)} type='submit' className={`${styles.btn_size} me-4`} variant="outline-secondary">Close</Button>
+                        <Button onClick={handleDelete} type='submit' className={`${styles.btn_size} btn-dark`}>Confirm</Button>
                     </div>
-                    <div className={`${(hidden === false && target === 'price') ? styles.alert : styles.none}`} role="alert">Invalid form: The price should be a number</div>
                 </div>
             </div>
-            <div className={styles.button_area}>
-                <Button onClick={handleUpdate} type='submit' className={`${styles.btn_size}`} 
-                variant="outline-dark">Update</Button>
-                <Button onClick={handleDelete} type='submit' className={`${styles.btn_size}`} 
-                variant="danger">Delete</Button>
-            </div>
-        </form>
+        </div>
     );
 }
 

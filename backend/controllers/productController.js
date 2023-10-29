@@ -39,62 +39,71 @@ const getProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-    const sizesArray = Array.from(req.body.sizes.split(';'))
-    const colorsArray = Array.from(req.body.colors.split(' '))
-
-    const uploadedResult = []
-    try {
-        for(const img of req.body.uploadImg) {
-            const ress = await cloudinary.uploader.upload(img,
-            { 
-                upload_preset: 'product_upload',
-                allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
-                overwrite: true,
-                invalidate: true
-            });
-            uploadedResult.push({
-                url: ress.url,
-                pb_id: ress.public_id
-            })
+    if(req.body?.category) {
+        const sizesArray = Array.from(req.body.sizes.split(';'))
+        const colorsArray = Array.from(req.body.colors.split(' '))
+    
+        const uploadedResult = []
+        try {
+            for(const img of req.body.uploadImg) {
+                const ress = await cloudinary.uploader.upload(img,
+                { 
+                    upload_preset: 'product_upload',
+                    allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
+                    overwrite: true,
+                    invalidate: true
+                });
+                uploadedResult.push({
+                    url: ress.url,
+                    pb_id: ress.public_id
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
-    } catch (error) {
-        console.log(error)
-    }
+    
+        await Product.create({
+            "category": req.body.category,
+            "name": req.body.name,
+            "type": req.body.type,
+            "sizes": sizesArray,
+            "colors": colorsArray,
+            "material": req.body.material,
+            "description": req.body.description,
+            "countInStock": Number(req.body.countInStock),
+            "price": Number(req.body.price),
+            "image": uploadedResult
+        })
+       
+        res.status(201).json({
+            "message": "Created sucessfully"
+        })
 
-    await Product.create({
-        "category": req.body.category,
-        "name": req.body.name,
-        "type": req.body.type,
-        "sizes": sizesArray,
-        "colors": colorsArray,
-        "material": req.body.material,
-        "description": req.body.material,
-        "countInStock": Number(req.body.countInStock),
-        "price": Number(req.body.price),
-        "image": uploadedResult
-    })
-   
-    res.status(201).json({
-        "message": "Created sucessfully"
-    })
+    } else {
+        res.status(400).json({
+            'message': 'Failed to create'
+        })
+    }
 }
 
 const deleteProduct = async (req, res) => {
     const foundProduct = await Product.findById({_id: req.params.id})
 
-    try {
-        for(const img of foundProduct.image) {
-            const ress = await cloudinary.uploader.destroy(img.pb_id, (error, result) => {
-                if (error) {
-                  console.error(error);
-                  res.status(500).json({
-                    "message": "Failed to delete image"
-                  })
-                }
-            });
+    if(foundProduct?.image) {
+        try {
+            for(const img of foundProduct.image) {
+                const ress = await cloudinary.uploader.destroy(img.pb_id, (error, result) => {
+                    if (error) {
+                      console.error(error);
+                      res.status(500).json({
+                        "message": "Failed to delete image"
+                      })
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
         }
-    } catch (error) {
-        console.log(error)
     }
 
     await Product.deleteOne({_id: req.params.id})
@@ -205,14 +214,37 @@ const updateProduct = async (req, res) => {
 }
 
 const searchProduct = async (req, res) => {
-    const result = await Product.find({
-        'name': {
-            $regex: req.params.search,
-            $options: "i" // case-insensitive search
-        }
-    })
+    const page = req.query.page || 0
+    const skip = (page - 1) * process.env.ITEMS_PER_PAGE2
 
-    res.status(200).send(result)
+    try {
+        const countPromise = await Product.estimatedDocumentCount();
+        const allProductsPromise = await Product.find({
+            'name': {
+                $regex: req.params.search,
+                $options: "i" // case-insensitive search
+            }
+        }).limit(process.env
+            .ITEMS_PER_PAGE2).skip(skip).exec();
+        
+        const [count, allProducts] = await Promise.all([countPromise, allProductsPromise])
+        const pageCount = count / process.env.ITEMS_PER_PAGE2
+
+        res.json({
+            allProducts,
+            pagination: {
+                count, 
+                pageCount
+            }
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(204).json({
+            'message': 'No products found'
+        })
+    }
+
 }
 
 module.exports = {

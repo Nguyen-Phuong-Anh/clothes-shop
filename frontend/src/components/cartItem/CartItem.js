@@ -42,7 +42,12 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
             await axiosPrivate.post('/cart/delete', {
                 email: state.userInfo.email,
                 accessKey: item._id,
-            }).then(res => console.log(res))
+            }).then(
+                res => {
+                    console.log(res)
+                    window.location.reload();
+                }
+            )
         } catch (error) {
             console.error(error)   
         }
@@ -86,7 +91,8 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
             <td>
                 <div className={styles.item}>
                     <div className={styles.checkBox_wrapper}>
-                        <input 
+                        <input
+                            className='checkbox' 
                             title='checkbox'
                             type="checkbox" 
                             id={`${item._id}`}
@@ -100,7 +106,9 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                     </div>
 
                     <div className={styles.itemBody}>
-                        <img src={image3} alt='item'/>
+                        {
+                            item.image ? <img src={item.image} alt='item'/> : <img src={image3} alt='item'/>
+                        }
                         <p>{item.name}</p>
                     </div>
                     <div className={styles.itemInfo}>

@@ -124,7 +124,7 @@ function AddProduct() {
                         value={state.category}
                         onChange={handleChange}
                     >
-                        <option disabled>Choose the category</option>
+                        <option>Choose the category</option>
                         <option value="Clothes">Clothes</option>
                         <option value="Shoes">Shoes</option>
                     </Form.Select>
@@ -208,7 +208,7 @@ function AddProduct() {
                             required
                         />
                     </div>
-                    <div className={`${(hidden === false && target === 'color') ? styles.alert : styles.none}`} role="alert">Invalid form: The colors should be a string that contains hex color codes and each code is separated by a space ' '</div>
+                    <div className={`${(hidden === false && target === 'color') ? styles.alert : styles.none}`} role="alert">Invalid form: The colors should be a string and each color is separated by a space ' '</div>
                 </div>
 
                 <div className={`${styles.info} mt-3 ${styles.container_ad}`}>

@@ -18,7 +18,7 @@ function route(app) {
     //manage product
     app.get('/products/:id', productController.getProduct)
     app.put('/manage_product/:id', productController.updateProduct)
-    app.delete('/manage_product/:id', productController.deleteProduct)
+    app.post('/manage_product/:id', productController.deleteProduct)
     app.get('/products', productController.getAllProduct)
     app.post('/account/addProduct', productController.addProduct)
     

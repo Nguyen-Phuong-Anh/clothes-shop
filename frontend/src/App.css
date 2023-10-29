@@ -459,6 +459,22 @@
   font-family: 'Roboto Slab', serif;
 }
 
+.showMore_btn {
+  width: 400px;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: var(--heavy_pink);
+  padding: 10px 20px;
+  border: 1px solid transparent;
+}
+
+.showMore_btn:hover {
+  transition: all 0.4s ease;
+  background-color: whitesmoke;
+  border: 1px solid var(--heavy_pink);
+}
+
 /* pagination */
 .pagination {
   margin: 40px 0;

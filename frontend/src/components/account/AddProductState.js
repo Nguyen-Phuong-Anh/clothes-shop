@@ -66,7 +66,6 @@ const reducer = (state, action) => {
                 countInStock: action.payload
             }
         
-        
         case 'SET_PRICE':
             return {
                 ...state, 

@@ -18,13 +18,6 @@ function HomeBody() {
                 if(result.data.pagination.pageCount < 1) {
                     setPageCount(1)
                 } else setPageCount(result.data.pagination.pageCount)
-                // if(page > 1) {
-                //     const newArr = pagArray
-                //     newArr.forEach(function(num, i, newArr) {
-                //         newArr[i] = num + 1;
-                //     })
-                //     setPagArray(newArr)
-                // }
             } catch (error) {
                 console.log(error)
             }
