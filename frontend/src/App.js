@@ -13,6 +13,7 @@ import Order from './views/Order';
 import OrderSuccessfully from './views/OrderSuccessfully';
 import Invoice from './views/Invoice';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DetailOrder from './components/account/DetailOrder';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/custom_product/:id' element={<Home children={<CustomizeProduct/>} />}/>
             <Route path='/search' element={<Home children={<Search/>} />}/>
 
+            <Route path='/account/detailOrder/:id' element={<Home children={<Account children={<DetailOrder />}/>} />}/>
           </Route>
 
           <Route path='/order_success' element={<Home children={<OrderSuccessfully/>} />}/>

@@ -53,7 +53,6 @@ function ManageProduct() {
                 } else setPageCount(parseInt(result.data.pagination.pageCount))
             }
             setLoading(false)
-            // setSearch('')
         } catch (error) {
             console.log(error)
         }
@@ -69,7 +68,6 @@ function ManageProduct() {
                 setPageCount(0)
             } else setPageCount(parseInt(result.data.pagination.pageCount))
             setLoading(false)
-            // setSearch('')
         } catch (error) {
             console.log(error)
         }

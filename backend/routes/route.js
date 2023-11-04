@@ -38,6 +38,9 @@ function route(app) {
     // manage order
     app.post('/order/createOrder', orderController.createOrder)
     app.post('/order/getOrder', orderController.getOrder)
+    app.get('/order/getAllOrder', orderController.getAllOrder)
+    app.get('/order/getDetailOrder/:id', orderController.getDetailOrder)
+    app.post('/order/getOrderAddr', orderController.getOrderAddr)
 
     //search
     app.get('/search/:search', productController.searchProduct)

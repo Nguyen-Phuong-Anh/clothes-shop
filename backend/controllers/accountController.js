@@ -16,8 +16,9 @@ const accessAccount = async (req, res) => {
         const adminOptions = [
             'Profile', 
             "Shipping Address",
+            'Customer Order',
             'Product Management',
-            smallOptions = [
+            [
                 'Add Product',
                 'Manage Product'
             ]
@@ -26,7 +27,11 @@ const accessAccount = async (req, res) => {
         const userOptions = [
             'Profile', 
             "Shipping Address",
-            'Order'
+            'Order',
+            [
+                'Order',
+                'Invoice'
+            ]
         ]
 
         if(foundUser.isAdmin) {

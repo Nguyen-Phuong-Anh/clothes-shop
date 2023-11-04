@@ -1,25 +1,10 @@
 import styles from './Invoice.module.css'
+import styles2 from '../components/invoice/InvoiceItem.module.css'
 import { useLocation } from "react-router-dom";
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
-
-const InvoiceItem = ({item}) => {
-    return (
-        <div className={`${styles.item_wrapper}`}>
-            <div>
-                    <p>{item.name}</p>
-                    <p>{item.size} - {item.color}</p>
-            </div>
-            <div>
-                <p>{item.quantity}</p>
-            </div>
-            <div>$ {item.price}</div>
-            <div>$ {item.total}</div>
-        
-        </div>
-    )
-}
+import InvoiceItem from '../components/invoice/InvoiceItem';
 
 function Invoice() {
     const location = useLocation();
@@ -60,10 +45,10 @@ function Invoice() {
                     <h3>#{value._id}</h3>
                 </div>
             </div>
-            <div className={styles.body1}>
-                <div className={styles.table}>
+            <div className={styles2.body1}>
+                <div className={styles2.table}>
                     <div>
-                        <div className={styles.tb_header}>
+                        <div className={styles2.tb_header}>
                             <div>Product</div>
                             <div>Quantity</div>
                             <div>Price</div>
@@ -71,13 +56,13 @@ function Invoice() {
                         </div>
                     </div>
                     {/* */}
-                    <span className={styles.box1}></span>
-                    <div className={styles.tb_body}>
-                        <div className={`${styles.over_scroll}`}>
+                    <span className={styles2.box1}></span>
+                    <div className={styles2.tb_body}>
+                        <div className={`${styles2.over_scroll}`}>
                             {
                                 Array.isArray(value.cart) && value.cart.map((item, index) => (
-                                    <div key={`${index}WFS`} className={`${index % 2 === 0 && styles.odd_color}`}>
-                                        <InvoiceItem key={`${item.id}${index}K`} item={item} index={index} />   
+                                    <div key={`${index}WFS`} className={`${index % 2 === 0 ? styles.odd_color : ''}`}>
+                                        <InvoiceItem key={`${item.id}${index}K`} item={item} />   
                                     </div>              
                                 ))
                             }  

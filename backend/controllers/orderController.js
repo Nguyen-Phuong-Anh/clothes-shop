@@ -1,7 +1,6 @@
 const Order = require('../models/Order');
 const User = require('../models/User')
 const Cart = require('../models/Cart');
-const Product = require('../models/Product')
 
 const createOrder = async (req, res) => {
     const foundUser = await User.findOne({ email: req.body.email}).exec();
@@ -28,15 +27,38 @@ const createOrder = async (req, res) => {
             "paymentMethod": req.body.paymentMethod
         })
 
-        //after create order successfully, change the number of sold item in each product
-
-    
         res.status(201).json({
             "message": "Created sucessfully"
         })
     } catch (error) {
         res.status(500).json({
             "message": error.message
+        })
+    }
+}
+
+const getAllOrder = async (req, res) => {
+    const page = req.query.page || 0
+    const skip = (page - 1) * process.env.ITEMS_PER_PAGE
+    try {
+        const countPromise = await Order.estimatedDocumentCount();
+        const allOrdersPromise = await Order.find({}, 'userId totalProduct createdAt').limit(process.env
+            .ITEMS_PER_PAGE).skip(skip).exec();
+        
+        const [count, allOrders] = await Promise.all([countPromise, allOrdersPromise])
+        const pageCount = count / process.env.ITEMS_PER_PAGE
+        
+        res.json({
+            allOrders,
+            pagination: {
+                count, 
+                pageCount
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(204).json({
+            'message': 'No orders found'
         })
     }
 }
@@ -54,7 +76,35 @@ const getOrder = async (req, res) => {
     }
 }
 
+const getDetailOrder = async (req, res) => {
+    const foundOrder = await Order.findById({_id: req.params.id});
+    
+    if(foundOrder) {
+        res.send(foundOrder)
+    } else {
+        res.status(404).json({
+            "message": "no order found"
+        })
+
+    }
+}
+
+const getOrderAddr = async (req, res) => {
+    if(req.body.userId) {
+        const foundUser = await User.findById({_id: req.body.userId});
+    
+        if(foundUser) {
+            res.send(foundUser?.shippingAddress)
+        } else {
+            res.status(500)
+        }
+    }
+}
+
 module.exports = {
     createOrder,
-    getOrder
+    getAllOrder,
+    getOrder,
+    getDetailOrder,
+    getOrderAddr
 }

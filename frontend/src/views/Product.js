@@ -8,7 +8,6 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useRefreshToken from "../hooks/useRefreshToken";
-import axios from "axios";
 
 function Product() {
     const { id } = useParams()
@@ -26,9 +25,7 @@ function Product() {
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const result = await axios.get(`/products/${id}`, {
-                    withCredentials: true
-                })
+                const result = await axiosPrivate.get(`/products/${id}`)
                 setProduct(result.data)
                 if(result.data?.image[0]) {
                     setPreview(result.data.image[0].url)

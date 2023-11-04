@@ -443,3 +443,86 @@
     padding-bottom: 0;
     margin-bottom: 10px;
 }
+
+/* customer order */
+.order_wrapper h3 {
+    font-family: 'Lobster', sans-serif;
+    font-size: 3rem;
+}
+
+.orderCard {
+    /* border: 8px double var(--heavy_pink); */
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    /* background-color: whitesmoke; */
+    padding: 5px 20px;
+}
+
+.orderCard:hover {
+    transition: all 0.1s ease-in;
+    background-color: whitesmoke;
+}
+
+.orderCard p {
+    margin-bottom: 5px;
+}
+
+.orderCard p:first-child {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--heavy_pink);
+}
+
+.orderCard span {
+    font-size: 1.4rem;
+    font-family: 'Satisfy', cursive;
+}
+
+.header h3, span {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
+}
+
+.header span {
+    padding-left: 5px;
+    color: var(--heavy_pink);
+}
+
+.tb_header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    z-index: 99;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+}
+
+.odd_color {
+    background-color: whitesmoke;
+}
+
+.total {
+    width: 240px;
+    color: white;
+    background-color: black;
+    padding-right: 20px;
+}
+
+.total p:first-child {
+    text-align: left;
+    padding-left: 20px;
+    font-size: 1.3rem;
+}
+
+.total p, .total span {
+    font-family: 'Lobster', cursive;
+}
+
+.total span {
+    float: right;
+    font-family: 'Dancing Script', cursive;
+    color: var(--heavy_pink);
+}

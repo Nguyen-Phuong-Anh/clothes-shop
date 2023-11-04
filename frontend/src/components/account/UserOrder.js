@@ -28,7 +28,6 @@ function UserOrder({ userId }) {
                 await axiosPrivate.post('/order/getOrder', {
                     userId
                 }).then(res =>{ 
-                    console.log(res.data)
                     setOrder(res.data)})
             }
 

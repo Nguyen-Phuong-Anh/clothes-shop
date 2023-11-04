@@ -10,11 +10,15 @@ import AddProduct from "../components/account/AddProduct";
 import ManageProduct from "../components/account/ManageProduct";
 import ShippingAddress from "../components/account/ShippingAddress";
 import UserOrder from "../components/account/UserOrder";
+import CustomerOrder from "../components/account/CustomerOrder";
 
-const SelectCard = ({name, setSelect, hidden, setHidden}) => {
+const SelectCard = ({name, setSelect, hidden, setHidden, setHasChildren}) => {
     if(setSelect) {
         return (
-                <div className={styles.selectCard} onClick={() => setSelect(name)}>
+                <div className={styles.selectCard} onClick={() => {
+                    setHasChildren(false)
+                    setSelect(name)
+                }}>
                     <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
                 </div>
         )
@@ -28,9 +32,12 @@ const SelectCard = ({name, setSelect, hidden, setHidden}) => {
     }
 }
 
-const MiniCard = ({name, setSelect}) => {
+const MiniCard = ({name, setSelect, setHasChildren}) => {
     return (
-        <div className={styles.mini_card} onClick={() => setSelect(name)}>
+        <div className={styles.mini_card} onClick={() => {
+            setHasChildren(false)
+            setSelect(name)}}
+            >
             <FontAwesomeIcon className={styles.icon} icon={faChevronDown} /> {name}
         </div>
     )
@@ -46,6 +53,8 @@ function Account({children}) {
 
     const [select, setSelect] = useState('');
     const [hidden, setHidden] = useState(true)
+
+    const [hasChildren, setHasChildren] = useState(false)
 
     const uploadImg = async (imgUrl) => {
         try {
@@ -120,7 +129,7 @@ function Account({children}) {
                     {
                         Array.isArray(user.options) && user.options.map((item) => {
                             if((typeof item === 'string' && item !== 'Product Management') || (item instanceof String && item !== 'Product Management')) {
-                                return ( <SelectCard key={item} name={item} setSelect={setSelect} /> )
+                                return ( <SelectCard key={item} name={item} setSelect={setSelect} setHasChildren={setHasChildren} /> )
                             }
                         })
                     }
@@ -128,7 +137,22 @@ function Account({children}) {
                     {
                         user.isAdmin === true && (
                         <>
-                            <SelectCard className={styles.productMng} id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} />
+                            <SelectCard className={styles.productMng} id="manage_product" name={'Product Management'} setHidden={setHidden} hidden={hidden} setHasChildren={setHasChildren} />
+                            <div className={`${styles.popUp} hidden ${hidden ? '' : styles.show}`}>
+                                {
+                                    Array.isArray(user.options[4]) && user.options[4].map((item) => (
+                                        <MiniCard key={item} name={item} setSelect={setSelect} setHasChildren={setHasChildren} />
+                                    ))
+                                }
+                            </div>
+                        </>
+                        )
+                    }
+
+                    {
+                        (user.isAdmin === false) && (
+                        <>
+                            <SelectCard className={styles.productMng} id="order_options" name={'Customer Order'} setHidden={setHidden} hidden={hidden} />
                             <div className={`${styles.popUp} hidden ${hidden ? '' : styles.show}`}>
                                 {
                                     Array.isArray(user.options[3]) && user.options[3].map((item) => (
@@ -143,12 +167,13 @@ function Account({children}) {
             </div>
 
             <div className={styles.content}>
-                {select === 'Profile' && <Profile user={user} />}
-                {select === 'Add Product' && <AddProduct />}
-                {select === 'Manage Product' && <ManageProduct />}
-                {select === 'Shipping Address' && <ShippingAddress user={user} />}
-                {select === 'Order' && <UserOrder userId={user.id} />}
-                {children}
+                {(select === 'Profile' && !hasChildren) && <Profile user={user} />}
+                {(select === 'Add Product' && !hasChildren) && <AddProduct />}
+                {(select === 'Manage Product' && !hasChildren) && <ManageProduct />}
+                {(select === 'Shipping Address' && !hasChildren) && <ShippingAddress user={user} />}
+                {(select === 'Order'  && !hasChildren)&& <UserOrder userId={user.id} />}
+                {(select === 'Customer Order' && !hasChildren) && <CustomerOrder setHasChildren={setHasChildren} />}
+                {hasChildren && children}
             </div>
         </div>
     );
