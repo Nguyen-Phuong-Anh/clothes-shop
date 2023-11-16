@@ -3,32 +3,32 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const OrderItem = ({orderItem}) => {
+const InvoiceItem = ({invoiceItem}) => {
     return (
-        <Link to={`/order/${orderItem._id}`} state={orderItem} className='link'>
+        <Link to={`/invoice/${invoiceItem._id}`} state={invoiceItem} className='link'>
             <div className={styles.order_item}>
                 <div className={styles.order_thumbnail}>R</div>
                 <div className={styles.order_item_content}>
-                    <p><span>Order</span> <span className={styles.order_id}>#{orderItem._id}</span></p>
-                    <p>Total amount: ${orderItem.totalAmount}</p>
-                    <p>State: {orderItem.status}</p>
+                    <p><span>Order</span> <span className={styles.order_id}>#{invoiceItem._id}</span></p>
+                    <p>Total amount: ${invoiceItem.totalAmount}</p>
+                    <p>State: {invoiceItem.status}</p>
                 </div>
             </div>
         </Link>
     )
 }
 
-function UserOrder({ userId }) {
+function UserInvoice({ userId }) {
     const axiosPrivate = useAxiosPrivate();
-    const [order, setOrder] = useState([])
+    const [invoiceItem, setInvoiceItem] = useState([])
     
     useEffect(() => {
         try {
             const getOrder = async () => {
-                await axiosPrivate.post('/order/getOrder', {
+                await axiosPrivate.post('/order/getOrderedItem', {
                     userId
                 }).then(res =>{ 
-                    setOrder(res.data)})
+                    setInvoiceItem(res.data)})
             }
 
             getOrder()
@@ -39,17 +39,17 @@ function UserOrder({ userId }) {
 
     return (
         <div className={`${styles.wrapper} mt-2`}>
-            <h1>My Order</h1>
+            <h1>My Invoice</h1>
             <div className={styles.section}>
                 {
-                    order.map((orderItem, index) => (
-                        <OrderItem key={`${orderItem.id}${index} id`} orderItem={orderItem} />
+                    invoiceItem.length > 0 ? invoiceItem.map((invoiceItem, index) => (
+                        <InvoiceItem key={`${invoiceItem.id}${index} id`} invoiceItem={invoiceItem} />
                         )
-                    )
+                    ) : <p>No invoice found</p>
                 }
             </div>
         </div>
     );
 }
 
-export default UserOrder;
+export default UserInvoice;

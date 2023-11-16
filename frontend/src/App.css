@@ -151,7 +151,7 @@
   margin: auto;
 }
 
-.product_container {
+.product_container, .review_container {
   display: flex;
   margin: 120px auto 50px;
   /* background-color: #ede9d56e; */
@@ -168,6 +168,7 @@
 
 .product_image img {
   height: 100%;
+  width: 100%;
   outline: none;
   border: none;
 }
@@ -239,9 +240,22 @@
   margin-bottom: 20px;
 }
 
-.sell div:not(:first-child) {
+.sell p:not(:first-child) {
   border-left: 1px solid var(--heavy_pink);
   padding-left: 15px;
+}
+
+.sell p, .sell span {
+  font-size: 1.1rem;
+
+}
+
+.sell span {
+  padding-left: 15px;
+}
+
+.white_star {
+  color: #eee;
 }
 
 .product_content_body {
@@ -289,9 +303,6 @@
 .product_content_body h5:nth-child(3)::after {
   transition: all 0.4s;
   width: 17%;
-  /* animation-name: h5Animation1;
-  animation-duration: 0.4s;
-  animation-iteration-count: 1; */
 }
 
 .price {
@@ -401,6 +412,44 @@
   color: var(--heavy_pink);
 }
 
+/* reviews section */
+.review_container {
+  margin-top: 0;
+  flex-direction: column;
+}
+
+.review_container h3 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+  width: fit-content;
+  font-family: 'Lobster', cursive;
+}
+
+.review_wrapper {
+  padding: 0 0 10px 20px;
+  border: 1px solid rgba(128, 128, 128, 0.474);
+}
+
+.review_header p {
+  margin: 0 0 10px 10px;
+  font-size: 1.1rem;
+}
+
+.review_header div {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border: 2px solid var(--heavy_pink);
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: var(--heavy_pink);
+}
+
+.review_main p:nth-child(2), .review_header p,
+.review_wrapper span {
+  color: grey;
+}
+
 /* input glow */
 .input:focus {
   outline: none;
@@ -487,18 +536,14 @@
   height: 50px;
   cursor: pointer;
   border: none;
-  /* border: none; */
-  /* border: 4px double transparent; */
   background-color: white;
   color: black;
-  /* font-family: 'Lobster', cursive; */
   font-weight: 700;
   font-size: 0.9rem;
 }
 
 .pagination button:hover {
   background-color: black;
-  /* border: 4px double var(--heavy_pink); */
   color: var(--heavy_pink);
   transition: all 0.5s ease;
 }
@@ -520,4 +565,90 @@
 
 .pagination button:active {
   outline: 1px solid rgba(128, 128, 128, 0.162) !important;
+}
+
+/* progress bar */
+#progress-bar {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 15px 15px 0;
+  table-layout: fixed;
+  width: 100%;
+  counter-reset: step;
+}
+
+#progress-bar li {
+  list-style-type: none;
+  display: table-cell;
+  width: 20%;
+  float: left;
+  position: relative;
+  text-align: center;
+}
+
+#progress-bar li::before {
+  width: 50px;
+  height: 50px;
+  content: counter(step);
+  counter-increment: step;
+  line-height: 45px;
+  font-size: 1.4rem;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+}
+
+#progress-bar li::after {
+  width: 100%;
+  height: 10px;
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: -50%;
+  z-index: -1;
+  border: 1px solid var(--heavy_pink);
+}
+
+#progress-bar li:first-child::after {
+  content: none;
+}
+
+.step-done {
+  color: var(--heavy_pink);
+}
+
+.step-done::before {
+  background-color: black;
+  color: var(--heavy_pink);
+  content: "\f00c";
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--heavy_pink);
+}
+
+.step-done::after {
+  background-color: black;
+}
+
+.step-active {
+  color: var(--heavy_pink);
+}
+
+.step-active::before {
+  border: 1px solid var(--heavy_pink);
+  color: black;
+  background-color: white;
+  font-weight: 700;
+}
+
+.step-active::after {
+  background-color: black;
+}
+
+.step-todo::before {
+  background-color: #eee;
+  border: 1px solid #d2cece;
+  color: var(--heavy_pink);
 }

@@ -89,3 +89,25 @@
     background-color: black;
     border-radius: 20px;
 }
+
+.header {
+    padding-left: 20px;
+    border-left: 2px solid black;
+}
+
+.header h3 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
+}
+
+.header button {
+    outline: none;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+.header button:hover {
+    color: var(--heavy_pink);
+}

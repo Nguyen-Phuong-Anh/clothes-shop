@@ -14,6 +14,7 @@ import OrderSuccessfully from './views/OrderSuccessfully';
 import Invoice from './views/Invoice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DetailOrder from './components/account/DetailOrder';
+import DetailMyOrder from './components/account/DetailMyOrder';
 
 function App() {
 
@@ -30,12 +31,13 @@ function App() {
             <Route path='/account' element={<Home children={<Account/>} />}/>
             <Route path='/cart' element={<Home children={<Cart/>} />}/>
             <Route path='/order' element={<Home children={<Order/>} />}/>
-            <Route path='/order/:id' element={<Home children={<Invoice/>} />}/>
+            <Route path='/invoice/:id' element={<Home children={<Invoice/>} />}/>
             <Route path='/products/:id' element={<Home children={<Product/>} />}/>
             <Route path='/custom_product/:id' element={<Home children={<CustomizeProduct/>} />}/>
             <Route path='/search' element={<Home children={<Search/>} />}/>
 
             <Route path='/account/detailOrder/:id' element={<Home children={<Account children={<DetailOrder />}/>} />}/>
+            <Route path='/account/myOrder/:id' element={<Home children={<Account children={<DetailMyOrder />}/>} />}/>
           </Route>
 
           <Route path='/order_success' element={<Home children={<OrderSuccessfully/>} />}/>

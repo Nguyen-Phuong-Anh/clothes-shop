@@ -86,6 +86,7 @@ function Register() {
                     await axios.post("/register", state)
                     .then(res => {
                         console.log(res)
+                        alert("Successfully registered");
                         navigate(from, { replace: true })
                     })
                 } catch(err) {

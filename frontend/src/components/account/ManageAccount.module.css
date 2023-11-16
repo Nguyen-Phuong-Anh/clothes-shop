@@ -177,7 +177,7 @@
     background-color: whitesmoke;
 }
 
-.container_ad textarea {
+.container_ad textarea, .reviewBox textarea {
     width: 460px;
     height: 150px;
     padding: 12px 20px;
@@ -214,7 +214,7 @@
 .modal {
     /* display: none; */
     position: fixed;
-    z-index: 1;
+    z-index: 99;
     left: 0;
     top: 0;
     width: 100%;
@@ -224,7 +224,7 @@
 }
 
 .modal_content {
-    background-color: #fefefe;
+    background-color: white;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -478,16 +478,6 @@
     font-family: 'Satisfy', cursive;
 }
 
-.header h3, span {
-    font-family: 'Roboto Slab', serif;
-    font-size: 1.5rem;
-}
-
-.header span {
-    padding-left: 5px;
-    color: var(--heavy_pink);
-}
-
 .tb_header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -525,4 +515,146 @@
     float: right;
     font-family: 'Dancing Script', cursive;
     color: var(--heavy_pink);
+}
+
+/* detail order */
+.radio_group {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.radio_group input {
+    accent-color: var(--heavy_pink);
+    width: 20px;
+    height: 15px;
+}
+
+.radio_group label {
+    padding-left: 5px;
+}
+
+/* myorder */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.table th {
+    border-bottom: 1px solid black;
+    padding-left: 20px;
+    color: var(--heavy_pink);
+}
+
+.table th,.table td {
+    text-align: center;
+}
+
+.table td {
+    padding: 15px 12px;
+}
+
+.table p {
+    margin: 0;
+}
+
+.table a {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    font-weight: 800;
+    color: black;
+}
+
+.table a:hover {
+    color: var(--heavy_pink);
+}
+
+/* detail my order */
+.order_info {
+    border-left: 3px solid black;
+    padding-left: 15px;
+}
+
+.order_info span {
+    color: var(--heavy_pink);
+}
+
+.shippingAds p {
+    margin: 0;
+    color: #aaa;
+}
+
+.btn_order {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+    width: 100%;
+    align-items: flex-end;
+    padding-right: 20px;
+}
+
+.btn_order button {
+    padding: 10px 20px;
+    width: 200px;
+    background-color: black;
+    color: var(--heavy_pink);
+    border: 2px solid var(--heavy_pink);
+    font-weight: 600;
+}
+
+.reviewBtn button {
+    background-color: #eee;
+}
+
+.table button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+/* review modal */
+.star_wrapper {
+    width: 270px;
+}
+
+.star_wrapper p {
+    font-weight: 600;
+    padding-right: 20px;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.star_wrapper button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.star {
+    font-size: 1.3rem;
+    color: #eee;
+    pointer-events: none;
+}
+
+.star_color {
+    color: #FFC436;
+}
+
+.click_color {
+    color: #FFC436;
+}
+
+.reviewBox p {
+    margin: 0;
+    color: grey;
+}
+
+.comment_icon {
+    pointer-events: none;
 }

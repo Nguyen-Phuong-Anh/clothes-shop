@@ -20,6 +20,14 @@ function DetailOrder() {
                 try {
                     await axiosPrivate.get(`/order/getDetailOrder/${id}`).then(res => {
                         setOrderDetail(res.data)
+                        const elems = document.querySelectorAll('input[name="status_group"]')
+                        for(let elem of elems) {
+                            if(elem.value === res.data.status) {
+                                elem.checked = true;
+                                break;
+                            }
+                        }
+                        
                     })
                 } catch (error) {
                     console.error(error)
@@ -52,9 +60,22 @@ function DetailOrder() {
         
     }, [])
 
+    const handleClick = async () => {
+        const elem = document.querySelectorAll('input[name="status_group"]:checked')
+        try {
+            await axiosPrivate.post(`/order/updateStatus/${id}`, {
+                status: elem[0].value
+            })
+            window.location.reload();
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div>
-            <div className={styles.header}>
+            <div className={styles2.header}>
                 <div>
                     <h3>Customer: <span>{shipAds.fullName}</span></h3>
                     <p>Tel: {shipAds.tel}</p>
@@ -93,6 +114,45 @@ function DetailOrder() {
                             <p>TOTAL <span>$ {orderDetail.totalAmount}</span></p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div className={styles2.header}>
+                <h3>Conditions: <span>{orderDetail.status}</span></h3>
+                <div className={`${styles.radio_group}`}>
+                    <div className='d-flex justify-content-start align-items-center'>
+                        <input 
+                            name='status_group' 
+                            type='radio' 
+                            value='Processing'
+                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                        />
+                        <label>Processing</label>
+                    </div>
+                    <div className='d-flex justify-content-start align-items-center'>
+                        <input 
+                            name='status_group' 
+                            type='radio'
+                            value='Delivering'
+                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                        />
+                        <label>Delivering</label>
+                    </div>
+                    <div className='d-flex justify-content-start align-items-center'>
+                        <input 
+                            name='status_group' 
+                            type='radio' 
+                            value='Finished'
+                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                        />
+                        <label>Finished</label>
+                    </div>
+                </div>
+                <div className={`d-flex justify-content-end align-items-center mt-4`}>
+                    <button 
+                        onClick={handleClick}
+                        disabled={orderDetail.status === 'Confirm' ? true : false}
+                        >Confirm</button>
                 </div>
             </div>
         </div>

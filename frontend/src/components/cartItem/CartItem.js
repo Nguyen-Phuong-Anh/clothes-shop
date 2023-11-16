@@ -1,20 +1,21 @@
 import styles from './CartItem.module.css'
 import SnippetQuantity from '../SnippetQuantity'
-import image3 from '../../images/shirt2.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Button from '../Button';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useEffect } from 'react';
+import useStore from '../../store/useStore';
 
-function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
+function CartItem({ state, item, setTotalAmount, setTotalProduct, setDeletedId, deletedArr, setDeletedArr }) {
     const [number, setNumber] = useState(`${Number(item.quantity)}`)
     const [product, setProduct] = useState({})
     const [color, setColor] = useState(`${item.color}`)
     const [size, setSize] = useState(`${item.size}`)
 
     const axiosPrivate = useAxiosPrivate()
+    const { dispatch } = useStore()
 
     const [rotate, setRotate] = useState(false)
     
@@ -45,7 +46,16 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
             }).then(
                 res => {
                     console.log(res)
-                    window.location.reload();
+                    setDeletedId(item._id)
+                    if(deletedArr.length > 0) {
+                        const newArr = []
+                        newArr.push(deletedArr.find(id => id !== item._id))
+                        setDeletedArr(newArr)
+                    }
+                    
+                    dispatch({
+                        type: "DELETE_ITEM"
+                    })
                 }
             )
         } catch (error) {
@@ -98,6 +108,7 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
                             id={`${item._id}`}
                             data-price={item.price}
                             data-quantity={item.quantity}
+                            data-productid={item.product.toString()}
                             data-name={item.name}
                             name='checkItem[]'
                             onChange={handleCheck}
@@ -107,7 +118,7 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct }) {
 
                     <div className={styles.itemBody}>
                         {
-                            item.image ? <img src={item.image} alt='item'/> : <img src={image3} alt='item'/>
+                            item.image ? <img src={item.image} alt='item'/> : <img alt='item'/>
                         }
                         <p>{item.name}</p>
                     </div>

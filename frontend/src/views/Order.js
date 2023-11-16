@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from './Order.module.css'
 import shippingStyles from '../components/account/ManageAccount.module.css'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useStore from "../store/useStore";
 
 const OrderItem = ({item}) => {
     return (
@@ -23,32 +24,45 @@ const OrderItem = ({item}) => {
 }
 
 function Order() {
+    const { dispatch } = useStore()
     const location = useLocation();
     const value = location.state;
     const [shippingAddress, setShippingAddress] = useState({})
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
+    console.log(value.deletedArr)
 
     const handleOrder = async () => {
-        try {
-            await axiosPrivate.post('/order/createOrder', {
-                email: value.email,
-                cart: value.items,
-                totalAmount: value.totalAmount,
-                totalProduct: value.totalProduct,
-                status: 'Processing',
-                paymentMethod: {
-                    online: false,
-                    offline: true
-                }
-            })
-            .then(res => {
-                if(res.status === 201) {
-                    navigate('/order_success', { state: { from: location }, replace: true})
-                }
-            })
-        } catch (error) {   
-            console.error(error)
+        if(shippingAddress.fullName === ' ' || shippingAddress.tel === ' ' 
+        || shippingAddress.address === ' ' || shippingAddress.city === ' ') {
+            alert("Please enter your shipping address first!");
+        } else {
+            try {
+                await axiosPrivate.post('/order/createOrder', {
+                    email: value.email,
+                    cart: value.items,
+                    totalAmount: value.totalAmount,
+                    totalProduct: value.totalProduct,
+                    status: 'Processing',
+                    paymentMethod: {
+                        online: false,
+                        offline: true
+                    },
+                    deletedArr: value.deletedArr
+                })
+                .then(res => {
+                    if(res.status === 201) {
+                        dispatch({
+                            type: 'FINISH_ORDER',
+                            payload: value.deletedArr.length
+                        })
+                        navigate('/order_success', { state: { from: location }, replace: true})
+                    }
+                })
+            } catch (error) {   
+                console.error(error)
+                alert("Order failed! Please try again later.")
+            }
         }
     }
 
@@ -93,7 +107,7 @@ function Order() {
                     <tbody>
                         {
                             value.items.map((item, index) => (
-                                <OrderItem key={index} item={item} />
+                                <OrderItem key={`${index}OD${item._id}`} item={item} />
                             ))
                         }
                     </tbody>

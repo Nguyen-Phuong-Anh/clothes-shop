@@ -27,7 +27,6 @@ const accessAccount = async (req, res) => {
         const userOptions = [
             'Profile', 
             "Shipping Address",
-            'Order',
             [
                 'Order',
                 'Invoice'

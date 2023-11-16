@@ -93,20 +93,19 @@
 
 .info {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid rgba(128, 128, 128, 0.315);
     padding: 0 10px;
+    width: 100%;
 }
 
 .container {
-    position: relative;
+    width: 80%;
 }
 
 .container p {
-    position: absolute;
-    left: 150px;
-    top: -12px;
     cursor: context-menu;
+    margin: 0;
 }
 
 .payment_method {
@@ -154,7 +153,6 @@
 
 .confirm div {
     width: 100%;
-    border-top: 1px solid rgba(128, 128, 128, 0.269);
     display: flex;
     padding-top: 10px;
     justify-content: end;
@@ -166,6 +164,7 @@
     font-family: 'Dancing Script', cursive;
     font-size: 1.5rem;
     position: relative;
+    z-index: 99;
 }
 
 .confirm button::after {
@@ -176,7 +175,6 @@
     height: 1px;
     bottom: 22%;
     left: 37%;
-    z-index: 99;
     margin-right: 10px;
 }
 

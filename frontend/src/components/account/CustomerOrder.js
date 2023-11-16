@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 function CustomerOrder({setHasChildren}) {
-    const [userOrders, setUserOrders] = useState([])
+    const [Orders, setOrders] = useState([])
     const [page, setPage] = useState(1)
     const [pageCount, setPageCount] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -16,7 +16,7 @@ function CustomerOrder({setHasChildren}) {
             setLoading(true)
             const result = await axiosPrivate.get(`/order/getAllOrder?page=${page}`)
             if(result.data.allOrders.length > 0) {
-                setUserOrders(prev => [...prev, ...result.data.allOrders])
+                setOrders(prev => [...prev, ...result.data.allOrders])
                 if(result.data.pagination.pageCount < 1) {
                     setPageCount(0)
                 } else setPageCount(parseInt(result.data.pagination.pageCount))
@@ -32,7 +32,7 @@ function CustomerOrder({setHasChildren}) {
             setPage(1)
             setLoading(true)
             const result = await axiosPrivate.get(`/order/getAllOrder?page=${page}`)
-            setUserOrders(result.data.allOrders)
+            setOrders(result.data.allOrders)
             if(result.data.pagination.pageCount < 1) {
                 setPageCount(0)
             } else setPageCount(parseInt(result.data.pagination.pageCount))
@@ -47,10 +47,6 @@ function CustomerOrder({setHasChildren}) {
         setPage(currentPage)
         handleSearchMore()
     }
-
-    // useEffect(() => {
-    //     handleSearchMore()
-    // }, [page])
     
     useEffect(() => {
         handleSearch();
@@ -89,8 +85,8 @@ function CustomerOrder({setHasChildren}) {
     return (
         <div className={styles.order_wrapper}>
             <div>
-                {userOrders.length > 0 ? <h3>Recent orders:</h3> : <></>}
-                    {Array.isArray(userOrders) && userOrders.map((order) => (
+                {Orders.length > 0 ? <h3>Recent orders:</h3> : <>No order yet</>}
+                    {Array.isArray(Orders) && Orders.map((order) => (
                         <OrderCard key={`OC${order._id}`} order={order} />
                 ))}
 

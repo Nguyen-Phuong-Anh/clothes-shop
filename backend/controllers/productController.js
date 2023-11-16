@@ -247,11 +247,37 @@ const searchProduct = async (req, res) => {
 
 }
 
+const getReview = async (req, res) => {
+    try {
+        const productWithReview = await Product.findOne(
+        { _id: req.body.id, 'reviews.userId': req.body.userId },
+        { _id: 1, reviews: { $elemMatch: { userId: req.body.userId } } }
+        );
+        
+        if (!productWithReview) {
+        return res.status(404).json({ message: 'Product or Review not found' });
+        }
+        
+        const foundReview = productWithReview.reviews[0];
+
+        if(!foundReview) {
+            res.status(404).json({
+                "message": "Reviews not found"
+            })
+        } 
+        res.json(foundReview)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getAllProduct,
     getProduct,
     addProduct,
     deleteProduct,
     updateProduct,
-    searchProduct
+    searchProduct,
+    getReview
 }

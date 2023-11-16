@@ -9,13 +9,16 @@ function Cart() {
     const { state } = useStore()
     const [cart, setCart] = useState([])
     const [items, setItems] = useState([])
+    const [deletedArr, setDeletedArr] = useState([])
     const [totalProduct, setTotalProduct] = useState(0)
     const [totalAmount, setTotalAmount] = useState(0)
+    const [deletedId, setDeletedId] = useState('')
     const axiosPrivate = useAxiosPrivate()
 
     function handleCheckAll(e) {
         const checkAll = document.getElementById('checkAll')
         const elems = document.getElementsByClassName('checkbox')
+        const idArr = []
         if(e.target.checked === false) {
             for(let elem of elems) {
                 elem.checked = checkAll.checked
@@ -30,9 +33,12 @@ function Cart() {
                 elem.checked = checkAll.checked
                 totalMoney += Number(elem.getAttribute('data-price')) * Number(elem.getAttribute('data-quantity'))
                 totalItem += Number(elem.getAttribute('data-quantity'))
+                idArr.push(elem.id)
             }
+            console.log(idArr)  
             setTotalProduct(totalItem)
             setTotalAmount(totalMoney)
+            setDeletedArr(idArr)
         }
     }
 
@@ -54,22 +60,45 @@ function Cart() {
     
     useEffect(() => {
         const allProducts = Array.from(document.querySelectorAll('input[name="checkItem[]"]:checked'));
-        let itemArray = []
-        for(let item of allProducts) {
+        const itemArray = []
+        const idArr = []
+        for(const item of allProducts) {
             const product = cart.find(cartItem => cartItem._id === item.id)
+            const productId = item.getAttribute('data-productid');
             const finalProduct = {
+                productId: productId,
                 name: product.name,
                 size: product.size,
                 color:  product.color,
                 quantity: product.quantity,
                 price: product.price,
-                total: product.price * product.quantity,
-                _id: item.id
+                total: product.price * product.quantity
             }
             itemArray.push(finalProduct)
+            idArr.push(item.id)
         }
+        console.log(idArr)
         setItems(itemArray)
+        setDeletedArr(idArr)
     }, [totalProduct])
+
+    useEffect(() => {
+        const newCart = []
+        const newItems = []
+        if(items.length > 0) {
+            newItems.push(items.find(item => item._id !== deletedId))
+            console.log(newItems)
+        }
+        newCart.push(cart.find(item => item._id !== deletedId))
+        if(newCart && newCart.length > 0 && newCart[0] !== undefined) {
+            setCart(newCart);
+            if(newItems.length > 0)
+                setItems(newItems)
+        } else {
+            setCart([])
+            setItems([])
+        }
+    }, [deletedId])
 
     return (
         <>
@@ -98,14 +127,16 @@ function Cart() {
                     </thead>
                     <tbody>
                         {
-                        Array.isArray(cart) && cart.map((item, index) => {
+                        (Array.isArray(cart)) && cart.map((item, index) => {
                             return (
                                 <CartItem state={state} 
-                                    key={`${item.product.
-                                    toString()}CT${index}`} item={item}
+                                    key={`${item.product}CIT${index}`} item={item}
                                     setTotalAmount={setTotalAmount}
                                     setTotalProduct={setTotalProduct}
                                     setItems={setItems}
+                                    setDeletedId={setDeletedId}
+                                    deletedArr={deletedArr}
+                                    setDeletedArr={setDeletedArr}
                              /> )
                         })}
                     </tbody>
@@ -117,13 +148,20 @@ function Cart() {
                             <p>Total products: <span>{totalProduct}</span></p>
                             <p>Total amount: <span>${totalAmount}</span></p>
                         </div>
-                        <Link to='/order'
-                        state={{
-                            items: items,
-                            email: state.userInfo.email,
-                            totalAmount: totalAmount,
-                            totalProduct: totalProduct
-                        }}><button className={styles.purchase_btn}>Purchase</button></Link>
+                        {
+                            totalProduct > 0 ? (
+                                <Link to='/order'
+                                    state={{
+                                        items: items,
+                                        email: state.userInfo.email,
+                                        totalAmount: totalAmount,
+                                        totalProduct: totalProduct,
+                                        deletedArr: deletedArr
+                                    }}
+                                ><button className={styles.purchase_btn}>Purchase</button></Link>
+                            ) : <button className={styles.purchase_btn}>Purchase</button>
+                        }
+                        
                         </div>
                     </div>
                 </div>

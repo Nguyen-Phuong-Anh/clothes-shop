@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faBagShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './NavBar.module.css'
 import useStore from '../../store/useStore';
 import useLogout from '../../hooks/useLogout';
@@ -15,13 +15,11 @@ function NavBar() {
   const logout = useLogout()
 
   const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  const from = '/'
 
   const handleLogout = async () => {
     try {
       logout()
-
       navigate(from, { replace: true })
     } catch(err) {
       console.error(err);
@@ -76,9 +74,6 @@ function NavBar() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-        {/* <div className='toggle hidden'>
-          <ToggleBar/>
-        </div> */}
       </Navbar>
     </div>
   );

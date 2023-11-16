@@ -9,8 +9,9 @@ import Profile from "../components/account/Profile";
 import AddProduct from "../components/account/AddProduct";
 import ManageProduct from "../components/account/ManageProduct";
 import ShippingAddress from "../components/account/ShippingAddress";
-import UserOrder from "../components/account/UserOrder";
 import CustomerOrder from "../components/account/CustomerOrder";
+import UserInvoice from "../components/account/UserInvoice";
+import MyOrder from "../components/account/MyOrder";
 
 const SelectCard = ({name, setSelect, hidden, setHidden, setHasChildren}) => {
     if(setSelect) {
@@ -152,11 +153,11 @@ function Account({children}) {
                     {
                         (user.isAdmin === false) && (
                         <>
-                            <SelectCard className={styles.productMng} id="order_options" name={'Customer Order'} setHidden={setHidden} hidden={hidden} />
-                            <div className={`${styles.popUp} hidden ${hidden ? '' : styles.show}`}>
+                            <SelectCard className={styles.productMng} id="order_options" name={'User Order'} setHidden={setHidden} hidden={hidden} />
+                            <div className={`${styles.popUp2} hidden ${hidden ? '' : styles.show}`}>
                                 {
-                                    Array.isArray(user.options[3]) && user.options[3].map((item) => (
-                                        <MiniCard key={item} name={item} setSelect={setSelect} />
+                                    Array.isArray(user.options[2]) && user.options[2].map((item) => (
+                                        <MiniCard key={item} name={item} setSelect={setSelect} setHasChildren={setHasChildren} />
                                     ))
                                 }
                             </div>
@@ -171,7 +172,8 @@ function Account({children}) {
                 {(select === 'Add Product' && !hasChildren) && <AddProduct />}
                 {(select === 'Manage Product' && !hasChildren) && <ManageProduct />}
                 {(select === 'Shipping Address' && !hasChildren) && <ShippingAddress user={user} />}
-                {(select === 'Order'  && !hasChildren)&& <UserOrder userId={user.id} />}
+                {(select === 'Invoice'  && !hasChildren)&& <UserInvoice userId={user.id} />}
+                {(select === 'Order'  && !hasChildren)&& <MyOrder userId={user.id} setHasChildren={setHasChildren} />}
                 {(select === 'Customer Order' && !hasChildren) && <CustomerOrder setHasChildren={setHasChildren} />}
                 {hasChildren && children}
             </div>

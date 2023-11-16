@@ -16,7 +16,8 @@ const initialState = {
 function reducer(state, action) {
     switch(action.type) {
         case 'ADD_ITEM':
-            let total = state.cartItems + action.payload.quantity
+            // let total = state.cartItems + action.payload.quantity
+            let total = state.cartItems + 1
 
             localStorage.setItem('cartItems', JSON
             .stringify(total))
@@ -24,6 +25,13 @@ function reducer(state, action) {
                 ...state, 
                 cartItems: total,
                 cart: [...state.cart, action.payload]
+            }
+            
+        case 'DELETE_ITEM':
+            const newValue = state.cartItems - 1
+            return {
+                ...state,
+                cartItems: newValue
             }
 
         case 'LOG_IN':
@@ -55,6 +63,13 @@ function reducer(state, action) {
                     email: action.payload.email,
                     token: action.payload.token
                 }
+            }
+        
+        case 'FINISH_ORDER':
+            const newVal = state.cartItems - action.payload
+            return {
+                ...state,
+                cartItems: newVal
             }
         default:
     }

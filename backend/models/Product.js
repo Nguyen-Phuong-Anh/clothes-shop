@@ -17,6 +17,16 @@ const Products = new Schema({
             pb_id: {type: String}
         }
     ]},
+    reviews: [
+        {
+            username: { type: String, required: true},
+            userId: { type: String, required: true},
+            content: { type: String, required: true},
+            mark: { type: Number, required: true},
+            dayCreated: {type: Date, required: true}
+        }
+    ],
+    sold: {type: Number, default: 0}
 })
 
 module.exports = mongoose.model("Products", Products)
