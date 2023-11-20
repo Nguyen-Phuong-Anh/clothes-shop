@@ -19,7 +19,6 @@ function ForgotPwd() {
                 if(res.status === 401) {
                     alert("Invalid email") 
                 } else {
-                    console.log(res.data)
                     navigate(from, 
                     { state: 
                         { email: email,
