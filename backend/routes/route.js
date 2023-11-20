@@ -35,6 +35,9 @@ function route(app) {
     app.post('/signin', loginLimiter, authController.login)
     app.post('/refresh', authController.refresh)
     app.get('/logout', authController.logout)
+    app.post('/sendOTP', authController.sendOTP)
+    app.get('/checkOTP/:token', authController.checkOTP)
+    app.put('/resetPwd/:token/:userId', authController.resetPassword)
 
     // manage order
     app.post('/order/createOrder', verifyJWT, orderController.createOrder)

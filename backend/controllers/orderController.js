@@ -19,7 +19,6 @@ const createOrder = async (req, res) => {
         })
 
         //delete selected item from the cart
-        console.log(req.body.deletedArr)
         
         for(let purchase_id of req.body.deletedArr) {
             const itemIndex = foundCart.cart.findIndex(item => item._id.toString() === purchase_id)

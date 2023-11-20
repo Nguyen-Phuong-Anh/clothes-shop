@@ -35,7 +35,6 @@ function Cart() {
                 totalItem += Number(elem.getAttribute('data-quantity'))
                 idArr.push(elem.id)
             }
-            console.log(idArr)  
             setTotalProduct(totalItem)
             setTotalAmount(totalMoney)
             setDeletedArr(idArr)
@@ -77,7 +76,6 @@ function Cart() {
             itemArray.push(finalProduct)
             idArr.push(item.id)
         }
-        console.log(idArr)
         setItems(itemArray)
         setDeletedArr(idArr)
     }, [totalProduct])
@@ -87,7 +85,6 @@ function Cart() {
         const newItems = []
         if(items.length > 0) {
             newItems.push(items.find(item => item._id !== deletedId))
-            console.log(newItems)
         }
         newCart.push(cart.find(item => item._id !== deletedId))
         if(newCart && newCart.length > 0 && newCart[0] !== undefined) {

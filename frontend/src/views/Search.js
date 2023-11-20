@@ -70,9 +70,6 @@ function Search() {
                 <h3>Result</h3>
                 <div className='card_group'>
                     {
-                        console.log(products)
-                    }
-                    {
                         products.length > 0 && Array.isArray(products) && products.map((product) => (
                             <DetailCard key={`${product._id}PD`} product={product}/>
                         ))

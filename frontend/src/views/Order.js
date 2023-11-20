@@ -30,7 +30,6 @@ function Order() {
     const [shippingAddress, setShippingAddress] = useState({})
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
-    console.log(value.deletedArr)
 
     const handleOrder = async () => {
         if(shippingAddress.fullName === ' ' || shippingAddress.tel === ' ' 

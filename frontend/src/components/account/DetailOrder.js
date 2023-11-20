@@ -125,7 +125,7 @@ function DetailOrder() {
                             name='status_group' 
                             type='radio' 
                             value='Processing'
-                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                            disabled={(orderDetail.status === 'Confirm' || orderDetail.status === 'Finished' || orderDetail.status === 'Processing') ? true : false}
                         />
                         <label>Processing</label>
                     </div>
@@ -134,7 +134,7 @@ function DetailOrder() {
                             name='status_group' 
                             type='radio'
                             value='Delivering'
-                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                            disabled={(orderDetail.status === 'Confirm' || orderDetail.status === 'Finished') ? true : false}
                         />
                         <label>Delivering</label>
                     </div>
@@ -143,7 +143,7 @@ function DetailOrder() {
                             name='status_group' 
                             type='radio' 
                             value='Finished'
-                            disabled={orderDetail.status === 'Confirm' ? true : false}
+                            disabled={(orderDetail.status === 'Confirm' || orderDetail.status === 'Finished') ? true : false}
                         />
                         <label>Finished</label>
                     </div>
@@ -151,7 +151,7 @@ function DetailOrder() {
                 <div className={`d-flex justify-content-end align-items-center mt-4`}>
                     <button 
                         onClick={handleClick}
-                        disabled={orderDetail.status === 'Confirm' ? true : false}
+                        disabled={(orderDetail.status === 'Finished' || orderDetail.status === 'Confirm') ? true : false}
                         >Confirm</button>
                 </div>
             </div>

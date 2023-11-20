@@ -15,6 +15,9 @@ import Invoice from './views/Invoice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DetailOrder from './components/account/DetailOrder';
 import DetailMyOrder from './components/account/DetailMyOrder';
+import ForgotPwd from './views/ForgotPwd';
+import OTPInput from './components/auth/OTPInput';
+import ResetPwd from './views/ResetPwd';
 
 function App() {
 
@@ -24,6 +27,9 @@ function App() {
         <meta name="favicon" content="none" />
         <Routes>
           <Route path='/login' element={<LogIn/>}/>
+          <Route path='/forgotPwd' element={<ForgotPwd />}/>
+          <Route path='/verifyOTP' element={<OTPInput />}/>
+          <Route path='/resetPwd/:token/:userId' element={<ResetPwd />}/>
 
           <Route element={<PersistLogin />}>
             <Route path='/' element={<Home children={<HomeBody/>} />}/>
