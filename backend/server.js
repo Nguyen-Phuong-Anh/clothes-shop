@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use('/images', express.static('public/images', {
     maxAge: 'no-cache', // Set an appropriate max-age value
 }));
-app.set('trust proxy', true);
+app.set('trust proxy', ['100.20.92.101', '44.225.181.72', '44.227.217.144']);
 
 connectDB();
 
