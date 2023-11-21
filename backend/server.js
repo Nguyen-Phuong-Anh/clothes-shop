@@ -19,8 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use('/images', express.static('public/images', {
     maxAge: 'no-cache', // Set an appropriate max-age value
 }));
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views') )
+app.set('trust proxy', true);
 
 connectDB();
 
