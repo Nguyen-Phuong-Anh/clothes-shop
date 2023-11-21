@@ -49,6 +49,7 @@ const login = async (req, res) => {
         const result = await foundUser.save()
 
         res.cookie('jwt', refreshToken, {
+            domain: 'https://clothes-shop-api.onrender.com',
             httpOnly: true, 
             secure: true,
             sameSite: 'None',
