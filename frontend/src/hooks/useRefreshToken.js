@@ -1,13 +1,12 @@
-import axios from 'axios'
 import useStore from "../store/useStore";
+import useAxiosPrivate from './useAxiosPrivate';
 
 function useRefreshToken() {
     const { dispatch } = useStore()
+    const axiosPrivate = useAxiosPrivate()
 
     const refresh = async () => {
-        const res = await axios.post('/refresh', {
-            withCredentials: true
-        })
+        const res = await axiosPrivate.post('/refresh')
         dispatch({
             type: 'REFRESH_TOKEN',
             payload: {
