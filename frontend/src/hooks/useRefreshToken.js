@@ -3,10 +3,12 @@ import useStore from "../store/useStore";
 
 function useRefreshToken() {
     const { dispatch } = useStore()
-
+    const refreshToken = sessionStorage.getItem('jwt')
     const refresh = async () => {
         const res = await axios.post('/refresh', {
-            baseURL: 'https://clothes-shop-api.onrender.com',
+            refreshToken: refreshToken
+        }, {
+            baseURL: 'http://localhost:3500',
             headers: { 'Content-Type': 'application/json'},
             withCredentials: true,
         })

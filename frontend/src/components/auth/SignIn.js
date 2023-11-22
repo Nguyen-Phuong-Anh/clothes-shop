@@ -25,7 +25,7 @@ function SignIn() {
                 user: user, 
                 pwd: pwd
             })).then(res => {
-                const { user, accessToken, cartLength } = res.data
+                const { user, accessToken, refreshToken, cartLength } = res.data
                 if(res.status === 201) {
                     dispatch({
                         type: 'LOG_IN',
@@ -38,6 +38,7 @@ function SignIn() {
                 }
                 setUser('')
                 setPwd('')
+                sessionStorage.setItem('jwt', refreshToken)
                 navigate(from, { replace: true })
             })
         } catch(err) {

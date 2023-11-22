@@ -119,6 +119,7 @@ function CustomizeProduct() {
     const { id } = useParams()
 
     const axiosPrivate = useAxiosPrivate()
+    const maxSize = 10 * 1024 * 1024;
 
     const handleChange = (event) => {
         const {name, value} = event.target
@@ -162,15 +163,20 @@ function CustomizeProduct() {
                     if(fileArray.length <= maxImg && (state.image.length + newImg.length) < maxImg && (state.image.length + newImg.length + fileArray.length) <= maxImg) {
                         const processImg = async () => {
                             for(const item of fileArray) {
-                                const reader = new FileReader()
-
-                                await new Promise((resolve, reject) => {
-                                    reader.onloadend = () => {
-                                        uploadedArray.push(reader.result)
-                                        resolve()
-                                    }
-                                    reader.readAsDataURL(item)
-                                })
+                                const fileSize = item.size;
+                                if (fileSize > maxSize) {
+                                    alert('File size exceeds the limit. Please choose a file smaller than 10 MB.');
+                                } else {
+                                    const reader = new FileReader()
+    
+                                    await new Promise((resolve, reject) => {
+                                        reader.onloadend = () => {
+                                            uploadedArray.push(reader.result)
+                                            resolve()
+                                        }
+                                        reader.readAsDataURL(item)
+                                    })
+                                }
                             }
 
                         }

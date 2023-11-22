@@ -8,11 +8,14 @@ function useLogout() {
         dispatch({
             type: "LOG_OUT"
         })
-
+        const token = sessionStorage.getItem('jwt')
         try {
             await axios('/logout', {
+                token: token
+            }, {
                 withCredentials: true
             })
+            sessionStorage.clear()
         } catch(err) {
             console.error(err)
         }
