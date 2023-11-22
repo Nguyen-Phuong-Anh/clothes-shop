@@ -1,12 +1,15 @@
+import axios from 'axios'
 import useStore from "../store/useStore";
-import useAxiosPrivate from './useAxiosPrivate';
 
 function useRefreshToken() {
     const { dispatch } = useStore()
-    const axiosPrivate = useAxiosPrivate()
 
     const refresh = async () => {
-        const res = await axiosPrivate.post('/refresh')
+        const res = await axios.post('/refresh', {
+            baseURL: 'https://clothes-shop-api.onrender.com',
+            headers: { 'Content-Type': 'application/json'},
+            withCredentials: true,
+        })
         dispatch({
             type: 'REFRESH_TOKEN',
             payload: {
