@@ -41,14 +41,14 @@ function route(app) {
 
     // manage order
     app.post('/order/createOrder', verifyJWT, orderController.createOrder)
-    app.post('/order/getOrder', verifyJWT, orderController.getOrder)
-    app.post('/order/getOrderedItem', verifyJWT, orderController.getOrderedItem)
-    app.get('/order/getAllOrder', verifyJWT, orderController.getAllOrder)
-    app.get('/order/getDetailOrder/:id', verifyJWT, orderController.getDetailOrder)
-    app.post('/order/getOrderAddr', verifyJWT, orderController.getOrderAddr)
-    app.post('/order/updateStatus/:id', verifyJWT, orderController.updateStatus)
-    app.post('/order/cancelOrder', verifyJWT, orderController.cancelOrder)
-    app.post('/order/addReview', verifyJWT, orderController.addReview)
+    app.post('/order/getOrder', verifyJWT, orderController.getOrder) //user's orders
+    app.post('/order/getOrderedItem', verifyJWT, orderController.getOrderedItem) //user's invoice
+    app.get('/order/getAllOrder', verifyJWT, orderController.getAllOrder) //admin: all user's orders
+    app.get('/order/getDetailOrder/:id', verifyJWT, orderController.getDetailOrder) //user detail order
+    app.post('/order/getOrderAddr', verifyJWT, orderController.getOrderAddr) //get order's addrs: user + admin
+    app.post('/order/updateStatus/:id', verifyJWT, orderController.updateStatus) //user + admin
+    app.post('/order/cancelOrder', verifyJWT, orderController.cancelOrder) //user
+    app.post('/order/addReview', verifyJWT, orderController.addReview) //user
 
     //search
     app.get('/search/:search', productController.searchProduct)

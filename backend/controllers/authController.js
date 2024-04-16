@@ -48,13 +48,13 @@ const login = async (req, res) => {
         foundUser.refreshToken = refreshToken
         const result = await foundUser.save()
 
-        // res.cookie('jwt', refreshToken, {
-        //     domain: 'https://clothes-shop-api.onrender.com',
-        //     httpOnly: true, 
-        //     secure: true,
-        //     sameSite: 'None',
-        //     maxAge: 24 * 60 * 60 * 1000
-        // });
+        res.cookie('jwt', refreshToken, {
+            domain: 'https://clothes-shop-api.onrender.com',
+            httpOnly: true, 
+            secure: true,
+            sameSite: 'None',
+            maxAge: 24 * 60 * 60 * 1000
+        });
 
         if(foundCart) {
             res.status(201).send({ user, accessToken, refreshToken, cartLength: foundCart.cart.length })
@@ -70,13 +70,12 @@ const login = async (req, res) => {
 }
 
 const refresh = async (req, res) => {
-    // const cookies = req.cookies
+    const cookies = req.cookies
 
-    // if(!cookies?.jwt) return res.status(401).json({
-    //     "message": "Unauthorized"
-    // })
+    if(!cookies?.jwt) return res.status(401).json({
+        "message": "Unauthorized"
+    })
 
-    // const refreshToken = cookies.jwt
     const refreshToken = req.body.refreshToken
     if(!refreshToken) return res.status(401).json({
         "message": "Unauthorized"
@@ -117,8 +116,8 @@ const refresh = async (req, res) => {
 }
 
 const logout = async (req, res) => {
-    // const cookies = req.cookies
-    // if(!cookies?.jwt) res.sendStatus(204)
+    const cookies = req.cookies
+    if(!cookies?.jwt) res.sendStatus(204)
 
     //clear the refresh token in the database
     // const refreshToken = cookies.jwt;
@@ -128,7 +127,7 @@ const logout = async (req, res) => {
     if(!refreshToken) res.sendStatus(204)
     const update = await User.updateOne({ refreshToken: refreshToken }, { refreshToken: '' }).exec()
 
-    // res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
+    res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
     res.status(200)
 }
 

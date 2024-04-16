@@ -54,7 +54,8 @@ function DetailMyOrder() {
     const handleCancelOrder = async () => {
         try {
             await axiosPrivate.post('/order/cancelOrder', {
-                orderId: value.item._id
+                orderId: value.item._id,
+                cart: value.item.cart
             })
             window.location.reload();
         } catch (error) {

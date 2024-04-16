@@ -43,6 +43,8 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct, setDeletedId, 
             await axiosPrivate.post('/cart/delete', {
                 email: state.userInfo.email,
                 accessKey: item._id,
+                productId: item.product,
+                quantity: item.quantity
             }).then(
                 res => {
                     console.log(res)
@@ -84,7 +86,8 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct, setDeletedId, 
                     accessKey: item._id,
                     number: number,
                     color: color,
-                    size: size
+                    size: size,
+                    productId: item.product
                 })
                 
             } catch (error) {
@@ -125,7 +128,7 @@ function CartItem({ state, item, setTotalAmount, setTotalProduct, setDeletedId, 
                     <div className={styles.itemInfo}>
                         <div className={styles.type_wrapper}>
                             <p id='type' className={`${styles.type} ${rotate ? styles.rotate : ''}`} onClick={handleRotate}>Item's type</p>
-                            <p>{`${item.type} - ${item.size} - ${item.color}`}</p>
+                            <p>{`${item.type} - ${size} - ${color}`}</p>
                         </div>
                         
                         {/* popUp custom */}

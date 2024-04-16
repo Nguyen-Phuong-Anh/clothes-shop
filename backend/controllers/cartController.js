@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart');
 const User = require('../models/User');
+const Product = require('../models/Product')
 
 const getProduct = async (req, res) => {
     const foundUser = await User.findOne({ email: req.body.email }).lean().exec();
@@ -22,8 +23,17 @@ const addProduct = async (req, res) => {
 
         if(itemIndex !== -1 && foundCart.cart[itemIndex].size === req.body.addedProduct.size && foundCart.cart[itemIndex].color === req.body.addedProduct.color) {
             foundCart.cart[itemIndex].quantity += req.body.addedProduct.quantity
-
             await foundCart.save();
+
+            //update product quantity   
+            const foundProduct = await Product.findById(req.body.addedProduct.productId);
+            if (foundProduct) {
+                foundProduct.countInStock -= req.body.addedProduct.quantity;
+                await foundProduct.save();
+            } else {
+                throw new Error("Product not found");
+            }
+
             res.status(200).json({
                 "message": "Added successfully"
             })
@@ -32,12 +42,21 @@ const addProduct = async (req, res) => {
             newItem.product = req.body.addedProduct.product
             foundCart.cart.push(newItem)
             await foundCart.save();
+
+            const foundProduct = await Product.findById(req.body.addedProduct.productId);
+            if (foundProduct) {
+                foundProduct.countInStock -= req.body.addedProduct.quantity;
+                await foundProduct.save();
+            } else {
+                throw new Error("Product not found");
+            }
     
             res.status(200).json({
                 "message": "Added successfully"
             })
 
         }
+        
     } else {
         res.status(404).json({
             "message": "no user found"
@@ -55,6 +74,16 @@ const deleteProduct = async (req, res) => {
     if(itemIndex !== -1) {
         foundCart.cart.splice(itemIndex, 1)
         await foundCart.save();
+
+        //update product quantity   
+        const foundProduct = await Product.findById(req.body.productId);
+        if (foundProduct) {
+            foundProduct.countInStock += req.body.quantity;
+            await foundProduct.save();
+        } else {
+            throw new Error("Product not found");
+        }
+
         res.status(200).json({
             "message": "Deleted successfully"
         })
@@ -71,15 +100,32 @@ const updateProduct = async (req, res) => {
 
     if(itemIndex !== -1) {
         if(req.body.number) {
+            //update product quantity   
+            const foundProduct = await Product.findById(req.body.productId);
+            if (foundProduct) {
+                if(parseInt(foundCart.cart[itemIndex].quantity) > parseInt(req.body.number)) {
+                    foundProduct.countInStock += parseInt(foundCart.cart[itemIndex].quantity) - parseInt(req.body.number);
+                    await foundProduct.save();
+                } else if(parseInt(foundCart.cart[itemIndex].quantity) < parseInt(req.body.number)){
+                    foundProduct.countInStock -= parseInt(req.body.number) - parseInt(foundCart.cart[itemIndex].quantity);
+                    await foundProduct.save();
+                }
+                
+            } else {
+                throw new Error("Product not found");
+            }
+            
             foundCart.cart[itemIndex].quantity = req.body.number;
+            await foundCart.save();
         }
         if(req.body.color) {
             foundCart.cart[itemIndex].color = req.body.color;
+            await foundCart.save();
         }
         if(req.body.size) {
             foundCart.cart[itemIndex].size = req.body.size;
+            await foundCart.save();
         }
-        await foundCart.save();
     
         res.status(200).json({
             "message": "Updated successfully"
