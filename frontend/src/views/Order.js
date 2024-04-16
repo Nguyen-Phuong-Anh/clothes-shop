@@ -9,7 +9,9 @@ const OrderItem = ({item}) => {
     return (
         <tr className={styles.orderItem}>
             <td className={styles.orderItemBody}>
-                <img />
+                {
+                    item.image ? <img src={item.image} alt='item'/> : <img alt='item'/>
+                }
                 <div>
                     <h6>{item.name}</h6>
                     <p><span>Color:</span> {item.color}</p>

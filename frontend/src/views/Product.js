@@ -56,6 +56,8 @@ function Product() {
         const size = document.getElementsByClassName('border')
         if(!size[0] || !color[0]) {
             alert("Please select size and color of the product!")
+        } else if(number > product.countInStock) {
+            alert("Not enough product")
         } else {
             let addedProduct;
             if(product?.image[0]?.url) {
@@ -92,8 +94,8 @@ function Product() {
             }
 
             refreshTk();
-            
-            const verifySigin = async () => {
+
+            const addToCart = async () => {
                 try {
                     await axiosPrivate.post('/products/addCart', {
                         email: state.userInfo.email,
@@ -111,7 +113,15 @@ function Product() {
                 }
             }
 
-            verifySigin()
+            addToCart();
+
+            Array.from(color).forEach(item => {
+                item.classList.toggle('border1')
+            })
+
+            Array.from(size).forEach(item => {
+                item.classList.toggle('border')
+            })
         }
     }
 
@@ -182,6 +192,7 @@ function Product() {
                         </div>
                         <p>{product.reviews ? product.reviews.length : 0} reviews</p>
                         <p>{product.sold ? product.sold : 0} sold</p>
+                        <p>{product.countInStock ? product.countInStock : 0} totals</p>
                     </div>
                     <div className='product_content_body'>
                         <h3 className='price'>${product.price}</h3>

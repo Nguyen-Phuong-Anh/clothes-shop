@@ -206,7 +206,7 @@ function CustomizeProduct() {
         }
         try {
             await axiosPrivate.put(`/manage_product/${id}`, newState)
-            window.location.reload()
+            window.location.href = '../account'
         } catch (error) {  
             console.error(error)
         }

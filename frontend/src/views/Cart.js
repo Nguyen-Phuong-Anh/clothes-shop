@@ -71,7 +71,8 @@ function Cart() {
                 color:  product.color,
                 quantity: product.quantity,
                 price: product.price,
-                total: product.price * product.quantity
+                total: product.price * product.quantity,
+                image: product.image
             }
             itemArray.push(finalProduct)
             idArr.push(item.id)

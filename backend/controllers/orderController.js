@@ -45,7 +45,7 @@ const getAllOrder = async (req, res) => {
     try {
         const countPromise = await Order.estimatedDocumentCount();
         const allOrdersPromise = await Order.find({}, 'userId totalProduct createdAt').limit(process.env
-            .ITEMS_PER_PAGE).skip(skip).exec();
+            .ITEMS_PER_PAGE).skip(skip).sort({ createdAt: -1 }).exec();
         
         const [count, allOrders] = await Promise.all([countPromise, allOrdersPromise])
         const pageCount = count / process.env.ITEMS_PER_PAGE
@@ -66,7 +66,7 @@ const getAllOrder = async (req, res) => {
 }
 
 const getOrder = async (req, res) => {
-    const foundOrder = await Order.find({userId: req.body.userId}, 'cart totalAmount status createdAt ').exec();
+    const foundOrder = await Order.find({userId: req.body.userId}, 'cart totalAmount status createdAt ').sort({ createdAt: -1 }).exec();
 
     if(foundOrder) {
         res.send(foundOrder)
@@ -123,14 +123,15 @@ const updateStatus = async (req, res) => {
         foundOrder.status = req.body.status
         await foundOrder.save();
 
-        for(const item of req.body.cart) {
-            const result = await Product.updateOne(
-                { _id: item.productId },
-                { $inc: { sold: item.quantity } }
-            ).exec();
-              
+        if(req.body.cart) {
+            for(const item of req.body.cart) {
+                const result = await Product.updateOne(
+                    { _id: item.productId },
+                    { $inc: { sold: parseInt(item.quantity) } }
+                ).exec();  
+            }
         }
-    
+
         res.status(200).json({
             "message": "Updated successfully"
         })
@@ -141,7 +142,17 @@ const updateStatus = async (req, res) => {
 
 const cancelOrder = async (req, res) => {
     try {
-        await Order.deleteOne({_id: req.body.orderId})
+        await Order.deleteOne({_id: req.body.orderId});
+
+        for (const cartItem of req.body.cart) {
+            const foundProduct = await Product.findById(cartItem.productId);
+            if (foundProduct) {
+                foundProduct.countInStock += cartItem.quantity;
+                await foundProduct.save();
+            } else {
+                throw new Error("Product not found");
+            }
+        }
 
         res.status(200).json({
             "message": "Delete successfully"

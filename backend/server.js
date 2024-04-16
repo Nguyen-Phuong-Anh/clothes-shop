@@ -8,7 +8,7 @@ const app = express()
 const path = require('path')
 
 const corsOptions = {
-    origin: 'https://clothes-shop-fyzl.onrender.com',
+    origin: 'http://localhost:3000',
     credentials: true
 }
 

@@ -10,7 +10,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 function ShippingAddress({user}) {
     const [fullname, setFullname] = useState('')
     const [tel, setTel] = useState('')
-    const [city, setCity] = useState('')
+    const [city, setCity] = useState(user.shippingAddress.city)
     const [address, setAddress] = useState('')
 
     const axiosPrivate = useAxiosPrivate()
@@ -158,15 +158,29 @@ function ShippingAddress({user}) {
                     <div className={styles.info}>
                         <label htmlFor='city'>City</label>
                         <div className={styles.container}>
-                            <p className={`${(hidden === true && id === 'city') ? 'hidden' : styles.show}`}>{city ? city : user.shippingAddress.city}</p>
-                            <input
+                            {/* <p className={`${(hidden === true && id === 'city') ? 'hidden' : styles.show}`}>{city ? city : user.shippingAddress.city}</p> */}
+                            <Form.Select 
+                                className={`${(hidden === true && id === 'city') ? styles.show : 'hidden'}`}
+                                id="citySelector"
+                                value={city}
+                                onChange={e => setCity(e.target.value)}
+                                required
+                            >
+                                <option disabled>Select your city</option>
+                                {
+                                    data.city.map((item) => (
+                                        <option selected={item.city === city} key={item.city} value={item.city}>{item.city}</option>
+                                    ))
+                                }
+                            </Form.Select>
+                            {/* <input
                                 className={`${(hidden === true && id === 'city') ? styles.show : 'hidden'}`}
                                 type='text'
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
                                 id='city'
                                 autoComplete=''
-                            />
+                            /> */}
                         </div>
                         <button type='button' data-value='city' onClick={handleClick}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
                     </div>
