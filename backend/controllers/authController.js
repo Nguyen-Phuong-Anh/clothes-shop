@@ -49,7 +49,10 @@ const login = async (req, res) => {
         const result = await foundUser.save()
 
         res.cookie('jwt', refreshToken, {
+<<<<<<< HEAD
             domain: 'https://clothes-shop-api.onrender.com',
+=======
+>>>>>>> 8225e2b8cd196363c0871af3e817ba53256ee8b5
             httpOnly: true, 
             secure: true,
             sameSite: 'None',
@@ -76,7 +79,12 @@ const refresh = async (req, res) => {
         "message": "Unauthorized"
     })
 
+<<<<<<< HEAD
     const refreshToken = req.body.refreshToken
+=======
+    const refreshToken = cookies.jwt
+    // const refreshToken = req.body.refreshToken
+>>>>>>> 8225e2b8cd196363c0871af3e817ba53256ee8b5
     if(!refreshToken) return res.status(401).json({
         "message": "Unauthorized"
     })
@@ -120,10 +128,10 @@ const logout = async (req, res) => {
     if(!cookies?.jwt) res.sendStatus(204)
 
     //clear the refresh token in the database
-    // const refreshToken = cookies.jwt;
+    const refreshToken = cookies.jwt;
 
     //new
-    const refreshToken = req.body.token
+    // const refreshToken = req.body.token
     if(!refreshToken) res.sendStatus(204)
     const update = await User.updateOne({ refreshToken: refreshToken }, { refreshToken: '' }).exec()
 
