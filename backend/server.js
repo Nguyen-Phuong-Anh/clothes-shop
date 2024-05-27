@@ -6,7 +6,7 @@ const route = require('./routes/route')
 const cookieParser = require('cookie-parser')
 const app = express()
 const path = require('path')
-
+const port = process.env.PORT || 3500;
 const corsOptions = {
     origin: 'https://clothes-shop-api.onrender.com',
     credentials: true
@@ -25,4 +25,4 @@ connectDB();
 
 route(app)
 
-app.listen(3500, () => console.log("Server started"))
+app.listen(port, () => console.log("Server started"))
