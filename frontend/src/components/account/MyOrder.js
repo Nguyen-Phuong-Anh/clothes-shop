@@ -10,9 +10,7 @@ function MyOrder({ userId, setHasChildren }) {
     useEffect(() => {
         try {
             const getOrder = async () => {
-                await axiosPrivate.post('/order/getOrder', {
-                    userId
-                }).then(res => { 
+                await axiosPrivate.get(`/order/getOrder/${userId}`).then(res => { 
                     setOrder(res.data)
                 })
             }

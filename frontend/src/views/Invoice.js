@@ -16,10 +16,13 @@ function Invoice() {
 
     useEffect(() => {
         const getAds = async () => {
+            if(state.userInfo.email === '') {
+                alert("Email address is empty")
+                return;
+            }
             try {
-                await axiosPrivate.post('/account/getAddress', {
-                    email: state.userInfo.email
-                }).then(res => {
+                await axiosPrivate.get(`/account/getAddress?email=${state.userInfo.email}`)
+                .then(res => {
                     setShipAds(res.data.shippingAddress)
                 })
             } catch (error) {

@@ -14,6 +14,10 @@ function ResetPwd() {
     const navigate = useNavigate()
 
     const handleResetPwd = async () => {
+        if(token === '' || userId === '') {
+            alert("UserID and token are both required")
+            return;
+        }
         if((pwd === resetPwd) && pwd !== '' && resetPwd !== '') {
             try {
                 await axiosPrivate.put(`/resetPwd/${token}/${userId}`, {
@@ -30,6 +34,8 @@ function ResetPwd() {
             } catch (error) {
                 console.log(error)
             }
+        } else if(pwd === '' || resetPwd === '') {
+            alert("Please fill all fields!")
         } else {
             alert("The new password doesn't match the repeat one");
         }

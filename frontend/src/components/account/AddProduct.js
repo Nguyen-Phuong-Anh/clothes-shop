@@ -108,7 +108,10 @@ function AddProduct() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        if(state.category === '' || state.name === '' || state.type === '' || state.sizes === '' || state.colors === '' || state.material === '' || state.description === '' || state.countInStock === '' || state.price === '') {
+            alert("Some required fields are empty")
+            return;
+        }
         try {
             await axiosPrivate.post('/account/addProduct', state)
             .then(res => console.log(res))

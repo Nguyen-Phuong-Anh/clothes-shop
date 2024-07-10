@@ -49,10 +49,7 @@ const login = async (req, res) => {
         const result = await foundUser.save()
 
         res.cookie('jwt', refreshToken, {
-<<<<<<< HEAD
-            domain: 'https://clothes-shop-api.onrender.com',
-=======
->>>>>>> 8225e2b8cd196363c0871af3e817ba53256ee8b5
+            // domain: 'https://clothes-shop-api.onrender.com',
             httpOnly: true, 
             secure: true,
             sameSite: 'None',
@@ -78,13 +75,9 @@ const refresh = async (req, res) => {
     if(!cookies?.jwt) return res.status(401).json({
         "message": "Unauthorized"
     })
-
-<<<<<<< HEAD
-    const refreshToken = req.body.refreshToken
-=======
+    
     const refreshToken = cookies.jwt
     // const refreshToken = req.body.refreshToken
->>>>>>> 8225e2b8cd196363c0871af3e817ba53256ee8b5
     if(!refreshToken) return res.status(401).json({
         "message": "Unauthorized"
     })
@@ -204,13 +197,21 @@ const checkOTP = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     jwt.verify(req.params.token, process.env.OTP_TOKEN, async (err, decoded) => {
-        if(err) return res.status(403).json({"message": "Code is expired"}) 
+        if(err) return res.status(403).json({"message": "Code is expired or invalid"}) 
         else {  
             const hashPwd = await bcrypt.hash(req.body.pwd, 10)
-            const result = await User.updateOne({ _id: req.params.userId }, {password: hashPwd}).exec()
-            res.status(200).json({
-                "message": "Successfully reset!"
-            })
+            try {
+                const result = await User.updateOne({ _id: req.params.userId }, {password: hashPwd}).exec()
+                res.status(200).json({
+                    "message": "Successfully reset!"
+                })
+            } catch (error) {
+                console.log(error)
+                return res.status(401).json({
+                    "message": "no user found"
+                });
+            }
+            
         }
     })
 }

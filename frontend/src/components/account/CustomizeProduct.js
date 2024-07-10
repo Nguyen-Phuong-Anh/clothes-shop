@@ -204,6 +204,14 @@ function CustomizeProduct() {
             ...state,
             newImg: newImg
         }
+        if(id === '') {
+            alert("The ID is empty")
+            return;
+        }
+        if(newState.category === '' || newState.name === '' || newState.type === '' || newState.sizes === '' || newState.colors === '' || newState.material === '' || newState.description === '' || newState.countInStock === '' || newState.price === '') {
+            alert("Some fields are empty!")
+            return;
+        }
         try {
             await axiosPrivate.put(`/manage_product/${id}`, newState)
             window.location.href = '../account'
@@ -215,7 +223,7 @@ function CustomizeProduct() {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            await axiosPrivate.post(`/manage_product/${id}`)
+            await axiosPrivate.delete(`/manage_product/${id}`)
             .then(res => {
                 console.log(res)
                 window.location.href = '../account'

@@ -58,36 +58,44 @@ const accessAccount = async (req, res) => {
 }
 
 const getShippingAddress = async (req, res) => {
-    const foundUser = await User.findOne({email: req.body.email}).exec()
+    try {
+        const foundUser = await User.findOne({email: req.query.email}).exec()
 
-    if(foundUser) {
-        res.json({
-            shippingAddress: foundUser?.shippingAddress
-        })
-    } else {
+        if(foundUser) {
+            res.json({
+                shippingAddress: foundUser?.shippingAddress
+            })
+        } 
+    } catch (error) {
         res.status(500)
     }
 }
 
 const updateAccount = async (req, res) => {
-    let result
-    if(req.body?.username && req.body?.username !== '') {
-        result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
-    }
-    if (req.body?.email && req.body?.email !== '') {
-        result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
-    } 
-    if(req.body?.password && req.body?.password !== '') {
-        const hashPwd = await bcrypt.hash(req.body.password, 10)
-        result = await User.updateOne({ _id: req.body.id }, {password: hashPwd}).exec()
-    }
-    if (req.body?.shippingAddress) {
-        result = await User.updateOne({ _id: req.body.shippingAddress.id}, {shippingAddress: req.body.shippingAddress}).exec()
+    try {
+        let result
+        if(req.body?.username && req.body?.username !== '') {
+            result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
+        }
+        if (req.body?.email && req.body?.email !== '') {
+            result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
+        } 
+        if(req.body?.password && req.body?.password !== '') {
+            const hashPwd = await bcrypt.hash(req.body.password, 10)
+            result = await User.updateOne({ _id: req.body.id }, {password: hashPwd}).exec()
+        }
+        if (req.body?.shippingAddress) {
+            result = await User.updateOne({ _id: req.body.shippingAddress.id}, {shippingAddress: req.body.shippingAddress}).exec()
+        }
+        
+        res.status(200).json({
+            "message": "Successfully updated!"
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500)
     }
     
-    res.status(200).json({
-        "message": "Successfully updated!"
-    })
 }
 
 const addAvatar = async (req, res) => {

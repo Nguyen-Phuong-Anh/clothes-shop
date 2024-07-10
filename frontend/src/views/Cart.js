@@ -43,10 +43,17 @@ function Cart() {
 
     useEffect(() => {
         const getCart = async () => {
+            if(state.userInfo.email === '') {
+                alert("Email is empty")
+                return;
+            }
+            if(state.userInfo.token === '') {
+                alert("Token is empty")
+                return;
+            }
             try {
                 const result = await axiosPrivate.post('/cart', {
-                    email: state.userInfo.email,
-                    token: state.userInfo.token
+                    email: state.userInfo.email
                 })
                 setCart(result.data)
             } catch (error) {   

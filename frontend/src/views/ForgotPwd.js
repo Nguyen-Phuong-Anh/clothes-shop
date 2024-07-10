@@ -13,6 +13,10 @@ function ForgotPwd() {
     
     const handleConfirm = async () => {
         try {
+            if(email == '') {
+                alert("You need to enter your email first!")
+                return;
+            }
             await axiosPrivate.post("/sendOTP", {
                 email: email
             }).then(res => {

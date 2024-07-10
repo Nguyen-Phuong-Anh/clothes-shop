@@ -77,10 +77,13 @@ function Order() {
 
     useEffect(() => {
         const getUser = async () => {
+            if(state.userInfo.email === '') {
+                alert("Email address is empty")
+                return;
+            }
             try {
-                await axiosPrivate.post('/account/getAddress', {
-                    email: value.email
-                }).then(res => {
+                await axiosPrivate.get(`/account/getAddress?email=${state.userInfo.email}`)
+                .then(res => {
                     setShippingAddress(res.data.shippingAddress)
                 })
             } catch (error) {

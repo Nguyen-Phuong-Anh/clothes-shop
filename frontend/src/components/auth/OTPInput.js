@@ -38,6 +38,10 @@ function OTPInput() {
     }
 //kyokomurasaki1392003@gmail.com
     const handleSentAgain = async () => {
+        if(value.email == '') {
+            alert("You need to enter your email first!")
+            return;
+        }
         try {
             await axiosPrivate.post('/sendOTP', {
                 email: value.email

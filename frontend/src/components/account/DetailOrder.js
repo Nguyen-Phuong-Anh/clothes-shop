@@ -43,9 +43,7 @@ function DetailOrder() {
         try {
             const getAdrs = async () => {
                 try {
-                    await axiosPrivate.post('/order/getOrderAddr', {
-                        userId: value.userId
-                    }).then(res => {
+                    await axiosPrivate.get(`/order/getOrderAddr/${value.userId}`).then(res => {
                         setShipAds(res.data)
                     })
                 } catch (error) {

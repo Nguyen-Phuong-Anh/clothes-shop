@@ -9,7 +9,7 @@ const path = require('path')
 const port = process.env.PORT || 3500;
 const host = '0.0.0.0';
 const corsOptions = {
-    origin: 'https://clothes-shop-api.onrender.com',
+    origin: 'http://localhost:3500/',
     credentials: true
 }
 

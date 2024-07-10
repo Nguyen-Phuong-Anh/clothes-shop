@@ -11,14 +11,14 @@ const verifyJWT = require('../middleware/verifyJWT')
 function route(app) {
     //manage account
     app.put('/account/update', accountController.updateAccount);
-    app.post('/account/getAddress', verifyJWT, accountController.getShippingAddress);
+    app.get('/account/getAddress', verifyJWT, accountController.getShippingAddress);
     app.post('/account', verifyJWT, accountController.accessAccount);
     app.post('/set_ava', verifyJWT, accountController.addAvatar);
 
     //manage product
     app.get('/products/:id', productController.getProduct)
     app.put('/manage_product/:id', verifyJWT, productController.updateProduct)
-    app.post('/manage_product/:id', verifyJWT, productController.deleteProduct)
+    app.delete('/manage_product/:id', verifyJWT, productController.deleteProduct)
     app.get('/products', productController.getAllProduct)
     app.post('/account/addProduct', verifyJWT, productController.addProduct)
     app.post('/getReview', verifyJWT, productController.getReview)
@@ -30,7 +30,7 @@ function route(app) {
     app.post('/cart/finish_order', verifyJWT, cartController.finishOrder)
     app.post('/cart/update', verifyJWT, cartController.updateProduct)
 
-    // authorization
+    // authentication
     app.post('/register', registerController)
     app.post('/signin', loginLimiter, authController.login)
     app.post('/refresh', authController.refresh)
@@ -41,11 +41,11 @@ function route(app) {
 
     // manage order
     app.post('/order/createOrder', verifyJWT, orderController.createOrder)
-    app.post('/order/getOrder', verifyJWT, orderController.getOrder) //user's orders
-    app.post('/order/getOrderedItem', verifyJWT, orderController.getOrderedItem) //user's invoice
+    app.get('/order/getOrder/:userId', verifyJWT, orderController.getOrder) //user's orders
+    app.get('/order/getOrderedItem/:userId', verifyJWT, orderController.getOrderedItem) //user's invoice
     app.get('/order/getAllOrder', verifyJWT, orderController.getAllOrder) //admin: all user's orders
     app.get('/order/getDetailOrder/:id', verifyJWT, orderController.getDetailOrder) //user detail order
-    app.post('/order/getOrderAddr', verifyJWT, orderController.getOrderAddr) //get order's addrs: user + admin
+    app.get('/order/getOrderAddr', verifyJWT, orderController.getOrderAddr) //get order's addrs: user + admin
     app.post('/order/updateStatus/:id', verifyJWT, orderController.updateStatus) //user + admin
     app.post('/order/cancelOrder', verifyJWT, orderController.cancelOrder) //user
     app.post('/order/addReview', verifyJWT, orderController.addReview) //user

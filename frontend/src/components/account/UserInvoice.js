@@ -25,9 +25,7 @@ function UserInvoice({ userId }) {
     useEffect(() => {
         try {
             const getOrder = async () => {
-                await axiosPrivate.post('/order/getOrderedItem', {
-                    userId
-                }).then(res =>{ 
+                await axiosPrivate.get(`/order/getOrderedItem/${userId}`).then(res =>{ 
                     setInvoiceItem(res.data)})
             }
 
