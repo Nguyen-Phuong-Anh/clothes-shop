@@ -16,6 +16,11 @@ const createOrder = async (req, res) => {
         }
         return true;
     }
+    if (req.body.email !== res.locals.email) {
+        return res.status(403).json({
+            message: "Forbidden: Token does not belong to the user"
+        });
+    }
     // create order
     try {
         const foundUser = await User.findOne({ email: req.body.email}).exec();
@@ -24,17 +29,17 @@ const createOrder = async (req, res) => {
         });
 
         if(req.body.cart.length <= 0) {
-            res.status(400).json({
+            return res.status(400).json({
                 "message": "The cart is empty"
             })
         }
         if (isNaN(req.body.totalAmount) || isNaN(req.body.totalProduct) || !isValidPaymentMethod(req.body.paymentMethod)) {
-            res.status(400).json({ "message": 'Invalid input' });
+            return res.status(400).json({ "message": 'Invalid input' });
         }
 
         const foundCart = await Cart.findOne({ userId: foundUser._id }).exec();    
         if(!foundCart) {
-            res.status(404).json({
+            return res.status(404).json({
                 "message": "No cart found"
             })
         }
@@ -47,7 +52,7 @@ const createOrder = async (req, res) => {
                 foundCart.cart.splice(itemIndex, 1)
                 await foundCart.save();
             } else {
-                res.status(404).json({
+                return res.status(404).json({
                     "message": "No product found"
                 })
             }
@@ -100,13 +105,27 @@ const getAllOrder = async (req, res) => {
 
 const getOrder = async (req, res) => {
     try {
+        const foundUser = await User.findById({_id: req.params.userId}).exec();
+
+        if(foundUser) {
+            if(!foundUser.email === res.locals.email) {
+                return res.status(403).json({
+                    message: "Forbidden: Token does not belong to the user"
+                });
+            }
+        } else {
+            return res.status(404).json({
+                "message": "No user found"
+            })
+        }
+
         const foundOrder = await Order.find({userId: req.params.userId}, 'cart totalAmount status createdAt ').sort({ createdAt: -1 }).exec();
 
         if(foundOrder) {
             res.send(foundOrder)
         } else {
             res.status(404).json({
-                "message": "no order found"
+                "message": "No order found"
             })
 
         }
@@ -180,7 +199,24 @@ const cancelOrder = async (req, res) => {
         res.status(400).json({ message: "The cart is empty" });
     }
     try {
-        await Order.deleteOne({_id: req.body.orderId});
+        const foundOrder = await Order.findById({_id: req.body.orderId}).exec();
+        if(!foundOrder) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        const foundUser = await User.findById({_id: foundOrder.userId}).exec()
+        if(!foundUser) {
+            res.status(404).json({ message: "User does not exist" });
+        } 
+        if(foundUser.email != res.locals.email) {
+            return res.status(403).json({
+                message: "Forbidden: Token does not belong to the user"
+            });
+        }
+
+        if(req.body.cart.length <= 0) {
+            res.status(400).json({ message: "The cart is empty" });
+        }
 
         for (const cartItem of req.body.cart) {
             const foundProduct = await Product.findById(cartItem.productId);
@@ -188,16 +224,17 @@ const cancelOrder = async (req, res) => {
                 foundProduct.countInStock += cartItem.quantity;
                 await foundProduct.save();
             } else {
-                res.status(404).json({ message: "Product not found" });
+                return res.status(404).json({ message: "Product not found" });
             }
         }
+
+        await Order.deleteOne({_id: req.body.orderId});
 
         res.status(200).json({
             "message": "Delete successfully"
         })
     } catch (error) {
         console.log(error)
-        res.status(404).json({ message: "Order not found" });
     }
     
 }

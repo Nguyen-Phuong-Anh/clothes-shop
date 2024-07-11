@@ -50,6 +50,12 @@ const addProduct = async (req, res) => {
         })
     }
 
+    if(req.body?.category === "" || req.body?.name === "" || req.body?.type === "" || req.body?.sizes === "" || req.body?.colors === "" || req.body?.material === "" || req.body?.description === "" || req.body?.countInStock === "" || req.body?.price === "") {
+        return res.status(400).json({
+            "message": "Some fields are empty"
+        });
+    }
+
     if(req.body?.category) {
         const sizesArray = Array.from(req.body.sizes.split(';'))
         const colorsArray = Array.from(req.body.colors.split(' '))
@@ -140,7 +146,7 @@ const deleteProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
-    if(req.body?.category === '' || req.body?.name === '' || req.body?.type === '' || req.body?.sizes === '' || req.body?.colors === '' || req.body?.material === '' || req.body?.description === '' || (req.body?.image && req.body?.image.length <= 0) || (req.body?.newImg && req.body?.newImg.length) <= 0 || req.body?.countInStock === '' || req.body?.price === '') {
+    if(req.body?.category === '' || req.body?.name === '' || req.body?.type === '' || req.body?.sizes === '' || req.body?.colors === '' || req.body?.material === '' || req.body?.description === '' || req.body?.countInStock === '' || req.body?.price === '') {
         return res.status(400).json({
             "message": "Some fields are empty"
         })

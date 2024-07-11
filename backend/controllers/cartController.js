@@ -3,6 +3,12 @@ const User = require('../models/User');
 const Product = require('../models/Product')
 
 const getProduct = async (req, res) => {
+    if (req.body.email !== res.locals.email) {
+        return res.status(403).json({
+            message: "Forbidden: Token does not belong to the user"
+        });
+    }
+
     try {
         const foundUser = await User.findOne({ email: req.body.email }).lean().exec();
         if(!foundUser) {
@@ -22,6 +28,12 @@ const getProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
+    if (req.body.email !== res.locals.email) {
+        return res.status(403).json({
+            message: "Forbidden: Token does not belong to the user"
+        });
+    }
+
     try {
         const foundUser = await User.findOne({email: req.body.email}).exec()
         if(foundUser) {
@@ -29,34 +41,38 @@ const addProduct = async (req, res) => {
             const itemIndex = foundCart.cart.findIndex(item => item.product.toString() === req.body.addedProduct.product)
 
             if(itemIndex !== -1 && foundCart.cart[itemIndex].size === req.body.addedProduct.size && foundCart.cart[itemIndex].color === req.body.addedProduct.color) {
-                foundCart.cart[itemIndex].quantity += req.body.addedProduct.quantity
-                await foundCart.save();
-
                 //update product quantity   
-                const foundProduct = await Product.findById(req.body.addedProduct.productId);
-                if (foundProduct) {
-                    foundProduct.countInStock -= req.body.addedProduct.quantity;
-                await foundProduct.save();
-                } else {
-                    throw new Error("Product not found");
-                }
-
-                res.status(200).json({
-                    "message": "Added successfully"
-                })
-            } else {
-                let newItem = Object.assign({}, req.body.addedProduct);
-                newItem.product = req.body.addedProduct.product
-                foundCart.cart.push(newItem)
-                await foundCart.save();
-
                 const foundProduct = await Product.findById(req.body.addedProduct.productId);
                 if (foundProduct) {
                     foundProduct.countInStock -= req.body.addedProduct.quantity;
                     await foundProduct.save();
                 } else {
-                    throw new Error("Product not found");
+                    return res.status(404).json({
+                        "message": "Product not found"
+                    })
                 }
+
+                foundCart.cart[itemIndex].quantity += req.body.addedProduct.quantity
+                await foundCart.save();
+
+                res.status(200).json({
+                    "message": "Added successfully"
+                })
+            } else {
+                const foundProduct = await Product.findById(req.body.addedProduct.productId);
+                if (foundProduct) {
+                    foundProduct.countInStock -= req.body.addedProduct.quantity;
+                    await foundProduct.save();
+                } else {
+                    return res.status(404).json({
+                        "message": "Product not found"
+                    })
+                }
+
+                let newItem = Object.assign({}, req.body.addedProduct);
+                newItem.product = req.body.addedProduct.product
+                foundCart.cart.push(newItem)
+                await foundCart.save();
     
                 res.status(201).json({
                     "message": "Added successfully"
@@ -65,18 +81,23 @@ const addProduct = async (req, res) => {
         
         } else {
             res.status(404).json({
-                "message": "no user found"
+                "message": "No user found"
             })
         }
     } catch (error) {
         console.log(error)
-        res.status(404)
     }
     
     
 }
 
 const deleteProduct = async (req, res) => {
+    if (req.body.email !== res.locals.email) {
+        return res.status(403).json({
+            message: "Forbidden: Token does not belong to the user"
+        });
+    }
+
     try {
         const foundUser = await User.findOne({email: req.body.email}).exec()
         if(!foundUser) {
@@ -93,7 +114,7 @@ const deleteProduct = async (req, res) => {
 
         const itemIndex = foundCart.cart.findIndex(item => item._id.toString() === req.body.accessKey)
 
-        if (isNaN(req.body.quantity)) {
+        if (isNaN(req.body.quantity) || req.body.quantity === '') {
             res.status(400).send({ error: 'Invalid quantity' });
         } 
 
@@ -104,12 +125,13 @@ const deleteProduct = async (req, res) => {
                 if (foundProduct) {
                     foundProduct.countInStock += req.body.quantity;
                     await foundProduct.save();
+                } else {
+                    res.status(404).json({
+                        "message": "Product not found"
+                    })
                 }
             } catch (error) {
                 console.log(error)
-                res.status(404).json({
-                    "message": "Product not found"
-                })
             }
 
             foundCart.cart.splice(itemIndex, 1)
@@ -119,7 +141,9 @@ const deleteProduct = async (req, res) => {
                 "message": "Deleted successfully"
             })
         } else {
-            res.status(404)
+            res.status(404).json({
+                "message": "Item does not exist in the cart"
+            })
         }
     } catch (error) {
         console.log(error)
@@ -127,6 +151,12 @@ const deleteProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
+    if (req.body.email !== res.locals.email) {
+        return res.status(403).json({
+            message: "Forbidden: Token does not belong to the user"
+        });
+    }
+
     try {
         const foundUser = await User.findOne({email: req.body.email}).exec()
         if(!foundUser) {
