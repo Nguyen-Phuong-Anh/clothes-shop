@@ -13,6 +13,11 @@ const accessAccount = async (req, res) => {
     if(!foundUser) {
         res.status(401).json({"message": "no user found" });
     } else {
+        if(foundUser.email != res.locals.email) {
+            return res.status(403).json({
+                message: "Forbidden: Token does not belong to the user"
+            });
+        }
         const adminOptions = [
             'Profile', 
             "Shipping Address",
@@ -59,25 +64,64 @@ const accessAccount = async (req, res) => {
 
 const getShippingAddress = async (req, res) => {
     try {
+        if(req.query.email === " ") {
+            return res.status(400).json({
+                message: "Email is empty"
+            });
+        }
         const foundUser = await User.findOne({email: req.query.email}).exec()
 
         if(foundUser) {
+            if (foundUser.email !== res.locals.email) {
+                return res.status(403).json({
+                    message: "Forbidden: Token does not belong to the user"
+                });
+            }
             res.json({
                 shippingAddress: foundUser?.shippingAddress
             })
-        } 
+        } else {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
     } catch (error) {
-        res.status(500)
+        console.log(error)
     }
 }
 
 const updateAccount = async (req, res) => {
     try {
+        const user = await User.findById(req.body.id).exec();
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        if (user.email !== res.locals.email) {
+            return res.status(403).json({
+                message: "Forbidden: Token does not belong to the user"
+            });
+        }
+
         let result
         if(req.body?.username && req.body?.username !== '') {
+            const duplicateUser = await User.findOne({ username: req.body.username, _id: { $ne: req.body.id } }).exec();
+            if (duplicateUser) {
+                return res.status(409).json({
+                    message: "Username already exists"
+                });
+            }
             result = await User.updateOne({ _id: req.body.id }, {username: req.body.username}).exec()
         }
         if (req.body?.email && req.body?.email !== '') {
+            const duplicateUser = await User.findOne({ email: req.body.email, _id: { $ne: req.body.id } }).exec();
+            if (duplicateUser) {
+                return res.status(409).json({
+                    message: "Email already exists"
+                });
+            }
             result = await User.updateOne({ _id: req.body.id }, {email: req.body.email}).exec()
         } 
         if(req.body?.password && req.body?.password !== '') {

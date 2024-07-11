@@ -10,7 +10,7 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 function route(app) {
     //manage account
-    app.put('/account/update', accountController.updateAccount);
+    app.put('/account/update', verifyJWT, accountController.updateAccount);
     app.get('/account/getAddress', verifyJWT, accountController.getShippingAddress);
     app.post('/account', verifyJWT, accountController.accessAccount);
     app.post('/set_ava', verifyJWT, accountController.addAvatar);

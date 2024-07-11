@@ -57,7 +57,7 @@ const login = async (req, res) => {
         });
 
         if(foundCart) {
-            res.status(201).send({ user, accessToken, refreshToken, cartLength: foundCart.cart.length })
+            res.status(200).send({ user, accessToken, refreshToken, cartLength: foundCart.cart.length })
         } else {
             if(foundUser.isAdmin === true) res.status(201).send({ user, accessToken, refreshToken, cartLength: 0 })
         }

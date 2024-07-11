@@ -44,11 +44,22 @@ const getProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
+    if(res.locals.isAdmin === false) {
+        return res.status(403).json({
+            "message": "User is forbidden. Only admin can update product"
+        })
+    }
+
     if(req.body?.category) {
         const sizesArray = Array.from(req.body.sizes.split(';'))
         const colorsArray = Array.from(req.body.colors.split(' '))
     
         const uploadedResult = []
+        if (!Array.isArray(req.body?.uploadImg)) {
+            return res.status(400).json({
+                "message": "Invalid input! 'image' should be an array."
+            });
+        }
         try {
             for(const img of req.body.uploadImg) {
                 const ress = await cloudinary.uploader.upload(img,
@@ -92,6 +103,11 @@ const addProduct = async (req, res) => {
 }
 
 const deleteProduct = async (req, res) => {
+    if(res.locals.isAdmin === false) {
+        return res.status(403).json({
+            "message": "User is forbidden. Only admin can update product"
+        })
+    }
     try {
         const foundProduct = await Product.findById({_id: req.params.id})
 
@@ -124,42 +140,70 @@ const deleteProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
+    if(req.body?.category === '' || req.body?.name === '' || req.body?.type === '' || req.body?.sizes === '' || req.body?.colors === '' || req.body?.material === '' || req.body?.description === '' || (req.body?.image && req.body?.image.length <= 0) || (req.body?.newImg && req.body?.newImg.length) <= 0 || req.body?.countInStock === '' || req.body?.price === '') {
+        return res.status(400).json({
+            "message": "Some fields are empty"
+        })
+    }
+
     try {
+        if(req.params.id === '' || !req.params.id) {
+            return res.status(400).json({
+                "message": "Product id is empty"
+            })
+        }
+
         let result, newArr
         const uploadedResult = []
-        const oldProduct = await Product.findById({_id: req.body.id}).exec()
+        const oldProduct = await Product.findById({_id: req.params.id}).exec()
+        if (!oldProduct) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        if(res.locals.isAdmin === false) {
+            return res.status(403).json({
+                "message": "User is forbidden. Only admin can update product"
+            })
+        }
 
         if((req.body?.category !== oldProduct.category) && req.body?.category != '') {
-            result = await Product.updateOne({ _id: req.body.id }, {category: req.body.category}).exec()
+            result = await Product.updateOne({ _id: req.params.id }, {category: req.body.category}).exec()
         }
         if ((req.body?.name !== oldProduct.name) && req.body?.name != '') {
-            result = await Product.updateOne({ _id: req.body.id }, {name: req.body.name}).exec()
+            result = await Product.updateOne({ _id: req.params.id }, {name: req.body.name}).exec()
         } 
         if ((req.body?.type !== oldProduct.type) && req.body?.type != '') {
-            result = await Product.updateOne({ _id: req.body.id }, {type: req.body.type}).exec()
+            result = await Product.updateOne({ _id: req.params.id }, {type: req.body.type}).exec()
         } 
-        if (typeof req.body?.sizes !== 'object') {
+        if (req.body?.sizes && typeof req.body?.sizes !== 'object') {
             const arrayStr = JSON.stringify(oldProduct.sizes);
             if(arrayStr !== req.body?.sizes) {
                 const sizesArray = Array.from(req.body.sizes.split(';'))
-                result = await Product.updateOne({ _id: req.body.id }, {sizes: sizesArray}).exec()
+                result = await Product.updateOne({ _id: req.params.id }, {sizes: sizesArray}).exec()
             }
         } 
-        if (typeof req.body?.colors !== 'object') {
+        if (req.body?.colors && typeof req.body?.colors !== 'object') {
             const arrayStr = JSON.stringify(oldProduct.colors);
             if(arrayStr !== req.body?.colors) {
                 const colorsArray = Array.from(req.body.colors.split(' '))
-                result = await Product.updateOne({ _id: req.body.id }, {colors: colorsArray}).exec()
+                result = await Product.updateOne({ _id: req.params.id }, {colors: colorsArray}).exec()
             }
         } 
 
         if ((req.body?.material !== oldProduct.material) && req.body?.material != '') {
-            result = await Product.updateOne({ _id: req.body.id }, {material: req.body.material}).exec()
+            result = await Product.updateOne({ _id: req.params.id }, {material: req.body.material}).exec()
         } 
         if ((req.body?.description !== oldProduct.description) && req.body?.description) {
-            result = await Product.updateOne({ _id: req.body.id }, {description: req.body.description}).exec()
+            result = await Product.updateOne({ _id: req.params.id }, {description: req.body.description}).exec()
         } 
         if (req.body?.image) {
+            if (!Array.isArray(req.body?.image)) {
+                return res.status(400).json({
+                    "message": "Invalid input! 'image' should be an array."
+                });
+            }
             try {
                 for(const img of req.body.image) {
                     if(img.delete) {
@@ -177,9 +221,14 @@ const updateProduct = async (req, res) => {
             } catch (error) {
                 console.log(error)
             }
-        } 
+        }
 
-        if (req.body?.newImg)  {
+        if (req.body?.newImg && Array.isArray(req.body.newImage))  {
+            if (!Array.isArray(req.body?.newImg)) {
+                return res.status(400).json({
+                    "message": "Invalid input! 'image' should be an array."
+                });
+            }
             try {
                 for(const img of req.body.newImg) {
                     const ress = await cloudinary.uploader.upload(img,
@@ -202,21 +251,21 @@ const updateProduct = async (req, res) => {
         if(newArr && newArr.length > 0) {
             if(uploadedResult.length > 0) {
                 const newImage = newArr.concat(uploadedResult)
-                result = await Product.updateOne({ _id: req.body.id }, {image: newImage}).exec()
+                result = await Product.updateOne({ _id: req.params.id }, {image: newImage}).exec()
             } else {
-                result = await Product.updateOne({ _id: req.body.id }, {image: newArr}).exec()
+                result = await Product.updateOne({ _id: req.params.id }, {image: newArr}).exec()
             }
         } else {
             if(uploadedResult.length > 0) {
-                result = await Product.updateOne({ _id: req.body.id }, {image: uploadedResult}).exec()
+                result = await Product.updateOne({ _id: req.params.id }, {image: uploadedResult}).exec()
             }
         }
 
-        if ((req.body?.countInStock !== oldProduct.countInStock.toString()) && req.body?.countInStock != '') {
-            result = await Product.updateOne({ _id: req.body.id }, {countInStock: req.body.countInStock}).exec()
+        if (req.body?.countInStock && (req.body?.countInStock !== oldProduct.countInStock.toString()) && req.body?.countInStock != '') {
+            result = await Product.updateOne({ _id: req.params.id }, {countInStock: req.body.countInStock}).exec()
         } 
-        if (req.body?.price !== oldProduct.price.toString()) {
-            result = await Product.updateOne({ _id: req.body.id }, {price: req.body.price}).exec()
+        if (req.body?.price && (req.body?.price !== oldProduct.price.toString())) {
+            result = await Product.updateOne({ _id: req.params.id }, {price: req.body.price}).exec()
         } 
 
         res.status(200).json({
@@ -224,7 +273,10 @@ const updateProduct = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.status(500)
+        res.status(500).json({
+            message: "Internal Server Error: An unexpected error occurred",
+            error: error.message
+        });
     }
 }
 

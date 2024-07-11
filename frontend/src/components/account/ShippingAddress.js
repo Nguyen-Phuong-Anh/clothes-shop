@@ -19,7 +19,11 @@ function ShippingAddress({user}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
+        if(user.id === '' || fullname === '' || tel === '' || city === '' || address === '') {
+            alert("Some fields are empty")
+            return;
+        }
+        try {   
             await axiosPrivate.put('/account/update', {
                 shippingAddress: {
                     id: user.id,

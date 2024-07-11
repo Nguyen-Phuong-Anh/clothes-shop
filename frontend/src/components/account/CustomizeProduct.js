@@ -202,7 +202,8 @@ function CustomizeProduct() {
         event.preventDefault();
         const newState = {
             ...state,
-            newImg: newImg
+            newImg: newImg,
+            
         }
         if(id === '') {
             alert("The ID is empty")
